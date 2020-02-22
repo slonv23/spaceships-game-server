@@ -1,3 +1,0 @@
-[submodule "external/librtcdcpp"]
-	path = external/librtcdcpp
-	url = https://github.com/slonv23/librtcdcpp.git
