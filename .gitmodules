@@ -1,6 +1,6 @@
-[submodule "extrenal/libdatachannel"]
-	path = extrenal/libdatachannel
-	url = https://github.com/paullouisageneau/libdatachannel.git
 [submodule "external/libdatachannel"]
 	path = external/libdatachannel
 	url = https://github.com/paullouisageneau/libdatachannel.git
+[submodule "external/served"]
+	path = external/served
+	url = https://github.com/meltwater/served.git
