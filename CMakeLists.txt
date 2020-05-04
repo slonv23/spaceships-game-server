@@ -4,20 +4,33 @@ project(spaceships-game-server
         VERSION 0.0.1
         LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MACOSX_RPATH 1)
 
+# add libdatachannel sources
 add_subdirectory(external/libdatachannel)
 
+# add served sources
 SET(SERVED_BUILD_TESTS OFF CACHE BOOL "Served - Build unit test suite of served library")
 SET(SERVED_BUILD_STATIC ON CACHE BOOL "Served - Build static library")
 SET(SERVED_BUILD_EXAMPLES OFF CACHE BOOL "Served - Build examples")
 SET(SERVED_BUILD_SHARED OFF CACHE BOOL "Served - Build shared object")
 add_subdirectory(external/served)
+target_include_directories(served PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/external/served/src)
 
-file(GLOB SOURCES "src/*.cpp")
- 
-add_executable(hello ${SOURCES})
+# add spdlog sources
+add_subdirectory(external/spdlog)
 
-target_link_libraries(hello datachannel-static)
-target_link_libraries(hello served)
+# find required protobuf package
+find_package(Protobuf REQUIRED)
+
+# find all project cpp and hpp files
+file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.cc")
+file(GLOB_RECURSE HEADERS "src/*.hpp" "src/*.h")
+
+# create target
+add_executable(hello ${SOURCES} ${HEADERS})
+
+#set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libstdc++ ${CMAKE_CSS_STANDARD_LIBRARIES}")
+
+target_link_libraries(hello PRIVATE datachannel-static PRIVATE served PRIVATE spdlog::spdlog PRIVATE ${PROTOBUF_LIBRARY} -static-libstdc++)
