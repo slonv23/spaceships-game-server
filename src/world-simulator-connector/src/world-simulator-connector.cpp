@@ -31,7 +31,10 @@ void WorldSimulatorConnector::start() {
 
     std::string testMsg = "Test52";
     helloworld::HelloWorld helloworldMsg;
-    helloworldMsg.set_message(testMsg);
+    helloworld::SubMessage1 *helloworldSubMessage1 = new helloworld::SubMessage1();
+    helloworldSubMessage1->set_message(testMsg);
+    helloworldMsg.set_allocated_submsg1(helloworldSubMessage1);
+    //helloworldMsg.set_message(testMsg);
 
     __gnu_cxx::stdio_filebuf<char> filebuf(fileDescriptor, std::ios::out);
     std::ostream os(&filebuf);
