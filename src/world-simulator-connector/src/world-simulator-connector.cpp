@@ -13,6 +13,8 @@
 
 #define SOCKET_NAME "/tmp/spaceships-world-simulator.sock"
 
+void writeInt(std::ostream &os, int i);
+
 void WorldSimulatorConnector::start() {
     spdlog::info("Connecting to world simulator socket server...");
 
@@ -34,24 +36,19 @@ void WorldSimulatorConnector::start() {
     __gnu_cxx::stdio_filebuf<char> filebuf(fileDescriptor, std::ios::out);
     std::ostream os(&filebuf);
 
+    int msgSize = static_cast<int>(helloworldMsg.ByteSizeLong());
+    spdlog::info("Size of msg: " + std::to_string(msgSize));
+    writeInt(os, msgSize);
     helloworldMsg.SerializeToOstream(&os);
-    std::endl(os);
 
-    //fsync(fileDescriptor);
-
+    writeInt(os, msgSize);
     helloworldMsg.SerializeToOstream(&os);
-    std::endl(os);
-
-    //sleep(5);
-
-    // msg.SerializeToOstream(&serialized);
-    send(fileDescriptor, testMsg.c_str(), testMsg.size(), 0);
-
-    //fsync(fileDescriptor);
-
-    send(fileDescriptor, testMsg.c_str(), testMsg.size(), 0);
 
     spdlog::info("Connected to world simulator socket server");
+}
+
+void writeInt(std::ostream &os, int i) {
+    os.write(reinterpret_cast<const char*>(&i), sizeof(i));
 }
 
 WorldSimulatorConnector worldSimulatorConnector;

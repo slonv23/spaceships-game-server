@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-PROTO_DIR=$(readlink -f "$DIR/../../../common/proto")
+PROTO_DIR=$(readlink -f "$DIR/../../common/proto")
 PROTO_OUTPUT_DIR=$(readlink -f "$DIR/../src/proto")
 
 echo "Converting files from $PROTO_DIR to $PROTO_OUTPUT_DIR"

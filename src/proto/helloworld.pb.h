@@ -38,7 +38,7 @@ namespace protobuf_helloworld_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[1];
+  static const ::google::protobuf::internal::ParseTable schema[3];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -49,10 +49,18 @@ namespace helloworld {
 class HelloWorld;
 class HelloWorldDefaultTypeInternal;
 extern HelloWorldDefaultTypeInternal _HelloWorld_default_instance_;
+class SubMessage1;
+class SubMessage1DefaultTypeInternal;
+extern SubMessage1DefaultTypeInternal _SubMessage1_default_instance_;
+class SubMessage2;
+class SubMessage2DefaultTypeInternal;
+extern SubMessage2DefaultTypeInternal _SubMessage2_default_instance_;
 }  // namespace helloworld
 namespace google {
 namespace protobuf {
 template<> ::helloworld::HelloWorld* Arena::CreateMaybeMessage<::helloworld::HelloWorld>(Arena*);
+template<> ::helloworld::SubMessage1* Arena::CreateMaybeMessage<::helloworld::SubMessage1>(Arena*);
+template<> ::helloworld::SubMessage2* Arena::CreateMaybeMessage<::helloworld::SubMessage2>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace helloworld {
@@ -87,6 +95,12 @@ class HelloWorld : public ::google::protobuf::Message /* @@protoc_insertion_poin
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
   static const HelloWorld& default_instance();
+
+  enum EventCase {
+    kSubmsg1 = 1,
+    kSubmsg2 = 2,
+    EVENT_NOT_SET = 0,
+  };
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
   static inline const HelloWorld* internal_default_instance() {
@@ -146,6 +160,140 @@ class HelloWorld : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
+  // .helloworld.SubMessage1 submsg1 = 1;
+  bool has_submsg1() const;
+  void clear_submsg1();
+  static const int kSubmsg1FieldNumber = 1;
+  private:
+  const ::helloworld::SubMessage1& _internal_submsg1() const;
+  public:
+  const ::helloworld::SubMessage1& submsg1() const;
+  ::helloworld::SubMessage1* release_submsg1();
+  ::helloworld::SubMessage1* mutable_submsg1();
+  void set_allocated_submsg1(::helloworld::SubMessage1* submsg1);
+
+  // .helloworld.SubMessage2 submsg2 = 2;
+  bool has_submsg2() const;
+  void clear_submsg2();
+  static const int kSubmsg2FieldNumber = 2;
+  private:
+  const ::helloworld::SubMessage2& _internal_submsg2() const;
+  public:
+  const ::helloworld::SubMessage2& submsg2() const;
+  ::helloworld::SubMessage2* release_submsg2();
+  ::helloworld::SubMessage2* mutable_submsg2();
+  void set_allocated_submsg2(::helloworld::SubMessage2* submsg2);
+
+  void clear_event();
+  EventCase event_case() const;
+  // @@protoc_insertion_point(class_scope:helloworld.HelloWorld)
+ private:
+  void set_has_submsg1();
+  void set_has_submsg2();
+
+  inline bool has_event() const;
+  inline void clear_has_event();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  union EventUnion {
+    EventUnion() {}
+    ::helloworld::SubMessage1* submsg1_;
+    ::helloworld::SubMessage2* submsg2_;
+  } event_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  ::google::protobuf::uint32 _oneof_case_[1];
+
+  friend struct ::protobuf_helloworld_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class SubMessage1 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:helloworld.SubMessage1) */ {
+ public:
+  SubMessage1();
+  virtual ~SubMessage1();
+
+  SubMessage1(const SubMessage1& from);
+
+  inline SubMessage1& operator=(const SubMessage1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  SubMessage1(SubMessage1&& from) noexcept
+    : SubMessage1() {
+    *this = ::std::move(from);
+  }
+
+  inline SubMessage1& operator=(SubMessage1&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SubMessage1& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SubMessage1* internal_default_instance() {
+    return reinterpret_cast<const SubMessage1*>(
+               &_SubMessage1_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  void Swap(SubMessage1* other);
+  friend void swap(SubMessage1& a, SubMessage1& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SubMessage1* New() const final {
+    return CreateMaybeMessage<SubMessage1>(NULL);
+  }
+
+  SubMessage1* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<SubMessage1>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const SubMessage1& from);
+  void MergeFrom(const SubMessage1& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SubMessage1* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
   // string message = 1;
   void clear_message();
   static const int kMessageFieldNumber = 1;
@@ -160,11 +308,114 @@ class HelloWorld : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
-  // @@protoc_insertion_point(class_scope:helloworld.HelloWorld)
+  // @@protoc_insertion_point(class_scope:helloworld.SubMessage1)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr message_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_helloworld_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class SubMessage2 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:helloworld.SubMessage2) */ {
+ public:
+  SubMessage2();
+  virtual ~SubMessage2();
+
+  SubMessage2(const SubMessage2& from);
+
+  inline SubMessage2& operator=(const SubMessage2& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  SubMessage2(SubMessage2&& from) noexcept
+    : SubMessage2() {
+    *this = ::std::move(from);
+  }
+
+  inline SubMessage2& operator=(SubMessage2&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SubMessage2& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SubMessage2* internal_default_instance() {
+    return reinterpret_cast<const SubMessage2*>(
+               &_SubMessage2_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  void Swap(SubMessage2* other);
+  friend void swap(SubMessage2& a, SubMessage2& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SubMessage2* New() const final {
+    return CreateMaybeMessage<SubMessage2>(NULL);
+  }
+
+  SubMessage2* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<SubMessage2>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const SubMessage2& from);
+  void MergeFrom(const SubMessage2& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SubMessage2* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 num = 1;
+  void clear_num();
+  static const int kNumFieldNumber = 1;
+  ::google::protobuf::int32 num() const;
+  void set_num(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:helloworld.SubMessage2)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 num_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_helloworld_2eproto::TableStruct;
 };
@@ -179,62 +430,185 @@ class HelloWorld : public ::google::protobuf::Message /* @@protoc_insertion_poin
 #endif  // __GNUC__
 // HelloWorld
 
+// .helloworld.SubMessage1 submsg1 = 1;
+inline bool HelloWorld::has_submsg1() const {
+  return event_case() == kSubmsg1;
+}
+inline void HelloWorld::set_has_submsg1() {
+  _oneof_case_[0] = kSubmsg1;
+}
+inline void HelloWorld::clear_submsg1() {
+  if (has_submsg1()) {
+    delete event_.submsg1_;
+    clear_has_event();
+  }
+}
+inline const ::helloworld::SubMessage1& HelloWorld::_internal_submsg1() const {
+  return *event_.submsg1_;
+}
+inline ::helloworld::SubMessage1* HelloWorld::release_submsg1() {
+  // @@protoc_insertion_point(field_release:helloworld.HelloWorld.submsg1)
+  if (has_submsg1()) {
+    clear_has_event();
+      ::helloworld::SubMessage1* temp = event_.submsg1_;
+    event_.submsg1_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline const ::helloworld::SubMessage1& HelloWorld::submsg1() const {
+  // @@protoc_insertion_point(field_get:helloworld.HelloWorld.submsg1)
+  return has_submsg1()
+      ? *event_.submsg1_
+      : *reinterpret_cast< ::helloworld::SubMessage1*>(&::helloworld::_SubMessage1_default_instance_);
+}
+inline ::helloworld::SubMessage1* HelloWorld::mutable_submsg1() {
+  if (!has_submsg1()) {
+    clear_event();
+    set_has_submsg1();
+    event_.submsg1_ = CreateMaybeMessage< ::helloworld::SubMessage1 >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:helloworld.HelloWorld.submsg1)
+  return event_.submsg1_;
+}
+
+// .helloworld.SubMessage2 submsg2 = 2;
+inline bool HelloWorld::has_submsg2() const {
+  return event_case() == kSubmsg2;
+}
+inline void HelloWorld::set_has_submsg2() {
+  _oneof_case_[0] = kSubmsg2;
+}
+inline void HelloWorld::clear_submsg2() {
+  if (has_submsg2()) {
+    delete event_.submsg2_;
+    clear_has_event();
+  }
+}
+inline const ::helloworld::SubMessage2& HelloWorld::_internal_submsg2() const {
+  return *event_.submsg2_;
+}
+inline ::helloworld::SubMessage2* HelloWorld::release_submsg2() {
+  // @@protoc_insertion_point(field_release:helloworld.HelloWorld.submsg2)
+  if (has_submsg2()) {
+    clear_has_event();
+      ::helloworld::SubMessage2* temp = event_.submsg2_;
+    event_.submsg2_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline const ::helloworld::SubMessage2& HelloWorld::submsg2() const {
+  // @@protoc_insertion_point(field_get:helloworld.HelloWorld.submsg2)
+  return has_submsg2()
+      ? *event_.submsg2_
+      : *reinterpret_cast< ::helloworld::SubMessage2*>(&::helloworld::_SubMessage2_default_instance_);
+}
+inline ::helloworld::SubMessage2* HelloWorld::mutable_submsg2() {
+  if (!has_submsg2()) {
+    clear_event();
+    set_has_submsg2();
+    event_.submsg2_ = CreateMaybeMessage< ::helloworld::SubMessage2 >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:helloworld.HelloWorld.submsg2)
+  return event_.submsg2_;
+}
+
+inline bool HelloWorld::has_event() const {
+  return event_case() != EVENT_NOT_SET;
+}
+inline void HelloWorld::clear_has_event() {
+  _oneof_case_[0] = EVENT_NOT_SET;
+}
+inline HelloWorld::EventCase HelloWorld::event_case() const {
+  return HelloWorld::EventCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// SubMessage1
+
 // string message = 1;
-inline void HelloWorld::clear_message() {
+inline void SubMessage1::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& HelloWorld::message() const {
-  // @@protoc_insertion_point(field_get:helloworld.HelloWorld.message)
+inline const ::std::string& SubMessage1::message() const {
+  // @@protoc_insertion_point(field_get:helloworld.SubMessage1.message)
   return message_.GetNoArena();
 }
-inline void HelloWorld::set_message(const ::std::string& value) {
+inline void SubMessage1::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:helloworld.HelloWorld.message)
+  // @@protoc_insertion_point(field_set:helloworld.SubMessage1.message)
 }
 #if LANG_CXX11
-inline void HelloWorld::set_message(::std::string&& value) {
+inline void SubMessage1::set_message(::std::string&& value) {
   
   message_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:helloworld.HelloWorld.message)
+  // @@protoc_insertion_point(field_set_rvalue:helloworld.SubMessage1.message)
 }
 #endif
-inline void HelloWorld::set_message(const char* value) {
+inline void SubMessage1::set_message(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:helloworld.HelloWorld.message)
+  // @@protoc_insertion_point(field_set_char:helloworld.SubMessage1.message)
 }
-inline void HelloWorld::set_message(const char* value, size_t size) {
+inline void SubMessage1::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:helloworld.HelloWorld.message)
+  // @@protoc_insertion_point(field_set_pointer:helloworld.SubMessage1.message)
 }
-inline ::std::string* HelloWorld::mutable_message() {
+inline ::std::string* SubMessage1::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:helloworld.HelloWorld.message)
+  // @@protoc_insertion_point(field_mutable:helloworld.SubMessage1.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* HelloWorld::release_message() {
-  // @@protoc_insertion_point(field_release:helloworld.HelloWorld.message)
+inline ::std::string* SubMessage1::release_message() {
+  // @@protoc_insertion_point(field_release:helloworld.SubMessage1.message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void HelloWorld::set_allocated_message(::std::string* message) {
+inline void SubMessage1::set_allocated_message(::std::string* message) {
   if (message != NULL) {
     
   } else {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:helloworld.HelloWorld.message)
+  // @@protoc_insertion_point(field_set_allocated:helloworld.SubMessage1.message)
+}
+
+// -------------------------------------------------------------------
+
+// SubMessage2
+
+// int32 num = 1;
+inline void SubMessage2::clear_num() {
+  num_ = 0;
+}
+inline ::google::protobuf::int32 SubMessage2::num() const {
+  // @@protoc_insertion_point(field_get:helloworld.SubMessage2.num)
+  return num_;
+}
+inline void SubMessage2::set_num(::google::protobuf::int32 value) {
+  
+  num_ = value;
+  // @@protoc_insertion_point(field_set:helloworld.SubMessage2.num)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

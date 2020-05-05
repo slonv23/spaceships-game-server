@@ -19,12 +19,28 @@
 #endif
 // @@protoc_insertion_point(includes)
 
+namespace protobuf_helloworld_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_helloworld_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SubMessage1;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_helloworld_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SubMessage2;
+}  // namespace protobuf_helloworld_2eproto
 namespace helloworld {
 class HelloWorldDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<HelloWorld>
       _instance;
+  const ::helloworld::SubMessage1* submsg1_;
+  const ::helloworld::SubMessage2* submsg2_;
 } _HelloWorld_default_instance_;
+class SubMessage1DefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<SubMessage1>
+      _instance;
+} _SubMessage1_default_instance_;
+class SubMessage2DefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<SubMessage2>
+      _instance;
+} _SubMessage2_default_instance_;
 }  // namespace helloworld
 namespace protobuf_helloworld_2eproto {
 static void InitDefaultsHelloWorld() {
@@ -38,29 +54,79 @@ static void InitDefaultsHelloWorld() {
   ::helloworld::HelloWorld::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_HelloWorld =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsHelloWorld}, {}};
+::google::protobuf::internal::SCCInfo<2> scc_info_HelloWorld =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsHelloWorld}, {
+      &protobuf_helloworld_2eproto::scc_info_SubMessage1.base,
+      &protobuf_helloworld_2eproto::scc_info_SubMessage2.base,}};
+
+static void InitDefaultsSubMessage1() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::helloworld::_SubMessage1_default_instance_;
+    new (ptr) ::helloworld::SubMessage1();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::helloworld::SubMessage1::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_SubMessage1 =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsSubMessage1}, {}};
+
+static void InitDefaultsSubMessage2() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::helloworld::_SubMessage2_default_instance_;
+    new (ptr) ::helloworld::SubMessage2();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::helloworld::SubMessage2::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_SubMessage2 =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsSubMessage2}, {}};
 
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_HelloWorld.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_SubMessage1.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_SubMessage2.base);
 }
 
-::google::protobuf::Metadata file_level_metadata[1];
+::google::protobuf::Metadata file_level_metadata[3];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::HelloWorld, _internal_metadata_),
   ~0u,  // no _extensions_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::HelloWorld, _oneof_case_[0]),
+  ~0u,  // no _weak_field_map_
+  offsetof(::helloworld::HelloWorldDefaultTypeInternal, submsg1_),
+  offsetof(::helloworld::HelloWorldDefaultTypeInternal, submsg2_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::HelloWorld, event_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::SubMessage1, _internal_metadata_),
+  ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::HelloWorld, message_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::SubMessage1, message_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::SubMessage2, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::helloworld::SubMessage2, num_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::helloworld::HelloWorld)},
+  { 8, -1, sizeof(::helloworld::SubMessage1)},
+  { 14, -1, sizeof(::helloworld::SubMessage2)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::helloworld::_HelloWorld_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::helloworld::_SubMessage1_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::helloworld::_SubMessage2_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -78,17 +144,21 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 1);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 3);
 }
 
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\020helloworld.proto\022\nhelloworld\"\035\n\nHelloW"
-      "orld\022\017\n\007message\030\001 \001(\tb\006proto3"
+      "\n\020helloworld.proto\022\nhelloworld\"m\n\nHelloW"
+      "orld\022*\n\007submsg1\030\001 \001(\0132\027.helloworld.SubMe"
+      "ssage1H\000\022*\n\007submsg2\030\002 \001(\0132\027.helloworld.S"
+      "ubMessage2H\000B\007\n\005event\"\036\n\013SubMessage1\022\017\n\007"
+      "message\030\001 \001(\t\"\032\n\013SubMessage2\022\013\n\003num\030\001 \001("
+      "\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 69);
+      descriptor, 209);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "helloworld.proto", &protobuf_RegisterTypes);
 }
@@ -109,9 +179,42 @@ namespace helloworld {
 // ===================================================================
 
 void HelloWorld::InitAsDefaultInstance() {
+  ::helloworld::_HelloWorld_default_instance_.submsg1_ = const_cast< ::helloworld::SubMessage1*>(
+      ::helloworld::SubMessage1::internal_default_instance());
+  ::helloworld::_HelloWorld_default_instance_.submsg2_ = const_cast< ::helloworld::SubMessage2*>(
+      ::helloworld::SubMessage2::internal_default_instance());
+}
+void HelloWorld::set_allocated_submsg1(::helloworld::SubMessage1* submsg1) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  clear_event();
+  if (submsg1) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      submsg1 = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, submsg1, submessage_arena);
+    }
+    set_has_submsg1();
+    event_.submsg1_ = submsg1;
+  }
+  // @@protoc_insertion_point(field_set_allocated:helloworld.HelloWorld.submsg1)
+}
+void HelloWorld::set_allocated_submsg2(::helloworld::SubMessage2* submsg2) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  clear_event();
+  if (submsg2) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      submsg2 = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, submsg2, submessage_arena);
+    }
+    set_has_submsg2();
+    event_.submsg2_ = submsg2;
+  }
+  // @@protoc_insertion_point(field_set_allocated:helloworld.HelloWorld.submsg2)
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int HelloWorld::kMessageFieldNumber;
+const int HelloWorld::kSubmsg1FieldNumber;
+const int HelloWorld::kSubmsg2FieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 HelloWorld::HelloWorld()
@@ -125,15 +228,25 @@ HelloWorld::HelloWorld(const HelloWorld& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.message().size() > 0) {
-    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  clear_has_event();
+  switch (from.event_case()) {
+    case kSubmsg1: {
+      mutable_submsg1()->::helloworld::SubMessage1::MergeFrom(from.submsg1());
+      break;
+    }
+    case kSubmsg2: {
+      mutable_submsg2()->::helloworld::SubMessage2::MergeFrom(from.submsg2());
+      break;
+    }
+    case EVENT_NOT_SET: {
+      break;
+    }
   }
   // @@protoc_insertion_point(copy_constructor:helloworld.HelloWorld)
 }
 
 void HelloWorld::SharedCtor() {
-  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_event();
 }
 
 HelloWorld::~HelloWorld() {
@@ -142,7 +255,9 @@ HelloWorld::~HelloWorld() {
 }
 
 void HelloWorld::SharedDtor() {
-  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (has_event()) {
+    clear_event();
+  }
 }
 
 void HelloWorld::SetCachedSize(int size) const {
@@ -159,13 +274,32 @@ const HelloWorld& HelloWorld::default_instance() {
 }
 
 
+void HelloWorld::clear_event() {
+// @@protoc_insertion_point(one_of_clear_start:helloworld.HelloWorld)
+  switch (event_case()) {
+    case kSubmsg1: {
+      delete event_.submsg1_;
+      break;
+    }
+    case kSubmsg2: {
+      delete event_.submsg2_;
+      break;
+    }
+    case EVENT_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = EVENT_NOT_SET;
+}
+
+
 void HelloWorld::Clear() {
 // @@protoc_insertion_point(message_clear_start:helloworld.HelloWorld)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_event();
   _internal_metadata_.Clear();
 }
 
@@ -179,16 +313,24 @@ bool HelloWorld::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string message = 1;
+      // .helloworld.SubMessage1 submsg1 = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_message()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->message().data(), static_cast<int>(this->message().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "helloworld.HelloWorld.message"));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_submsg1()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .helloworld.SubMessage2 submsg2 = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_submsg2()));
         } else {
           goto handle_unusual;
         }
@@ -221,14 +363,16 @@ void HelloWorld::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string message = 1;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), static_cast<int>(this->message().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "helloworld.HelloWorld.message");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->message(), output);
+  // .helloworld.SubMessage1 submsg1 = 1;
+  if (has_submsg1()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->_internal_submsg1(), output);
+  }
+
+  // .helloworld.SubMessage2 submsg2 = 2;
+  if (has_submsg2()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->_internal_submsg2(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -245,15 +389,18 @@ void HelloWorld::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string message = 1;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), static_cast<int>(this->message().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "helloworld.HelloWorld.message");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->message(), target);
+  // .helloworld.SubMessage1 submsg1 = 1;
+  if (has_submsg1()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, this->_internal_submsg1(), deterministic, target);
+  }
+
+  // .helloworld.SubMessage2 submsg2 = 2;
+  if (has_submsg2()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        2, this->_internal_submsg2(), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -273,13 +420,25 @@ size_t HelloWorld::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // string message = 1;
-  if (this->message().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->message());
+  switch (event_case()) {
+    // .helloworld.SubMessage1 submsg1 = 1;
+    case kSubmsg1: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *event_.submsg1_);
+      break;
+    }
+    // .helloworld.SubMessage2 submsg2 = 2;
+    case kSubmsg2: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *event_.submsg2_);
+      break;
+    }
+    case EVENT_NOT_SET: {
+      break;
+    }
   }
-
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -307,9 +466,18 @@ void HelloWorld::MergeFrom(const HelloWorld& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.message().size() > 0) {
-
-    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  switch (from.event_case()) {
+    case kSubmsg1: {
+      mutable_submsg1()->::helloworld::SubMessage1::MergeFrom(from.submsg1());
+      break;
+    }
+    case kSubmsg2: {
+      mutable_submsg2()->::helloworld::SubMessage2::MergeFrom(from.submsg2());
+      break;
+    }
+    case EVENT_NOT_SET: {
+      break;
+    }
   }
 }
 
@@ -337,12 +505,477 @@ void HelloWorld::Swap(HelloWorld* other) {
 }
 void HelloWorld::InternalSwap(HelloWorld* other) {
   using std::swap;
+  swap(event_, other->event_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata HelloWorld::GetMetadata() const {
+  protobuf_helloworld_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_helloworld_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void SubMessage1::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SubMessage1::kMessageFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+SubMessage1::SubMessage1()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_helloworld_2eproto::scc_info_SubMessage1.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:helloworld.SubMessage1)
+}
+SubMessage1::SubMessage1(const SubMessage1& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.message().size() > 0) {
+    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  }
+  // @@protoc_insertion_point(copy_constructor:helloworld.SubMessage1)
+}
+
+void SubMessage1::SharedCtor() {
+  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+SubMessage1::~SubMessage1() {
+  // @@protoc_insertion_point(destructor:helloworld.SubMessage1)
+  SharedDtor();
+}
+
+void SubMessage1::SharedDtor() {
+  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void SubMessage1::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* SubMessage1::descriptor() {
+  ::protobuf_helloworld_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_helloworld_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const SubMessage1& SubMessage1::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_helloworld_2eproto::scc_info_SubMessage1.base);
+  return *internal_default_instance();
+}
+
+
+void SubMessage1::Clear() {
+// @@protoc_insertion_point(message_clear_start:helloworld.SubMessage1)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+bool SubMessage1::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:helloworld.SubMessage1)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string message = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_message()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), static_cast<int>(this->message().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "helloworld.SubMessage1.message"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:helloworld.SubMessage1)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:helloworld.SubMessage1)
+  return false;
+#undef DO_
+}
+
+void SubMessage1::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:helloworld.SubMessage1)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string message = 1;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), static_cast<int>(this->message().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "helloworld.SubMessage1.message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->message(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:helloworld.SubMessage1)
+}
+
+::google::protobuf::uint8* SubMessage1::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:helloworld.SubMessage1)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string message = 1;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), static_cast<int>(this->message().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "helloworld.SubMessage1.message");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->message(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:helloworld.SubMessage1)
+  return target;
+}
+
+size_t SubMessage1::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:helloworld.SubMessage1)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string message = 1;
+  if (this->message().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->message());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SubMessage1::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:helloworld.SubMessage1)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SubMessage1* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const SubMessage1>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:helloworld.SubMessage1)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:helloworld.SubMessage1)
+    MergeFrom(*source);
+  }
+}
+
+void SubMessage1::MergeFrom(const SubMessage1& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:helloworld.SubMessage1)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.message().size() > 0) {
+
+    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  }
+}
+
+void SubMessage1::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:helloworld.SubMessage1)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubMessage1::CopyFrom(const SubMessage1& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:helloworld.SubMessage1)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubMessage1::IsInitialized() const {
+  return true;
+}
+
+void SubMessage1::Swap(SubMessage1* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void SubMessage1::InternalSwap(SubMessage1* other) {
+  using std::swap;
   message_.Swap(&other->message_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
-::google::protobuf::Metadata HelloWorld::GetMetadata() const {
+::google::protobuf::Metadata SubMessage1::GetMetadata() const {
+  protobuf_helloworld_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_helloworld_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void SubMessage2::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SubMessage2::kNumFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+SubMessage2::SubMessage2()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_helloworld_2eproto::scc_info_SubMessage2.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:helloworld.SubMessage2)
+}
+SubMessage2::SubMessage2(const SubMessage2& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  num_ = from.num_;
+  // @@protoc_insertion_point(copy_constructor:helloworld.SubMessage2)
+}
+
+void SubMessage2::SharedCtor() {
+  num_ = 0;
+}
+
+SubMessage2::~SubMessage2() {
+  // @@protoc_insertion_point(destructor:helloworld.SubMessage2)
+  SharedDtor();
+}
+
+void SubMessage2::SharedDtor() {
+}
+
+void SubMessage2::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* SubMessage2::descriptor() {
+  ::protobuf_helloworld_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_helloworld_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const SubMessage2& SubMessage2::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_helloworld_2eproto::scc_info_SubMessage2.base);
+  return *internal_default_instance();
+}
+
+
+void SubMessage2::Clear() {
+// @@protoc_insertion_point(message_clear_start:helloworld.SubMessage2)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  num_ = 0;
+  _internal_metadata_.Clear();
+}
+
+bool SubMessage2::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:helloworld.SubMessage2)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 num = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &num_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:helloworld.SubMessage2)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:helloworld.SubMessage2)
+  return false;
+#undef DO_
+}
+
+void SubMessage2::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:helloworld.SubMessage2)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 num = 1;
+  if (this->num() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->num(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:helloworld.SubMessage2)
+}
+
+::google::protobuf::uint8* SubMessage2::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:helloworld.SubMessage2)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 num = 1;
+  if (this->num() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->num(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:helloworld.SubMessage2)
+  return target;
+}
+
+size_t SubMessage2::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:helloworld.SubMessage2)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // int32 num = 1;
+  if (this->num() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->num());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SubMessage2::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:helloworld.SubMessage2)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SubMessage2* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const SubMessage2>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:helloworld.SubMessage2)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:helloworld.SubMessage2)
+    MergeFrom(*source);
+  }
+}
+
+void SubMessage2::MergeFrom(const SubMessage2& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:helloworld.SubMessage2)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.num() != 0) {
+    set_num(from.num());
+  }
+}
+
+void SubMessage2::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:helloworld.SubMessage2)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SubMessage2::CopyFrom(const SubMessage2& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:helloworld.SubMessage2)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SubMessage2::IsInitialized() const {
+  return true;
+}
+
+void SubMessage2::Swap(SubMessage2* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void SubMessage2::InternalSwap(SubMessage2* other) {
+  using std::swap;
+  swap(num_, other->num_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata SubMessage2::GetMetadata() const {
   protobuf_helloworld_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_helloworld_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -354,6 +987,12 @@ namespace google {
 namespace protobuf {
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::helloworld::HelloWorld* Arena::CreateMaybeMessage< ::helloworld::HelloWorld >(Arena* arena) {
   return Arena::CreateInternal< ::helloworld::HelloWorld >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::helloworld::SubMessage1* Arena::CreateMaybeMessage< ::helloworld::SubMessage1 >(Arena* arena) {
+  return Arena::CreateInternal< ::helloworld::SubMessage1 >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::helloworld::SubMessage2* Arena::CreateMaybeMessage< ::helloworld::SubMessage2 >(Arena* arena) {
+  return Arena::CreateInternal< ::helloworld::SubMessage2 >(arena);
 }
 }  // namespace protobuf
 }  // namespace google
