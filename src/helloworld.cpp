@@ -10,8 +10,8 @@
 int main(int argc, char *argv[]) {
    spdlog::info("Starting...");
 
-   worldSimulatorConnector.start();
-   // signalingServer.start();
+   //worldSimulatorConnector.start();
+   signalingServer.start();
 
    // rtc::Configuration config;
    // config.
