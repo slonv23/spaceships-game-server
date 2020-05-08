@@ -46,28 +46,11 @@ std::string unescape(const std::string& s){
     return result;
 }
 
-
-/*std::map<std::string, std::string> parseQuery(const std::string& query) {
-    std::map<std::string, std::string> data;
-    std::regex pattern("([\\w+%]+)=([^&]*)");
-    auto words_begin = std::sregex_iterator(query.begin(), query.end(), pattern);
-    auto words_end = std::sregex_iterator();
-
-    for (std::sregex_iterator i = words_begin; i != words_end; i++) {
-        std::string key = (*i)[1].str();
-        std::string value = (*i)[2].str();
-        data[key] = value;
-    }
-
-    return data;
-}*/
-
-httpUtils::QueryParams* parseUrlencodedQuery(std::string query) {
+httpUtils::QueryParams* httpUtils::parseUrlencodedQuery(std::string query) {
     std::string unescapedQuery = unescape(query);
 
     httpUtils::QueryParams *queryParams = new httpUtils::QueryParams();
 
-    // std::map<std::string, std::string> data;
     std::regex pattern("([\\w+%]+)=([^&]*)");
     auto words_begin = std::sregex_iterator(query.begin(), query.end(), pattern);
     auto words_end = std::sregex_iterator();
@@ -77,7 +60,6 @@ httpUtils::QueryParams* parseUrlencodedQuery(std::string query) {
         std::string value = (*i)[2].str();
 
         queryParams->addParamValue(key, value);
-        // data[key] = value;
     }
 
     return queryParams;
@@ -92,4 +74,33 @@ void httpUtils::QueryParams::addParamValue(std::string key, std::string value) {
         auto params = new std::list<std::string>();
         this->paramValuesByKey.insert({key, params});
     }
+}
+
+std::string httpUtils::QueryParams::getParamValue(std::string key) {
+    auto search = this->paramValuesByKey.find(key);
+    if (search != this->paramValuesByKey.end()) {
+        auto params = search->second;
+        return params->front();
+    }
+
+    return "";
+}
+
+std::list<std::string>* httpUtils::QueryParams::getParamValues(std::string key) {
+    auto search = this->paramValuesByKey.find(key);
+    if (search != this->paramValuesByKey.end()) {
+        return search->second;
+    }
+
+    return nullptr;
+}
+
+httpUtils::QueryParams::~QueryParams() {
+    auto it = this->paramValuesByKey.begin();
+ 
+	// Iterate over the map using Iterator till end.
+	while (it != this->paramValuesByKey.end()) {
+        delete it->second;
+		it++;
+	}
 }

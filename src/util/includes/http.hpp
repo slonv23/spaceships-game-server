@@ -7,6 +7,7 @@ typedef std::list<std::string>* string_list;
 namespace httpUtils {
     class QueryParams {
         public:
+            ~QueryParams();
             std::string getParamValue(std::string key);
             string_list getParamValues(std::string key);
             void addParamValue(std::string key, std::string value);
