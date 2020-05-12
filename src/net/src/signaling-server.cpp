@@ -1,6 +1,7 @@
 #include <string>
 #include <regex>
 #include <map>
+#include <exception>
 #include "served/served.hpp"
 #include "spdlog/spdlog.h"
 
@@ -15,35 +16,40 @@ SignalingServer signalingServer;
 void SignalingServer::start() {
 	mux.handle("/connect")
 		.post([&](served::response & res, const served::request & req) {
-			res.set_header("access-control-allow-origin", "*");
-			// check headers for the correct content type
-			if (req.header("content-type") != "application/x-www-form-urlencoded") {
-				// return 400 bad request if the content type is wrong for this example.
-				served::response::stock_reply(400, res);
-			} else {
-				std::string source = req.source();
+			try {
+				res.set_header("access-control-allow-origin", "*");
 
-                httpUtils::QueryParams queryParams = httpUtils::parseUrlencodedQuery(req.body());
-				WebRtcNegotiationClientParams webRtcNegotiationClientParams;
-
-				if (auto paramValuesOptional = queryParams.getParamValues("candidates"s)) {
-					auto paramValues = paramValuesOptional.value();
-
-					webRtcNegotiationClientParams.iceCandidates = paramValues;
-					webRtcNegotiationClientParams.offer = queryParams.getParamValue("offer"s);
-					WebRtcNegotiationServerParams webRtcNegotiationServerParams = networkManager.connectClient(webRtcNegotiationClientParams);
-					
-					httpUtils::QueryParams response;
-					response.addParamValue("answer"s, webRtcNegotiationServerParams.answer);
-					response.addParamValues("candidates"s, webRtcNegotiationServerParams.iceCandidates);
-					res << response.toUrlencodedQuery();
+				if (req.header("content-type") != "application/x-www-form-urlencoded") {
+					served::response::stock_reply(400, res);
 				} else {
-					res.set_status(400);
-					res << "Required params are missing";
+					std::string source = req.source();
+
+					httpUtils::QueryParams queryParams = httpUtils::parseUrlencodedQuery(req.body());
+					WebRtcNegotiationClientParams webRtcNegotiationClientParams;
+
+					auto iceCandidatesOptional = queryParams.getParamValues("candidates"s);
+					auto offerOptional = queryParams.getParamValue("offer"s);
+					if (iceCandidatesOptional && offerOptional) {
+						auto iceCandidates = iceCandidatesOptional.value();
+						auto offer = offerOptional.value();
+
+						webRtcNegotiationClientParams.iceCandidates = iceCandidates;
+						webRtcNegotiationClientParams.offer = offer;
+						WebRtcNegotiationServerParams webRtcNegotiationServerParams = networkManager.connectClient(webRtcNegotiationClientParams);
+						
+						httpUtils::QueryParams response;
+						response.addParamValue("answer"s, webRtcNegotiationServerParams.answer);
+						response.addParamValues("candidates"s, webRtcNegotiationServerParams.iceCandidates);
+						res << response.toUrlencodedQuery();
+					} else {
+						res.set_status(400);
+						res << "Required params are missing";
+					}
+
+					spdlog::info("Body data: " + req.body());
 				}
-
-
-				spdlog::info("Body data: " + req.body());
+			} catch (const std::exception &e) {
+ 				spdlog::error("Failed to process '/connect' request, error: {}", e.what());
 			}
 		});
 

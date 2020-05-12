@@ -116,14 +116,14 @@ void httpUtils::QueryParams::addParamValues(string key, string_list values) {
     }
 }
 
-string httpUtils::QueryParams::getParamValue(string key) {
+std::optional<string> httpUtils::QueryParams::getParamValue(string key) {
     auto search = this->paramValuesByKey.find(key);
     if (search != this->paramValuesByKey.end()) {
         auto params = search->second;
-        return params.front();
+        return std::optional<string>(params.front());
     }
 
-    return "";
+    return std::nullopt;
 }
 
 std::optional<string_list> httpUtils::QueryParams::getParamValues(string key) {

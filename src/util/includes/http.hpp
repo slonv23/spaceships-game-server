@@ -9,7 +9,7 @@ typedef std::list<std::string> string_list;
 namespace httpUtils {
     class QueryParams {
         public:
-            std::string getParamValue(std::string key);
+            std::optional<std::string> getParamValue(std::string key);
             std::optional<string_list> getParamValues(std::string key);
             void addParamValue(std::string key, std::string value);
             void addParamValues(std::string key, string_list value);

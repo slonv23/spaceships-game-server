@@ -1,5 +1,7 @@
-#include "spdlog/spdlog.h"
 #include <iostream>
+#include <exception>
+#include "spdlog/spdlog.h"
+
 #include "../includes/network-manager.hpp"
 
 NetworkManager networkManager;
@@ -15,37 +17,39 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(WebRtcNegotiationCli
 
     auto peerConnection = std::make_shared<rtc::PeerConnection>(webRtcConfig);
     peerConnection->onLocalDescription([&webRtcNegotiationServerParams](const rtc::Description &sdp) {
-        webRtcNegotiationServerParams.answer = sdp; //std::string(sdp);
+        webRtcNegotiationServerParams.answer = sdp;
     });
     peerConnection->onLocalCandidate([&webRtcNegotiationServerParams](const rtc::Candidate &candidate) {
         webRtcNegotiationServerParams.iceCandidates.emplace_back(candidate);
     });
     peerConnection->onStateChange([](rtc::PeerConnection::State state) {
-        // TODO we can use spdlog with objects implementing << operator
-        std::cout << "State 1: " << state << std::endl;
+        spdlog::debug("PeerConnection state: {}", state);
     });
     peerConnection->onGatheringStateChange([&promise](rtc::PeerConnection::GatheringState state) {
-        std::cout << "Gathering state 1: " << state << std::endl;
+        spdlog::debug("PeerConnection gathering state: {}", state);
         // compare if complete
         if (state == rtc::PeerConnection::GatheringState::Complete) {
             promise.set_value();
         }
-        //spdlog::info("WebRtc state: " + std::to_string(state));
     });
 
 	peerConnection->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
-		std::cout << "[Got a DataChannel with label: " << _dc->label() << "]" << std::endl;
+        spdlog::debug("Got a DataChannel with label: {}", _dc->label());
+        networkManager.dataChannels.emplace_back(_dc);
     });
 
     try {
         rtc::Description description(webRtcNegotiationClientParams.offer, "offer");
-        peerConnection->setRemoteDescription(description); // webRtcNegotiationClientParams.offer
+        peerConnection->setRemoteDescription(description);
         for (const auto &candidate : webRtcNegotiationClientParams.iceCandidates) {
             peerConnection->addRemoteCandidate(candidate);
         }
     } catch (const std::exception &e) {
-        std::cout << "Error!" << e.what() << std::endl;
+        spdlog::error("Failed to set remote description and candidates, error: {}", e.what());
+        throw e;
     }
+
+    networkManager.peerConnection = peerConnection;
 
     std::future<void> future = promise.get_future();
     future.wait();

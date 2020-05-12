@@ -8,6 +8,7 @@
 #include "net/includes/signaling-server.hpp"
 
 int main(int argc, char *argv[]) {
+   spdlog::set_level(spdlog::level::debug);
    spdlog::info("Starting...");
 
    //worldSimulatorConnector.start();

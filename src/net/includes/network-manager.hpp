@@ -19,7 +19,9 @@ class NetworkManager {
         NetworkManager();
         WebRtcNegotiationServerParams connectClient(WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
     private:
+        std::shared_ptr<rtc::PeerConnection> peerConnection;
         rtc::Configuration webRtcConfig;
+        std::list<std::shared_ptr<rtc::DataChannel>> dataChannels;
 };
 
 extern NetworkManager networkManager;
