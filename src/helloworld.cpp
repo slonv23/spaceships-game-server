@@ -4,8 +4,8 @@
 #include "served/served.hpp"
 #include "spdlog/spdlog.h"
 
-#include "world-simulator-connector/includes/world-simulator-connector.hpp"
-#include "signaling-server/includes/signaling-server.hpp"
+//#include "world-simulator-connector/includes/world-simulator-connector.hpp"
+#include "net/includes/signaling-server.hpp"
 
 int main(int argc, char *argv[]) {
    spdlog::info("Starting...");

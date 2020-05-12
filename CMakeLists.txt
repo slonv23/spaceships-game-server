@@ -24,6 +24,9 @@ add_subdirectory(external/spdlog)
 # find required protobuf package
 find_package(Protobuf REQUIRED)
 
+# find openssl
+find_package(OpenSSL REQUIRED)
+
 # find all project cpp and hpp files
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.cc")
 file(GLOB_RECURSE HEADERS "src/*.hpp" "src/*.h")
@@ -33,4 +36,9 @@ add_executable(hello ${SOURCES} ${HEADERS})
 
 #set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libstdc++ ${CMAKE_CSS_STANDARD_LIBRARIES}")
 
-target_link_libraries(hello PRIVATE datachannel-static PRIVATE served PRIVATE spdlog::spdlog PRIVATE ${PROTOBUF_LIBRARY} -static-libstdc++)
+target_link_libraries(hello
+                        PRIVATE datachannel-static
+                        PRIVATE served
+                        PRIVATE spdlog::spdlog
+                        PRIVATE ${PROTOBUF_LIBRARY}
+                        -static-libstdc++)

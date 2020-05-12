@@ -1,6 +1,12 @@
-#include "../includes/http.hpp"
 #include <ctype.h>
 #include <regex>
+#include <sstream>
+#include <ios>
+#include <iomanip>
+
+#include "../includes/http.hpp"
+
+using std::string;
 
 char xdigit_to_num(char c) {
     if (!isxdigit(c)) {
@@ -19,16 +25,16 @@ char x2digits_to_num(char c1, char c2) {
     return ((xdigit_to_num(c1) << 4) + xdigit_to_num(c2));
 }
 
-std::string unescape(const std::string& s){
+string unescape(const string& s){
     // avoid copying if there's nothing to unescape
-    if (s.empty() || s.find('%') == std::string::npos) {
+    if (s.empty() || s.find('%') == string::npos) {
         return s;
 	}
 
-    std::string result;
+    string result;
     result.reserve(s.size());
 
-    for (std::string::const_iterator i = s.begin(); i != s.end(); ++i) {
+    for (string::const_iterator i = s.begin(); i != s.end(); ++i) {
         if (*i == '%' && (i+1) != s.end() && (i+2) != s.end()
 			&& isxdigit(*(i+1)) && isxdigit(*(i+2))
 			&& ((*(i+1)) != 0 || (*(i+2)) != 0)
@@ -46,61 +52,105 @@ std::string unescape(const std::string& s){
     return result;
 }
 
-httpUtils::QueryParams* httpUtils::parseUrlencodedQuery(std::string query) {
-    std::string unescapedQuery = unescape(query);
+string escape(const string& s) {
+    std::ostringstream escaped;
+    escaped.fill('0');
+    escaped << std::hex;
 
-    httpUtils::QueryParams *queryParams = new httpUtils::QueryParams();
+    for (string::const_iterator i = s.begin(), n = s.end(); i != n; ++i) {
+        string::value_type c = (*i);
+
+        // keep alphanumeric and other accepted characters intact
+        if (isalnum((unsigned char) c) || c == '-' || c == '_' || c == '.' || c == '~') {
+            escaped << c;
+            continue;
+        }
+
+        // any other characters are percent-encoded
+        escaped << std::uppercase;
+        escaped << '%' << std::setw(2) << int((unsigned char) c);
+        escaped << std::nouppercase;
+    }
+
+    return escaped.str();
+}
+
+httpUtils::QueryParams httpUtils::parseUrlencodedQuery(string query) {
+    query = unescape(query);
+
+    httpUtils::QueryParams queryParams;
 
     std::regex pattern("([\\w+%]+)=([^&]*)");
     auto words_begin = std::sregex_iterator(query.begin(), query.end(), pattern);
     auto words_end = std::sregex_iterator();
 
     for (std::sregex_iterator i = words_begin; i != words_end; i++) {
-        std::string key = (*i)[1].str();
-        std::string value = (*i)[2].str();
+        string key = (*i)[1].str();
+        string value = (*i)[2].str();
 
-        queryParams->addParamValue(key, value);
+        queryParams.addParamValue(key, value);
     }
 
     return queryParams;
 }
 
-void httpUtils::QueryParams::addParamValue(std::string key, std::string value) {
+void httpUtils::QueryParams::addParamValue(string key, string value) {
     auto search = this->paramValuesByKey.find(key);
     if (search != this->paramValuesByKey.end()) {
         auto params = search->second;
-        params->insert(params->end(), value);
+        params.push_back(value);
     } else {
-        auto params = new std::list<std::string>();
+        std::list<string> params;
+        params.push_back(value);
         this->paramValuesByKey.insert({key, params});
     }
 }
 
-std::string httpUtils::QueryParams::getParamValue(std::string key) {
+void httpUtils::QueryParams::addParamValues(string key, string_list values) {
     auto search = this->paramValuesByKey.find(key);
     if (search != this->paramValuesByKey.end()) {
         auto params = search->second;
-        return params->front();
+        params.merge(values);
+    } else {
+        this->paramValuesByKey.insert({key, values});
+    }
+}
+
+string httpUtils::QueryParams::getParamValue(string key) {
+    auto search = this->paramValuesByKey.find(key);
+    if (search != this->paramValuesByKey.end()) {
+        auto params = search->second;
+        return params.front();
     }
 
     return "";
 }
 
-std::list<std::string>* httpUtils::QueryParams::getParamValues(std::string key) {
+std::optional<string_list> httpUtils::QueryParams::getParamValues(string key) {
     auto search = this->paramValuesByKey.find(key);
     if (search != this->paramValuesByKey.end()) {
-        return search->second;
+        return std::optional<string_list>(search->second);
     }
 
-    return nullptr;
+    return std::nullopt;
 }
 
-httpUtils::QueryParams::~QueryParams() {
-    auto it = this->paramValuesByKey.begin();
- 
-	// Iterate over the map using Iterator till end.
+string httpUtils::QueryParams::toUrlencodedQuery() {
+    std::ostringstream query;
+
+    std::map<std::string, string_list>::iterator it = this->paramValuesByKey.begin();
 	while (it != this->paramValuesByKey.end()) {
-        delete it->second;
+		string key = it->first;
+ 
+        for (const auto &value : it->second) {
+            query << escape(key) << '=' << escape(value) << '&';
+        }
+
 		it++;
 	}
+
+    auto result = query.str();
+    result.pop_back();
+
+    return result;
 }

@@ -4,7 +4,7 @@
 #include <cerrno>
 #include <stdlib.h> /* exit, EXIT_FAILURE */
 #include <string>
-//#include <ext/stdio_filebuf.h>
+#include <ext/stdio_filebuf.h>
 #include <unistd.h>
 #include "spdlog/spdlog.h"
 
