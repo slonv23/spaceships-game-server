@@ -1,6 +1,7 @@
 #include <iostream>
 #include <exception>
 #include "spdlog/spdlog.h"
+#include "rtc/include.hpp"
 
 #include "../includes/network-manager.hpp"
 
@@ -12,6 +13,7 @@ NetworkManager::NetworkManager() {
 
 WebRtcNegotiationServerParams NetworkManager::connectClient(WebRtcNegotiationClientParams &webRtcNegotiationClientParams) {
     WebRtcNegotiationServerParams webRtcNegotiationServerParams;
+    rtc::InitLogger(rtc::LogLevel::Verbose);
 
     std::promise<void> promise;
 
@@ -36,6 +38,7 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(WebRtcNegotiationCli
 	peerConnection->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
         spdlog::debug("Got a DataChannel with label: {}", _dc->label());
         networkManager.dataChannels.emplace_back(_dc);
+        //promise.set_value();
     });
 
     try {
