@@ -6,7 +6,7 @@
 
 typedef std::list<std::string> string_list;
 
-namespace httpUtils {
+namespace utils {
     class QueryParams {
         public:
             std::optional<std::string> getParamValue(std::string key);

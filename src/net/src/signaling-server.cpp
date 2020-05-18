@@ -24,7 +24,7 @@ void SignalingServer::start() {
 				} else {
 					std::string source = req.source();
 
-					httpUtils::QueryParams queryParams = httpUtils::parseUrlencodedQuery(req.body());
+					utils::QueryParams queryParams = utils::parseUrlencodedQuery(req.body());
 					WebRtcNegotiationClientParams webRtcNegotiationClientParams;
 
 					auto iceCandidatesOptional = queryParams.getParamValues("candidates"s);
@@ -37,7 +37,7 @@ void SignalingServer::start() {
 						webRtcNegotiationClientParams.offer = offer;
 						WebRtcNegotiationServerParams webRtcNegotiationServerParams = networkManager.connectClient(webRtcNegotiationClientParams);
 						
-						httpUtils::QueryParams response;
+						utils::QueryParams response;
 						response.addParamValue("answer"s, webRtcNegotiationServerParams.answer);
 						response.addParamValues("candidates"s, webRtcNegotiationServerParams.iceCandidates);
 						res << response.toUrlencodedQuery();
