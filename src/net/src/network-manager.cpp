@@ -1,5 +1,6 @@
 #include <iostream>
 #include <exception>
+#include <stdexcept>
 #include "spdlog/spdlog.h"
 #include "rtc/include.hpp"
 
@@ -12,8 +13,15 @@ NetworkManager::NetworkManager() {
 }
 
 WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams) {
-    auto clientConnection = std::make_unique<ClientConnection>(id);
-    this->clientConnectionsById.insert({id, std::move(clientConnection)});
+    std::unique_ptr<ClientConnection> &clientConnection;
+    auto result = this->clientConnectionsById.insert({id, std::make_unique<ClientConnection>(id)});
+    if (!result.second) {
+        // connection already exists, close connection and create new?
+        throw std::runtime_error("Connection with the same id already exists");
+    } else {
+        clientConnection = result.first->second;
+    }
+
     clientConnection->onClosed([&]() {
         this->clientConnectionsById.erase(id);
     });
