@@ -23,6 +23,7 @@ void SignalingServer::start() {
 					served::response::stock_reply(400, res);
 				} else {
 					std::string source = req.source();
+					spdlog::info("Client id: {}", source);
 
 					utils::QueryParams queryParams = utils::parseUrlencodedQuery(req.body());
 					WebRtcNegotiationClientParams webRtcNegotiationClientParams;
@@ -35,7 +36,8 @@ void SignalingServer::start() {
 
 						webRtcNegotiationClientParams.iceCandidates = iceCandidates;
 						webRtcNegotiationClientParams.offer = offer;
-						WebRtcNegotiationServerParams webRtcNegotiationServerParams = networkManager.connectClient(webRtcNegotiationClientParams);
+						WebRtcNegotiationServerParams webRtcNegotiationServerParams =
+							networkManager.connectClient(source, webRtcNegotiationClientParams);
 						
 						utils::QueryParams response;
 						response.addParamValue("answer"s, webRtcNegotiationServerParams.answer);

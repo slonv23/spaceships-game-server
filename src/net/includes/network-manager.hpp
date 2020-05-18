@@ -1,8 +1,10 @@
 #include <string>
 #include <memory>
-#include <list>
+#include <map>
 #include <future>
 #include "rtc/rtc.hpp"
+
+#include "client-connection.hpp"
 
 struct WebRtcNegotiationClientParams {
     std::string offer;
@@ -17,11 +19,10 @@ struct WebRtcNegotiationServerParams {
 class NetworkManager {
     public:
         NetworkManager();
-        WebRtcNegotiationServerParams connectClient(WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
+        WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
     private:
-        std::shared_ptr<rtc::PeerConnection> peerConnection;
         rtc::Configuration webRtcConfig;
-        std::list<std::shared_ptr<rtc::DataChannel>> dataChannels;
+        std::map<std::string, std::unique_ptr<ClientConnection>> clientConnectionsById;
 };
 
 extern NetworkManager networkManager;

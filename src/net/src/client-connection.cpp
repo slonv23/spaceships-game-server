@@ -1,45 +1,47 @@
+#include "spdlog/spdlog.h"
+
 #include "../includes/client-connection.hpp"
 #include "../includes/network-manager.hpp"
+#include "../../util/includes/converter.hpp"
 
-std::future<WebRtcNegotiationServerParams> ClientConnection::connect(WebRtcNegotiationClientParams webRtcNegotiationClientParams) {
+std::future<WebRtcNegotiationServerParams> ClientConnection::connect(
+    WebRtcNegotiationClientParams &webRtcNegotiationClientParams,
+    rtc::Configuration &webRtcConfig
+) {
     WebRtcNegotiationServerParams webRtcNegotiationServerParams;
-    // rtc::InitLogger(rtc::LogLevel::Verbose);
-    // use client ip as peer connection id
-    // allow one peer connection and data channel for same client
+    std::promise<WebRtcNegotiationServerParams> promise;
+    //rtc::InitLogger(rtc::LogLevel::Verbose);
 
-    spdlog::debug("Offer: {}", webRtcNegotiationClientParams.offer);
+    this->peerConnection = std::make_unique<rtc::PeerConnection>(webRtcConfig);
 
-    std::promise<void> promise;
-
-    // maybe use unique_ptr instead (make_unique)
-    auto peerConnection = std::make_shared<rtc::PeerConnection>(webRtcConfig);
-    peerConnection->onLocalDescription([&webRtcNegotiationServerParams](const rtc::Description &sdp) {
+    this->peerConnection->onLocalDescription([&webRtcNegotiationServerParams](const rtc::Description &sdp) {
         webRtcNegotiationServerParams.answer = sdp;
     });
-    peerConnection->onLocalCandidate([&webRtcNegotiationServerParams](const rtc::Candidate &candidate) {
+    this->peerConnection->onLocalCandidate([&webRtcNegotiationServerParams](const rtc::Candidate &candidate) {
         webRtcNegotiationServerParams.iceCandidates.emplace_back(candidate);
     });
-    // set this callback in ClientConnection to access this
-    peerConnection->onStateChange([](rtc::PeerConnection::State state) {
+    this->peerConnection->onStateChange([this](rtc::PeerConnection::State state) {
         spdlog::debug("PeerConnection state: {}", utils::toString(state));
-        // TODO
-        //  if state == closed || state == failed delete peerConnection (and datachannel)
-        //  also when datachannel is closed close peerConnection? (maybe we can add future to recreate data-channel?)
+        if ((state == rtc::PeerConnection::State::Disconnected) || (state == rtc::PeerConnection::State::Failed)
+            || (state == rtc::PeerConnection::State::Closed)
+        ) {
+            this->closedCallback();
+        }
     });
-    peerConnection->onGatheringStateChange([&promise](rtc::PeerConnection::GatheringState state) {
+    this->peerConnection->onGatheringStateChange([&promise, &webRtcNegotiationServerParams](rtc::PeerConnection::GatheringState state) {
         spdlog::debug("PeerConnection gathering state: {}", utils::toString(state));
         if (state == rtc::PeerConnection::GatheringState::Complete) {
-            promise.set_value();
+            promise.set_value(webRtcNegotiationServerParams);
         }
     });
 
-	peerConnection->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
+	this->peerConnection->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
         spdlog::debug("Got a DataChannel with label: {}", _dc->label());
-        networkManager.dataChannels.emplace_back(_dc);
+        this->dataChannel = _dc;
     });
 
     try {
-        peerConnection->setRemoteDescription(webRtcNegotiationClientParams.offer);
+        this->peerConnection->setRemoteDescription(webRtcNegotiationClientParams.offer);
         // adding remote candidates is optional, because browser will attempt to connect when received remote candidates
         /*for (const auto &candidate : webRtcNegotiationClientParams.iceCandidates) {
             peerConnection->addRemoteCandidate(candidate);
@@ -49,5 +51,9 @@ std::future<WebRtcNegotiationServerParams> ClientConnection::connect(WebRtcNegot
         throw e;
     }
 
-    networkManager.peerConnection = peerConnection;
+    return promise.get_future();
+}
+
+void ClientConnection::onClosed(std::function<void()> callback) {
+    this->closedCallback = callback;
 }
