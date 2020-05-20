@@ -6,49 +6,59 @@
 
 typedef rtc::PeerConnection::GatheringState GatheringState;
 typedef rtc::PeerConnection::State State;
+typedef std::shared_ptr<std::promise<void>> shared_promise;
 
-std::future<WebRtcNegotiationServerParams> ClientConnection::connect(
-    WebRtcNegotiationClientParams &webRtcNegotiationClientParams,
+template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
+
+shared_promise ClientConnection::connect(
+    WebRtcNegotiationClientParams &clientParams,
+    WebRtcNegotiationServerParams &serverParams,
     rtc::Configuration &webRtcConfig
 ) {
-    // TODO webRtcNegotiationServerParams should be shared? maybe pass webRtcNegotiationServerParams& ref to fill external object
-    WebRtcNegotiationServerParams webRtcNegotiationServerParams;
-    std::promise<WebRtcNegotiationServerParams> promise;
-    //rtc::InitLogger(rtc::LogLevel::Verbose);
+    auto promise = std::make_shared<std::promise<void>>();
+    spdlog::info("Offer: {}", clientParams.offer);
+    rtc::InitLogger(rtc::LogLevel::Verbose);
 
-    this->peerConnection = std::make_unique<rtc::PeerConnection>(webRtcConfig);
+    //this->peerConnection = std::make_unique<rtc::PeerConnection>(webRtcConfig);
+    this->peerConnection2 = std::make_shared<rtc::PeerConnection>(webRtcConfig);
+    //this->peerConnection2 = peerConnection;
 
-    this->peerConnection->onLocalDescription([&webRtcNegotiationServerParams](const rtc::Description &sdp) {
-        webRtcNegotiationServerParams.answer = sdp;
+    this->peerConnection2->onLocalDescription([&serverParams](const rtc::Description &sdp) {
+        serverParams.answer = sdp;
     });
-    this->peerConnection->onLocalCandidate([&webRtcNegotiationServerParams](const rtc::Candidate &candidate) {
-        webRtcNegotiationServerParams.iceCandidates.emplace_back(candidate);
+    this->peerConnection2->onLocalCandidate([&serverParams](const rtc::Candidate &candidate) {
+        spdlog::debug("Got local candidate: {}", candidate.candidate());
+        serverParams.iceCandidates.emplace_back(candidate);
     });
-    this->peerConnection->onStateChange([this](State state) {
+    // ([this]
+    this->peerConnection2->onStateChange([](State state) {
         spdlog::debug("PeerConnection state: {}", utils::toString<State>(state));
-        if ((state == State::Disconnected) || (state == State::Failed)
-            || (state == State::Closed)
-        ) {
-            this->closed = true;
-            this->closedCallback();
+        if ((state == State::Disconnected) || (state == State::Failed) || (state == State::Closed)) {
+            //this->closed = true;
+            // this->closedCallback();
         }
     });
-    this->peerConnection->onGatheringStateChange([&promise, &webRtcNegotiationServerParams](GatheringState state) {
+    // [weakPromise = make_weak_ptr(promise)]
+    this->peerConnection2->onGatheringStateChange([weakPromise = make_weak_ptr(promise)](GatheringState state) {
         spdlog::debug("PeerConnection gathering state: {}", utils::toString<GatheringState>(state));
         if (state == GatheringState::Complete) {
-            promise.set_value(webRtcNegotiationServerParams);
+            auto promise = weakPromise.lock();
+            if (promise) {
+                promise->set_value();
+            }
         }
     });
-
-	this->peerConnection->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
+	/*this->peerConnection2->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
         spdlog::debug("Got a DataChannel with label: {}", _dc->label());
         this->dataChannel = _dc;
-    });
+    });*/
 
     try {
-        this->peerConnection->setRemoteDescription(webRtcNegotiationClientParams.offer);
+        rtc::Description description(clientParams.offer, "offer");
+        this->peerConnection2->setRemoteDescription(description);
+        spdlog::info("Set remote description");
         // adding remote candidates is optional, because browser will attempt to connect when received remote candidates
-        /*for (const auto &candidate : webRtcNegotiationClientParams.iceCandidates) {
+        /*for (const auto &candidate : clientParams.iceCandidates) {
             peerConnection->addRemoteCandidate(candidate);
         }*/
     } catch (const std::exception &e) {
@@ -56,7 +66,10 @@ std::future<WebRtcNegotiationServerParams> ClientConnection::connect(
         throw e;
     }
 
-    return promise.get_future();
+    //promise->get_future().wait();
+
+    //promise->set_value();
+    return promise;
 }
 
 void ClientConnection::onClosed(std::function<void()> callback) {

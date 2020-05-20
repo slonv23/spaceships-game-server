@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 //#include <unistd.h>
 #include "rtc/rtc.hpp"
 #include "served/served.hpp"
@@ -9,6 +10,7 @@
 
 int main(int argc, char *argv[]) {
    spdlog::set_level(spdlog::level::debug);
+   spdlog::flush_every(std::chrono::seconds(3));
    spdlog::info("Starting...");
 
    //worldSimulatorConnector.start();

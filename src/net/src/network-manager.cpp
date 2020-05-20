@@ -9,25 +9,24 @@
 NetworkManager networkManager;
 
 NetworkManager::NetworkManager() {
-    webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
+    //this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
 }
 
 WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams) {
-    std::unique_ptr<ClientConnection> &clientConnection;
     auto result = this->clientConnectionsById.insert({id, std::make_unique<ClientConnection>(id)});
     if (!result.second) {
         // connection already exists, close connection and create new?
         throw std::runtime_error("Connection with the same id already exists");
-    } else {
-        clientConnection = result.first->second;
     }
+    //std::unique_ptr<ClientConnection> &clientConnection = result.first->second;
 
-    clientConnection->onClosed([&]() {
+    /*clientConnection->onClosed([&]() {
         this->clientConnectionsById.erase(id);
-    });
+    });*/
 
-    auto webRtcNegotiationServerParamsFuture = clientConnection->connect(webRtcNegotiationClientParams, this->webRtcConfig);
-    webRtcNegotiationServerParamsFuture.wait();
+    WebRtcNegotiationServerParams webRtcNegotiationServerParams;
+    auto negotiationParamsReadyPromise = result.first->second->connect(webRtcNegotiationClientParams, webRtcNegotiationServerParams, this->webRtcConfig);
+    negotiationParamsReadyPromise->get_future().wait();
 
-    return webRtcNegotiationServerParamsFuture.get();
+    return webRtcNegotiationServerParams;
 }
