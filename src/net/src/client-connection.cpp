@@ -30,12 +30,14 @@ shared_promise ClientConnection::connect(
         spdlog::debug("Got local candidate: {}", candidate.candidate());
         serverParams.iceCandidates.emplace_back(candidate);
     });
-    // ([this]
-    this->peerConnection2->onStateChange([](State state) {
+    this->peerConnection2->onStateChange([this](State state) {
         spdlog::debug("PeerConnection state: {}", utils::toString<State>(state));
-        if ((state == State::Disconnected) || (state == State::Failed) || (state == State::Closed)) {
-            //this->closed = true;
-            // this->closedCallback();
+        // (state == State::Disconnected) || (state == State::Failed) || (state == State::Closed)
+        if (state == State::Closed) {
+            this->closed = true;
+            if (this->closedCallback) {
+                this->closedCallback();
+            }
         }
     });
     // [weakPromise = make_weak_ptr(promise)]
@@ -48,10 +50,10 @@ shared_promise ClientConnection::connect(
             }
         }
     });
-	/*this->peerConnection2->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
+	this->peerConnection2->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
         spdlog::debug("Got a DataChannel with label: {}", _dc->label());
         this->dataChannel = _dc;
-    });*/
+    });
 
     try {
         rtc::Description description(clientParams.offer, "offer");
@@ -78,4 +80,21 @@ void ClientConnection::onClosed(std::function<void()> callback) {
 
 bool ClientConnection::isClosed() {
     return this->closed;
+}
+
+ClientConnection::~ClientConnection() {
+    spdlog::debug("Waiting for peerConnection to close");
+
+    if (!this->closed) {
+        auto promise = std::make_shared<std::promise<void>>();
+        this->onClosed([&promise]() {
+            promise->set_value();
+        });
+
+        this->peerConnection2->close();
+
+        promise->get_future().wait();
+    }
+
+    spdlog::debug("ClientConnection destroyed");
 }

@@ -58,6 +58,7 @@ void SignalingServer::start() {
 	// Create the server and run with 1 handler threads (not not blocking mode)
 	this->server = new served::net::server("0.0.0.0", "8080", mux);
 	this->server->run(1, true);
+	// this->server
 }
 
 SignalingServer::~SignalingServer() {

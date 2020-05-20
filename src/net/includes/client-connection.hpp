@@ -12,6 +12,7 @@ typedef std::shared_ptr<std::promise<void>> shared_promise;
 class ClientConnection {
     public:
         ClientConnection(std::string id) : id{id} {};
+        ~ClientConnection();
 
         shared_promise connect(
             WebRtcNegotiationClientParams &clientParams,

@@ -9,7 +9,12 @@
 NetworkManager networkManager;
 
 NetworkManager::NetworkManager() {
-    //this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
+    spdlog::info("Call NetworkManager constructor");
+    this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
+}
+
+NetworkManager::~NetworkManager() {
+    spdlog::info("Call NetworkManager destructor");
 }
 
 WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams) {

@@ -19,6 +19,7 @@ struct WebRtcNegotiationServerParams {
 class NetworkManager {
     public:
         NetworkManager();
+        ~NetworkManager();
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
     private:
         rtc::Configuration webRtcConfig;
