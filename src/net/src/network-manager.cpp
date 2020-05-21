@@ -11,6 +11,8 @@ NetworkManager networkManager;
 NetworkManager::NetworkManager() {
     spdlog::info("Call NetworkManager constructor");
     this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
+    this->webRtcConfig.portRangeBegin = 9001;
+    this->webRtcConfig.portRangeEnd = 9010;
 }
 
 NetworkManager::~NetworkManager() {
