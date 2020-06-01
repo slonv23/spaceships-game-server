@@ -25,9 +25,8 @@ class ClientConnection {
 
     private:
         std::string id;
-        bool closed = false; // false indicates that connection is opening or open
-        //std::unique_ptr<rtc::PeerConnection> peerConnection;
-        std::shared_ptr<rtc::PeerConnection> peerConnection2;
+        bool closed = false; // 'false' indicates that connection is opening or open
+        std::shared_ptr<rtc::PeerConnection> peerConnection;
         std::shared_ptr<rtc::DataChannel> dataChannel;
         std::function<void()> closedCallback;
 };

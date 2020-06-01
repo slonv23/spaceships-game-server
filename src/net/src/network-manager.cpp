@@ -6,11 +6,11 @@
 
 #include "../includes/network-manager.hpp"
 
-NetworkManager networkManager;
+//NetworkManager networkManager;
 
 NetworkManager::NetworkManager() {
     spdlog::info("Call NetworkManager constructor");
-    this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
+    //this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
     this->webRtcConfig.portRangeBegin = 9001;
     this->webRtcConfig.portRangeEnd = 9010;
 }
@@ -25,14 +25,15 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
         // connection already exists, close connection and create new?
         throw std::runtime_error("Connection with the same id already exists");
     }
-    //std::unique_ptr<ClientConnection> &clientConnection = result.first->second;
+    std::unique_ptr<ClientConnection> &clientConnection = result.first->second;
 
-    /*clientConnection->onClosed([&]() {
+    clientConnection->onClosed([&, id]() {
+        spdlog::debug("NetworkManager: Client '{}' disconnected", id);
         this->clientConnectionsById.erase(id);
-    });*/
+    });
 
     WebRtcNegotiationServerParams webRtcNegotiationServerParams;
-    auto negotiationParamsReadyPromise = result.first->second->connect(webRtcNegotiationClientParams, webRtcNegotiationServerParams, this->webRtcConfig);
+    auto negotiationParamsReadyPromise = clientConnection->connect(webRtcNegotiationClientParams, webRtcNegotiationServerParams, this->webRtcConfig);
     negotiationParamsReadyPromise->get_future().wait();
 
     return webRtcNegotiationServerParams;

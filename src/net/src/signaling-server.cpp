@@ -11,7 +11,9 @@
 
 using namespace std::string_literals;
 
-SignalingServer signalingServer;
+//SignalingServer signalingServer;
+
+SignalingServer::SignalingServer(NetworkManager &networkManager): networkManager(networkManager) {}
 
 void SignalingServer::start() {
 	mux.handle("/connect")
@@ -37,7 +39,7 @@ void SignalingServer::start() {
 						webRtcNegotiationClientParams.iceCandidates = iceCandidates;
 						webRtcNegotiationClientParams.offer = offer;
 						WebRtcNegotiationServerParams webRtcNegotiationServerParams =
-							networkManager.connectClient(source, webRtcNegotiationClientParams);
+							this->networkManager.connectClient(source, webRtcNegotiationClientParams);
 						
 						utils::QueryParams response;
 						response.addParamValue("answer"s, webRtcNegotiationServerParams.answer);
@@ -55,10 +57,9 @@ void SignalingServer::start() {
 			}
 		});
 
-	// Create the server and run with 1 handler threads (not not blocking mode)
+	// Create the server and run with 2 handler threads (not blocking mode)
 	this->server = new served::net::server("0.0.0.0", "8080", mux);
-	this->server->run(1, true);
-	// this->server
+	this->server->run(2, false);
 }
 
 SignalingServer::~SignalingServer() {

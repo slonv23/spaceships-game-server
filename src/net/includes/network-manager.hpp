@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <memory>
 #include <map>
@@ -26,4 +27,4 @@ class NetworkManager {
         std::map<std::string, std::unique_ptr<ClientConnection>> clientConnectionsById;
 };
 
-extern NetworkManager networkManager;
+//extern NetworkManager networkManager;

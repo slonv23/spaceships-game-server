@@ -1,3 +1,4 @@
+#include <thread>
 #include "spdlog/spdlog.h"
 
 #include "../includes/client-connection.hpp"
@@ -16,33 +17,33 @@ shared_promise ClientConnection::connect(
     rtc::Configuration &webRtcConfig
 ) {
     auto promise = std::make_shared<std::promise<void>>();
-    spdlog::info("Offer: {}", clientParams.offer);
-    rtc::InitLogger(rtc::LogLevel::Verbose);
+    //rtc::InitLogger(rtc::LogLevel::Verbose);
 
-    //this->peerConnection = std::make_unique<rtc::PeerConnection>(webRtcConfig);
-    this->peerConnection2 = std::make_shared<rtc::PeerConnection>(webRtcConfig);
-    //this->peerConnection2 = peerConnection;
+    this->peerConnection = std::make_shared<rtc::PeerConnection>(webRtcConfig);
 
-    this->peerConnection2->onLocalDescription([&serverParams](const rtc::Description &sdp) {
+    this->peerConnection->onLocalDescription([&serverParams](const rtc::Description &sdp) {
         serverParams.answer = sdp;
     });
-    this->peerConnection2->onLocalCandidate([&serverParams](const rtc::Candidate &candidate) {
-        spdlog::debug("Got local candidate: {}", candidate.candidate());
+
+    this->peerConnection->onLocalCandidate([&serverParams](const rtc::Candidate &candidate) {
+        spdlog::debug("ClientConnection: Got local ice candidate: {}", candidate.candidate());
         serverParams.iceCandidates.emplace_back(candidate);
     });
-    this->peerConnection2->onStateChange([this](State state) {
-        spdlog::debug("PeerConnection state: {}", utils::toString<State>(state));
-        // (state == State::Disconnected) || (state == State::Failed) || (state == State::Closed)
-        if (state == State::Closed) {
+
+    this->peerConnection->onStateChange([this](State state) {
+        spdlog::debug("ClientConnection: Peer connection state: {}", utils::toString<State>(state));
+        if ((state == State::Disconnected) || (state == State::Failed)) {
+            this->peerConnection->close();
+        } else if (state == State::Closed) {
             this->closed = true;
             if (this->closedCallback) {
                 this->closedCallback();
             }
         }
     });
-    // [weakPromise = make_weak_ptr(promise)]
-    this->peerConnection2->onGatheringStateChange([weakPromise = make_weak_ptr(promise)](GatheringState state) {
-        spdlog::debug("PeerConnection gathering state: {}", utils::toString<GatheringState>(state));
+
+    this->peerConnection->onGatheringStateChange([weakPromise = make_weak_ptr(promise)](GatheringState state) {
+        spdlog::debug("ClientConnection: Peer connection gathering state: {}", utils::toString<GatheringState>(state));
         if (state == GatheringState::Complete) {
             auto promise = weakPromise.lock();
             if (promise) {
@@ -50,27 +51,24 @@ shared_promise ClientConnection::connect(
             }
         }
     });
-	this->peerConnection2->onDataChannel([&](std::shared_ptr<rtc::DataChannel> _dc) {
-        spdlog::debug("Got a DataChannel with label: {}", _dc->label());
-        this->dataChannel = _dc;
+
+	this->peerConnection->onDataChannel([this](std::shared_ptr<rtc::DataChannel> dataChannel) {
+        spdlog::debug("ClientConnection: Got a DataChannel with label: {}", dataChannel->label());
+        this->dataChannel = dataChannel;
     });
 
+    rtc::Description description(clientParams.offer, "offer");
     try {
-        rtc::Description description(clientParams.offer, "offer");
-        this->peerConnection2->setRemoteDescription(description);
-        spdlog::info("Set remote description");
+        this->peerConnection->setRemoteDescription(description);
         // adding remote candidates is optional, because browser will attempt to connect when received remote candidates
         /*for (const auto &candidate : clientParams.iceCandidates) {
             peerConnection->addRemoteCandidate(candidate);
         }*/
     } catch (const std::exception &e) {
-        spdlog::error("Failed to set remote description and candidates, error: {}", e.what());
+        spdlog::error("ClientConnection: Failed to set remote description and candidates, error: {}", e.what());
         throw e;
     }
 
-    //promise->get_future().wait();
-
-    //promise->set_value();
     return promise;
 }
 
@@ -83,7 +81,7 @@ bool ClientConnection::isClosed() {
 }
 
 ClientConnection::~ClientConnection() {
-    spdlog::debug("Waiting for peerConnection to close");
+    spdlog::debug("ClientConnection: Waiting for peer connection to close");
 
     if (!this->closed) {
         auto promise = std::make_shared<std::promise<void>>();
@@ -91,10 +89,10 @@ ClientConnection::~ClientConnection() {
             promise->set_value();
         });
 
-        this->peerConnection2->close();
+        this->peerConnection->close();
 
         promise->get_future().wait();
     }
 
-    spdlog::debug("ClientConnection destroyed");
+    spdlog::debug("ClientConnection: Peer connection closed");
 }
