@@ -32,6 +32,10 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
         this->clientConnectionsById.erase(id);
     });
 
+    clientConnection->onMessage([](binary message) {
+        spdlog::debug("NetworkManager: OK");
+    });
+
     WebRtcNegotiationServerParams webRtcNegotiationServerParams;
     auto negotiationParamsReadyPromise = clientConnection->connect(webRtcNegotiationClientParams, webRtcNegotiationServerParams, this->webRtcConfig);
     negotiationParamsReadyPromise->get_future().wait();

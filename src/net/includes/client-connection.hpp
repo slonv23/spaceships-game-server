@@ -2,12 +2,16 @@
 #include <memory>
 #include <string>
 #include <future>
+#include <functional>
+#include <cstddef>
 #include "rtc/rtc.hpp"
 
 struct WebRtcNegotiationClientParams;
 struct WebRtcNegotiationServerParams;
 
 typedef std::shared_ptr<std::promise<void>> shared_promise;
+
+using binary = std::vector<std::byte>;
 
 class ClientConnection {
     public:
@@ -20,6 +24,7 @@ class ClientConnection {
             rtc::Configuration &webRtcConfig);
 
         void onClosed(std::function<void()> callback);
+        void onMessage(std::function<void(binary)> callback);
 
         bool isClosed();
 
@@ -29,4 +34,5 @@ class ClientConnection {
         std::shared_ptr<rtc::PeerConnection> peerConnection;
         std::shared_ptr<rtc::DataChannel> dataChannel;
         std::function<void()> closedCallback;
+        std::function<void(binary)> messageCallback;
 };

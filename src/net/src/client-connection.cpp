@@ -1,4 +1,5 @@
 #include <thread>
+#include <variant>
 #include "spdlog/spdlog.h"
 
 #include "../includes/client-connection.hpp"
@@ -55,6 +56,21 @@ shared_promise ClientConnection::connect(
 	this->peerConnection->onDataChannel([this](std::shared_ptr<rtc::DataChannel> dataChannel) {
         spdlog::debug("ClientConnection: Got a DataChannel with label: {}", dataChannel->label());
         this->dataChannel = dataChannel;
+
+        dataChannel->onClosed([&]() {
+            spdlog::debug("ClientConnection: DataChannel with label '{}' closed", dataChannel->label());
+            this->peerConnection->close();
+        });
+
+        dataChannel->onMessage([this](const std::variant<binary, std::string> &message) {
+            if (std::holds_alternative<binary>(message)) {
+                auto msgData = std::get<binary>(message);
+                spdlog::debug("ClientConnection: Received {} bytes", msgData.size());
+                this->messageCallback(msgData);
+            }
+        });
+
+
     });
 
     rtc::Description description(clientParams.offer, "offer");
@@ -74,6 +90,10 @@ shared_promise ClientConnection::connect(
 
 void ClientConnection::onClosed(std::function<void()> callback) {
     this->closedCallback = callback;
+}
+
+void ClientConnection::onMessage(std::function<void(binary)> callback) {
+    this->messageCallback = callback;
 }
 
 bool ClientConnection::isClosed() {
