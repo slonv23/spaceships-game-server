@@ -36,10 +36,10 @@ int main(int argc, char *argv[]) {
    signalingServer.start();
    worldSimulatorIpcConnection.ipcConnect();
 
-   helloworld::HelloWorld msg = createTestMsg();
-   worldSimulatorIpcConnection.writeMsg(msg);
-   sleep(2);
-   worldSimulatorIpcConnection.writeMsg(msg);
+   //helloworld::HelloWorld msg = createTestMsg();
+   //worldSimulatorIpcConnection.writeMsg(msg);
+   //sleep(2);
+   //worldSimulatorIpcConnection.writeMsg(msg);
 
    spdlog::info("Started");
 

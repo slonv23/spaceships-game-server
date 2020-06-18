@@ -25,6 +25,7 @@ class NetworkManager {
     private:
         rtc::Configuration webRtcConfig;
         std::map<std::string, std::unique_ptr<ClientConnection>> clientConnectionsById;
+        void handleMessage(std::string clientId, binary message);
 };
 
 //extern NetworkManager networkManager;
