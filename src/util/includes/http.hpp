@@ -7,6 +7,7 @@
 typedef std::list<std::string> string_list;
 
 namespace utils {
+
     class QueryParams {
         public:
             std::optional<std::string> getParamValue(std::string key);
@@ -19,4 +20,5 @@ namespace utils {
     };
 
     QueryParams parseUrlencodedQuery(std::string query);
+
 }

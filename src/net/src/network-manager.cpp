@@ -7,6 +7,7 @@
 
 #include "../includes/network-manager.hpp"
 #include "../../proto/request-root.pb.h"
+#include "../../util/includes/io.hpp"
 
 //NetworkManager networkManager;
 
@@ -46,7 +47,12 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
 }
 
 void NetworkManager::handleMessage(std::string clientId, binary message) {
-    std::string binaryString(reinterpret_cast<const char *>(&message[0]), message.size());
+    int decodedBytes;
+    int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
+
+    spdlog::info("Message size {}", size);
+
+    std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
     multiplayer::RequestRoot requestRoot;
     requestRoot.ParseFromString(binaryString);
 
@@ -54,5 +60,7 @@ void NetworkManager::handleMessage(std::string clientId, binary message) {
 
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Has spawn request");
+
+        spdlog::info("Nickname {}", requestRoot.spawnrequest().nickname());
     }
 }
