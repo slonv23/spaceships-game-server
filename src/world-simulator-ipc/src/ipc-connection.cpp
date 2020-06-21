@@ -9,6 +9,7 @@
 #include "spdlog/spdlog.h"
 
 #include "../includes/ipc-connection.hpp"
+#include "../../util/includes/io.hpp"
 
 #define SOCKET_NAME "/tmp/spaceships-world-simulator.sock"
 
@@ -19,8 +20,9 @@ IpcConnection::~IpcConnection() {
 }
 
 void IpcConnection::writeMsg(google::protobuf::Message &msg) {
-    int msgSize = static_cast<int>(msg.ByteSizeLong());
-    this->writeInt(msgSize);
+    unsigned int msgSize = static_cast<int>(msg.ByteSizeLong());
+    //this->writeInt(msgSize);
+    utils::writeUnsignedVarint(this->ostream.get(), msgSize);
     msg.SerializeToOstream(this->ostream.get());
 
     this->ostream->flush();

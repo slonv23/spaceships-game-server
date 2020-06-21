@@ -6,6 +6,8 @@
 #include "rtc/rtc.hpp"
 
 #include "client-connection.hpp"
+#include "../../proto/request-root.pb.h"
+#include "../../world-simulator-ipc/includes/ipc-connection.hpp"
 
 struct WebRtcNegotiationClientParams {
     std::string offer;
@@ -19,13 +21,23 @@ struct WebRtcNegotiationServerParams {
 
 class NetworkManager {
     public:
-        NetworkManager();
+        NetworkManager(IpcConnection &_ipcConnection);
         ~NetworkManager();
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
     private:
         rtc::Configuration webRtcConfig;
-        std::map<std::string, std::unique_ptr<ClientConnection>> clientConnectionsById;
+        std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
+        std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
+        unsigned int lastUsedRequestId = 0;
+        IpcConnection &ipcConnection;
+
         void handleMessage(std::string clientId, binary message);
+        bool issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot);
+        inline int generateRequestId() {
+            return ++this->lastUsedRequestId;
+        }
 };
+
+
 
 //extern NetworkManager networkManager;

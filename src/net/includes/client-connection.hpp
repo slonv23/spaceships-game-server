@@ -4,6 +4,7 @@
 #include <future>
 #include <functional>
 #include <cstddef>
+#include <atomic>
 #include "rtc/rtc.hpp"
 
 struct WebRtcNegotiationClientParams;
@@ -15,7 +16,7 @@ using binary = std::vector<std::byte>;
 
 class ClientConnection {
     public:
-        ClientConnection(std::string id) : id{id} {};
+        ClientConnection(std::string id) : id{id}, requestPending{false} {};
         ~ClientConnection();
 
         shared_promise connect(
@@ -28,8 +29,11 @@ class ClientConnection {
 
         bool isClosed();
 
-    private:
         std::string id;
+        std::string controlledObjectId;
+        std::atomic_bool requestPending;
+        std::deque<std::string> lastActionIds;
+    private:
         bool closed = false; // 'false' indicates that connection is opening or open
         std::shared_ptr<rtc::PeerConnection> peerConnection;
         std::shared_ptr<rtc::DataChannel> dataChannel;

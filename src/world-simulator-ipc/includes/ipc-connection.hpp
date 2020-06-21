@@ -1,3 +1,4 @@
+#pragma once
 #include <ostream>
 #include <memory>
 #include <ext/stdio_filebuf.h>

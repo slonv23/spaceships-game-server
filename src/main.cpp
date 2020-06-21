@@ -24,9 +24,9 @@ helloworld::HelloWorld createTestMsg() {
 }
 
 int main(int argc, char *argv[]) {
-   NetworkManager networkManager;
-   SignalingServer signalingServer(networkManager);
    IpcConnection worldSimulatorIpcConnection;
+   NetworkManager networkManager(worldSimulatorIpcConnection);
+   SignalingServer signalingServer(networkManager);
 
    spdlog::set_level(spdlog::level::debug);
    //spdlog::flush_every(std::chrono::seconds(3));

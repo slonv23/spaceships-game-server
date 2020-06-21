@@ -6,12 +6,11 @@
 #include "rtc/include.hpp"
 
 #include "../includes/network-manager.hpp"
-#include "../../proto/request-root.pb.h"
 #include "../../util/includes/io.hpp"
 
-//NetworkManager networkManager;
+template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
 
-NetworkManager::NetworkManager() {
+NetworkManager::NetworkManager(IpcConnection &ipcConnection): ipcConnection(ipcConnection) {
     spdlog::info("Call NetworkManager constructor");
     //this->webRtcConfig.iceServers.emplace_back("stun.l.google.com:19302");
     this->webRtcConfig.portRangeBegin = 9001;
@@ -25,12 +24,12 @@ NetworkManager::~NetworkManager() {
 WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams) {
     using namespace std::placeholders;  // for _1, _2, _3...
 
-    auto result = this->clientConnectionsById.insert({id, std::make_unique<ClientConnection>(id)});
+    auto result = this->clientConnectionsById.insert({id, std::make_shared<ClientConnection>(id)});
     if (!result.second) {
         // connection already exists, close connection and create new?
         throw std::runtime_error("Connection with the same id already exists");
     }
-    std::unique_ptr<ClientConnection> &clientConnection = result.first->second;
+    std::shared_ptr<ClientConnection> &clientConnection = result.first->second;
 
     clientConnection->onClosed([&, id]() {
         spdlog::debug("NetworkManager: Client '{}' disconnected", id);
@@ -49,18 +48,34 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
 void NetworkManager::handleMessage(std::string clientId, binary message) {
     int decodedBytes;
     int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
-
-    spdlog::info("Message size {}", size);
+    spdlog::info("Message size: {}", size);
 
     std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
     multiplayer::RequestRoot requestRoot;
     requestRoot.ParseFromString(binaryString);
 
-    spdlog::info("Message parsed");
-
     if (requestRoot.has_spawnrequest()) {
-        spdlog::info("Has spawn request");
-
-        spdlog::info("Nickname {}", requestRoot.spawnrequest().nickname());
+        spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
+        this->issueRequest(clientId, requestRoot);
     }
+}
+
+bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot) {
+    auto search = this->clientConnectionsById.find(clientId);
+    if (search != this->clientConnectionsById.end()) {
+        auto clientConnection = search->second;
+
+        bool requestPending = clientConnection->requestPending.load();
+        if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
+            int requestId = this->generateRequestId();
+            this->clientConnectionByRequestId.insert({requestId, make_weak_ptr(clientConnection)});
+            requestRoot.set_requestid(requestId);
+            this->ipcConnection.writeMsg(requestRoot);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    return false;
 }

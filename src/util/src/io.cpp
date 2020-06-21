@@ -13,7 +13,26 @@ namespace utils {
         } while ((data[i++] & 0x80) != 0 );
 
         decoded_bytes = i;
+
         return decoded_value;
+    }
+
+    int writeUnsignedVarint(std::ostream *ostream, uint64_t value) {
+        int encoded = 0;
+
+        do {
+            uint8_t next_byte = value & 0x7F;
+            value >>= 7;
+
+            if (value) {
+                next_byte |= 0x80;
+            }
+
+            encoded++;
+            ostream->write(reinterpret_cast<const char*>(&next_byte), sizeof(next_byte));
+        } while (value);
+
+        return encoded;
     }
 
 }

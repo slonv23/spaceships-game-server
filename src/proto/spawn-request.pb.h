@@ -160,26 +160,11 @@ class SpawnRequest : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::std::string* release_nickname();
   void set_allocated_nickname(::std::string* nickname);
 
-  // string spawnRequestId = 2;
-  void clear_spawnrequestid();
-  static const int kSpawnRequestIdFieldNumber = 2;
-  const ::std::string& spawnrequestid() const;
-  void set_spawnrequestid(const ::std::string& value);
-  #if LANG_CXX11
-  void set_spawnrequestid(::std::string&& value);
-  #endif
-  void set_spawnrequestid(const char* value);
-  void set_spawnrequestid(const char* value, size_t size);
-  ::std::string* mutable_spawnrequestid();
-  ::std::string* release_spawnrequestid();
-  void set_allocated_spawnrequestid(::std::string* spawnrequestid);
-
   // @@protoc_insertion_point(class_scope:multiplayer.SpawnRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr nickname_;
-  ::google::protobuf::internal::ArenaStringPtr spawnrequestid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_spawn_2drequest_2eproto::TableStruct;
 };
@@ -245,59 +230,6 @@ inline void SpawnRequest::set_allocated_nickname(::std::string* nickname) {
   }
   nickname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), nickname);
   // @@protoc_insertion_point(field_set_allocated:multiplayer.SpawnRequest.nickName)
-}
-
-// string spawnRequestId = 2;
-inline void SpawnRequest::clear_spawnrequestid() {
-  spawnrequestid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& SpawnRequest::spawnrequestid() const {
-  // @@protoc_insertion_point(field_get:multiplayer.SpawnRequest.spawnRequestId)
-  return spawnrequestid_.GetNoArena();
-}
-inline void SpawnRequest::set_spawnrequestid(const ::std::string& value) {
-  
-  spawnrequestid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:multiplayer.SpawnRequest.spawnRequestId)
-}
-#if LANG_CXX11
-inline void SpawnRequest::set_spawnrequestid(::std::string&& value) {
-  
-  spawnrequestid_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:multiplayer.SpawnRequest.spawnRequestId)
-}
-#endif
-inline void SpawnRequest::set_spawnrequestid(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  spawnrequestid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:multiplayer.SpawnRequest.spawnRequestId)
-}
-inline void SpawnRequest::set_spawnrequestid(const char* value, size_t size) {
-  
-  spawnrequestid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:multiplayer.SpawnRequest.spawnRequestId)
-}
-inline ::std::string* SpawnRequest::mutable_spawnrequestid() {
-  
-  // @@protoc_insertion_point(field_mutable:multiplayer.SpawnRequest.spawnRequestId)
-  return spawnrequestid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* SpawnRequest::release_spawnrequestid() {
-  // @@protoc_insertion_point(field_release:multiplayer.SpawnRequest.spawnRequestId)
-  
-  return spawnrequestid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void SpawnRequest::set_allocated_spawnrequestid(::std::string* spawnrequestid) {
-  if (spawnrequestid != NULL) {
-    
-  } else {
-    
-  }
-  spawnrequestid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), spawnrequestid);
-  // @@protoc_insertion_point(field_set_allocated:multiplayer.SpawnRequest.spawnRequestId)
 }
 
 #ifdef __GNUC__

@@ -31,6 +31,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
 #include "world-state.pb.h"
+#include "spawn-response.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_response_2droot_2eproto 
 
@@ -90,7 +91,8 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
   static const ResponseRoot& default_instance();
 
   enum MessageCase {
-    kWorldState = 1,
+    kWorldState = 2,
+    kSpawnResponse = 3,
     MESSAGE_NOT_SET = 0,
   };
 
@@ -152,10 +154,16 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
-  // .multiplayer.WorldState worldState = 1;
+  // int32 requestId = 1;
+  void clear_requestid();
+  static const int kRequestIdFieldNumber = 1;
+  ::google::protobuf::int32 requestid() const;
+  void set_requestid(::google::protobuf::int32 value);
+
+  // .multiplayer.WorldState worldState = 2;
   bool has_worldstate() const;
   void clear_worldstate();
-  static const int kWorldStateFieldNumber = 1;
+  static const int kWorldStateFieldNumber = 2;
   private:
   const ::multiplayer::WorldState& _internal_worldstate() const;
   public:
@@ -164,19 +172,34 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::multiplayer::WorldState* mutable_worldstate();
   void set_allocated_worldstate(::multiplayer::WorldState* worldstate);
 
+  // .multiplayer.SpawnResponse spawnResponse = 3;
+  bool has_spawnresponse() const;
+  void clear_spawnresponse();
+  static const int kSpawnResponseFieldNumber = 3;
+  private:
+  const ::multiplayer::SpawnResponse& _internal_spawnresponse() const;
+  public:
+  const ::multiplayer::SpawnResponse& spawnresponse() const;
+  ::multiplayer::SpawnResponse* release_spawnresponse();
+  ::multiplayer::SpawnResponse* mutable_spawnresponse();
+  void set_allocated_spawnresponse(::multiplayer::SpawnResponse* spawnresponse);
+
   void clear_message();
   MessageCase message_case() const;
   // @@protoc_insertion_point(class_scope:multiplayer.ResponseRoot)
  private:
   void set_has_worldstate();
+  void set_has_spawnresponse();
 
   inline bool has_message() const;
   inline void clear_has_message();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 requestid_;
   union MessageUnion {
     MessageUnion() {}
     ::multiplayer::WorldState* worldstate_;
+    ::multiplayer::SpawnResponse* spawnresponse_;
   } message_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::uint32 _oneof_case_[1];
@@ -194,7 +217,21 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
 #endif  // __GNUC__
 // ResponseRoot
 
-// .multiplayer.WorldState worldState = 1;
+// int32 requestId = 1;
+inline void ResponseRoot::clear_requestid() {
+  requestid_ = 0;
+}
+inline ::google::protobuf::int32 ResponseRoot::requestid() const {
+  // @@protoc_insertion_point(field_get:multiplayer.ResponseRoot.requestId)
+  return requestid_;
+}
+inline void ResponseRoot::set_requestid(::google::protobuf::int32 value) {
+  
+  requestid_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.ResponseRoot.requestId)
+}
+
+// .multiplayer.WorldState worldState = 2;
 inline bool ResponseRoot::has_worldstate() const {
   return message_case() == kWorldState;
 }
@@ -230,6 +267,44 @@ inline ::multiplayer::WorldState* ResponseRoot::mutable_worldstate() {
   }
   // @@protoc_insertion_point(field_mutable:multiplayer.ResponseRoot.worldState)
   return message_.worldstate_;
+}
+
+// .multiplayer.SpawnResponse spawnResponse = 3;
+inline bool ResponseRoot::has_spawnresponse() const {
+  return message_case() == kSpawnResponse;
+}
+inline void ResponseRoot::set_has_spawnresponse() {
+  _oneof_case_[0] = kSpawnResponse;
+}
+inline const ::multiplayer::SpawnResponse& ResponseRoot::_internal_spawnresponse() const {
+  return *message_.spawnresponse_;
+}
+inline ::multiplayer::SpawnResponse* ResponseRoot::release_spawnresponse() {
+  // @@protoc_insertion_point(field_release:multiplayer.ResponseRoot.spawnResponse)
+  if (has_spawnresponse()) {
+    clear_has_message();
+      ::multiplayer::SpawnResponse* temp = message_.spawnresponse_;
+    message_.spawnresponse_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline const ::multiplayer::SpawnResponse& ResponseRoot::spawnresponse() const {
+  // @@protoc_insertion_point(field_get:multiplayer.ResponseRoot.spawnResponse)
+  return has_spawnresponse()
+      ? *message_.spawnresponse_
+      : *reinterpret_cast< ::multiplayer::SpawnResponse*>(&::multiplayer::_SpawnResponse_default_instance_);
+}
+inline ::multiplayer::SpawnResponse* ResponseRoot::mutable_spawnresponse() {
+  if (!has_spawnresponse()) {
+    clear_message();
+    set_has_spawnresponse();
+    message_.spawnresponse_ = CreateMaybeMessage< ::multiplayer::SpawnResponse >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:multiplayer.ResponseRoot.spawnResponse)
+  return message_.spawnresponse_;
 }
 
 inline bool ResponseRoot::has_message() const {

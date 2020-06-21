@@ -91,8 +91,8 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   static const RequestRoot& default_instance();
 
   enum MessageCase {
-    kInputAction = 1,
-    kSpawnRequest = 2,
+    kInputAction = 2,
+    kSpawnRequest = 3,
     MESSAGE_NOT_SET = 0,
   };
 
@@ -154,10 +154,16 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // .multiplayer.InputAction inputAction = 1;
+  // int32 requestId = 1;
+  void clear_requestid();
+  static const int kRequestIdFieldNumber = 1;
+  ::google::protobuf::int32 requestid() const;
+  void set_requestid(::google::protobuf::int32 value);
+
+  // .multiplayer.InputAction inputAction = 2;
   bool has_inputaction() const;
   void clear_inputaction();
-  static const int kInputActionFieldNumber = 1;
+  static const int kInputActionFieldNumber = 2;
   private:
   const ::multiplayer::InputAction& _internal_inputaction() const;
   public:
@@ -166,10 +172,10 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::multiplayer::InputAction* mutable_inputaction();
   void set_allocated_inputaction(::multiplayer::InputAction* inputaction);
 
-  // .multiplayer.SpawnRequest spawnRequest = 2;
+  // .multiplayer.SpawnRequest spawnRequest = 3;
   bool has_spawnrequest() const;
   void clear_spawnrequest();
-  static const int kSpawnRequestFieldNumber = 2;
+  static const int kSpawnRequestFieldNumber = 3;
   private:
   const ::multiplayer::SpawnRequest& _internal_spawnrequest() const;
   public:
@@ -189,6 +195,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   inline void clear_has_message();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 requestid_;
   union MessageUnion {
     MessageUnion() {}
     ::multiplayer::InputAction* inputaction_;
@@ -210,7 +217,21 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
 #endif  // __GNUC__
 // RequestRoot
 
-// .multiplayer.InputAction inputAction = 1;
+// int32 requestId = 1;
+inline void RequestRoot::clear_requestid() {
+  requestid_ = 0;
+}
+inline ::google::protobuf::int32 RequestRoot::requestid() const {
+  // @@protoc_insertion_point(field_get:multiplayer.RequestRoot.requestId)
+  return requestid_;
+}
+inline void RequestRoot::set_requestid(::google::protobuf::int32 value) {
+  
+  requestid_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.RequestRoot.requestId)
+}
+
+// .multiplayer.InputAction inputAction = 2;
 inline bool RequestRoot::has_inputaction() const {
   return message_case() == kInputAction;
 }
@@ -248,7 +269,7 @@ inline ::multiplayer::InputAction* RequestRoot::mutable_inputaction() {
   return message_.inputaction_;
 }
 
-// .multiplayer.SpawnRequest spawnRequest = 2;
+// .multiplayer.SpawnRequest spawnRequest = 3;
 inline bool RequestRoot::has_spawnrequest() const {
   return message_case() == kSpawnRequest;
 }

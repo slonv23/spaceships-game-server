@@ -54,7 +54,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpawnRequest, nickname_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpawnRequest, spawnrequestid_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::multiplayer::SpawnRequest)},
@@ -85,12 +84,11 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\023spawn-request.proto\022\013multiplayer\"8\n\014Sp"
-      "awnRequest\022\020\n\010nickName\030\001 \001(\t\022\026\n\016spawnReq"
-      "uestId\030\002 \001(\tb\006proto3"
+      "\n\023spawn-request.proto\022\013multiplayer\" \n\014Sp"
+      "awnRequest\022\020\n\010nickName\030\001 \001(\tb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 100);
+      descriptor, 76);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "spawn-request.proto", &protobuf_RegisterTypes);
 }
@@ -114,7 +112,6 @@ void SpawnRequest::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SpawnRequest::kNickNameFieldNumber;
-const int SpawnRequest::kSpawnRequestIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SpawnRequest::SpawnRequest()
@@ -132,16 +129,11 @@ SpawnRequest::SpawnRequest(const SpawnRequest& from)
   if (from.nickname().size() > 0) {
     nickname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.nickname_);
   }
-  spawnrequestid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.spawnrequestid().size() > 0) {
-    spawnrequestid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.spawnrequestid_);
-  }
   // @@protoc_insertion_point(copy_constructor:multiplayer.SpawnRequest)
 }
 
 void SpawnRequest::SharedCtor() {
   nickname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  spawnrequestid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 SpawnRequest::~SpawnRequest() {
@@ -151,7 +143,6 @@ SpawnRequest::~SpawnRequest() {
 
 void SpawnRequest::SharedDtor() {
   nickname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  spawnrequestid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void SpawnRequest::SetCachedSize(int size) const {
@@ -175,7 +166,6 @@ void SpawnRequest::Clear() {
   (void) cached_has_bits;
 
   nickname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  spawnrequestid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -199,22 +189,6 @@ bool SpawnRequest::MergePartialFromCodedStream(
             this->nickname().data(), static_cast<int>(this->nickname().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "multiplayer.SpawnRequest.nickName"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string spawnRequestId = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_spawnrequestid()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->spawnrequestid().data(), static_cast<int>(this->spawnrequestid().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "multiplayer.SpawnRequest.spawnRequestId"));
         } else {
           goto handle_unusual;
         }
@@ -257,16 +231,6 @@ void SpawnRequest::SerializeWithCachedSizes(
       1, this->nickname(), output);
   }
 
-  // string spawnRequestId = 2;
-  if (this->spawnrequestid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->spawnrequestid().data(), static_cast<int>(this->spawnrequestid().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "multiplayer.SpawnRequest.spawnRequestId");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->spawnrequestid(), output);
-  }
-
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -292,17 +256,6 @@ void SpawnRequest::SerializeWithCachedSizes(
         1, this->nickname(), target);
   }
 
-  // string spawnRequestId = 2;
-  if (this->spawnrequestid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->spawnrequestid().data(), static_cast<int>(this->spawnrequestid().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "multiplayer.SpawnRequest.spawnRequestId");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->spawnrequestid(), target);
-  }
-
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
@@ -325,13 +278,6 @@ size_t SpawnRequest::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->nickname());
-  }
-
-  // string spawnRequestId = 2;
-  if (this->spawnrequestid().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->spawnrequestid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -365,10 +311,6 @@ void SpawnRequest::MergeFrom(const SpawnRequest& from) {
 
     nickname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.nickname_);
   }
-  if (from.spawnrequestid().size() > 0) {
-
-    spawnrequestid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.spawnrequestid_);
-  }
 }
 
 void SpawnRequest::CopyFrom(const ::google::protobuf::Message& from) {
@@ -396,8 +338,6 @@ void SpawnRequest::Swap(SpawnRequest* other) {
 void SpawnRequest::InternalSwap(SpawnRequest* other) {
   using std::swap;
   nickname_.Swap(&other->nickname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  spawnrequestid_.Swap(&other->spawnrequestid_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }

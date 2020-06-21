@@ -63,6 +63,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::RequestRoot, _oneof_case_[0]),
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::RequestRoot, requestid_),
   offsetof(::multiplayer::RequestRootDefaultTypeInternal, inputaction_),
   offsetof(::multiplayer::RequestRootDefaultTypeInternal, spawnrequest_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::RequestRoot, message_),
@@ -97,14 +98,14 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\022request-root.proto\022\013multiplayer\032\022input"
-      "-action.proto\032\023spawn-request.proto\"|\n\013Re"
-      "questRoot\022/\n\013inputAction\030\001 \001(\0132\030.multipl"
-      "ayer.InputActionH\000\0221\n\014spawnRequest\030\002 \001(\013"
-      "2\031.multiplayer.SpawnRequestH\000B\t\n\007message"
-      "b\006proto3"
+      "-action.proto\032\023spawn-request.proto\"\217\001\n\013R"
+      "equestRoot\022\021\n\trequestId\030\001 \001(\005\022/\n\013inputAc"
+      "tion\030\002 \001(\0132\030.multiplayer.InputActionH\000\0221"
+      "\n\014spawnRequest\030\003 \001(\0132\031.multiplayer.Spawn"
+      "RequestH\000B\t\n\007messageb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 208);
+      descriptor, 228);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "request-root.proto", &protobuf_RegisterTypes);
   ::protobuf_input_2daction_2eproto::AddDescriptors();
@@ -173,6 +174,7 @@ void RequestRoot::clear_spawnrequest() {
   }
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RequestRoot::kRequestIdFieldNumber;
 const int RequestRoot::kInputActionFieldNumber;
 const int RequestRoot::kSpawnRequestFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -188,6 +190,7 @@ RequestRoot::RequestRoot(const RequestRoot& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  requestid_ = from.requestid_;
   clear_has_message();
   switch (from.message_case()) {
     case kInputAction: {
@@ -206,6 +209,7 @@ RequestRoot::RequestRoot(const RequestRoot& from)
 }
 
 void RequestRoot::SharedCtor() {
+  requestid_ = 0;
   clear_has_message();
 }
 
@@ -259,6 +263,7 @@ void RequestRoot::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  requestid_ = 0;
   clear_message();
   _internal_metadata_.Clear();
 }
@@ -273,10 +278,24 @@ bool RequestRoot::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // .multiplayer.InputAction inputAction = 1;
+      // int32 requestId = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &requestid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .multiplayer.InputAction inputAction = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_inputaction()));
         } else {
@@ -285,10 +304,10 @@ bool RequestRoot::MergePartialFromCodedStream(
         break;
       }
 
-      // .multiplayer.SpawnRequest spawnRequest = 2;
-      case 2: {
+      // .multiplayer.SpawnRequest spawnRequest = 3;
+      case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_spawnrequest()));
         } else {
@@ -323,16 +342,21 @@ void RequestRoot::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .multiplayer.InputAction inputAction = 1;
-  if (has_inputaction()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->_internal_inputaction(), output);
+  // int32 requestId = 1;
+  if (this->requestid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->requestid(), output);
   }
 
-  // .multiplayer.SpawnRequest spawnRequest = 2;
+  // .multiplayer.InputAction inputAction = 2;
+  if (has_inputaction()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->_internal_inputaction(), output);
+  }
+
+  // .multiplayer.SpawnRequest spawnRequest = 3;
   if (has_spawnrequest()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->_internal_spawnrequest(), output);
+      3, this->_internal_spawnrequest(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -349,18 +373,23 @@ void RequestRoot::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .multiplayer.InputAction inputAction = 1;
+  // int32 requestId = 1;
+  if (this->requestid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->requestid(), target);
+  }
+
+  // .multiplayer.InputAction inputAction = 2;
   if (has_inputaction()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, this->_internal_inputaction(), deterministic, target);
+        2, this->_internal_inputaction(), deterministic, target);
   }
 
-  // .multiplayer.SpawnRequest spawnRequest = 2;
+  // .multiplayer.SpawnRequest spawnRequest = 3;
   if (has_spawnrequest()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, this->_internal_spawnrequest(), deterministic, target);
+        3, this->_internal_spawnrequest(), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -380,15 +409,22 @@ size_t RequestRoot::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
+  // int32 requestId = 1;
+  if (this->requestid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->requestid());
+  }
+
   switch (message_case()) {
-    // .multiplayer.InputAction inputAction = 1;
+    // .multiplayer.InputAction inputAction = 2;
     case kInputAction: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
           *message_.inputaction_);
       break;
     }
-    // .multiplayer.SpawnRequest spawnRequest = 2;
+    // .multiplayer.SpawnRequest spawnRequest = 3;
     case kSpawnRequest: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
@@ -426,6 +462,9 @@ void RequestRoot::MergeFrom(const RequestRoot& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.requestid() != 0) {
+    set_requestid(from.requestid());
+  }
   switch (from.message_case()) {
     case kInputAction: {
       mutable_inputaction()->::multiplayer::InputAction::MergeFrom(from.inputaction());
@@ -465,6 +504,7 @@ void RequestRoot::Swap(RequestRoot* other) {
 }
 void RequestRoot::InternalSwap(RequestRoot* other) {
   using std::swap;
+  swap(requestid_, other->requestid_);
   swap(message_, other->message_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
