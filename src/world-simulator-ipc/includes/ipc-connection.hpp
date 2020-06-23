@@ -5,13 +5,12 @@
 #include <google/protobuf/message.h>
 #include <mutex>
 #include <cstddef>
-//#include <cstdint> // uint8_t
 
 using binary = std::vector<std::byte>;
 
 class IpcConnection {
     public:
-        static const unsigned int bufferSize = 1300;
+        static const size_t bufferSize = 1300;
 
         ~IpcConnection();
         void ipcConnect();
