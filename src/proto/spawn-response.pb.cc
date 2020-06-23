@@ -86,7 +86,7 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\024spawn-response.proto\022\013multiplayer\"A\n\rS"
-      "pawnResponse\022\030\n\020assignedObjectId\030\001 \001(\t\022\026"
+      "pawnResponse\022\030\n\020assignedObjectId\030\001 \001(\005\022\026"
       "\n\016spawnRequestId\030\002 \001(\tb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
@@ -128,20 +128,17 @@ SpawnResponse::SpawnResponse(const SpawnResponse& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  assignedobjectid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.assignedobjectid().size() > 0) {
-    assignedobjectid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.assignedobjectid_);
-  }
   spawnrequestid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.spawnrequestid().size() > 0) {
     spawnrequestid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.spawnrequestid_);
   }
+  assignedobjectid_ = from.assignedobjectid_;
   // @@protoc_insertion_point(copy_constructor:multiplayer.SpawnResponse)
 }
 
 void SpawnResponse::SharedCtor() {
-  assignedobjectid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   spawnrequestid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  assignedobjectid_ = 0;
 }
 
 SpawnResponse::~SpawnResponse() {
@@ -150,7 +147,6 @@ SpawnResponse::~SpawnResponse() {
 }
 
 void SpawnResponse::SharedDtor() {
-  assignedobjectid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   spawnrequestid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -174,8 +170,8 @@ void SpawnResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  assignedobjectid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   spawnrequestid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  assignedobjectid_ = 0;
   _internal_metadata_.Clear();
 }
 
@@ -189,16 +185,14 @@ bool SpawnResponse::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string assignedObjectId = 1;
+      // int32 assignedObjectId = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_assignedobjectid()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->assignedobjectid().data(), static_cast<int>(this->assignedobjectid().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "multiplayer.SpawnResponse.assignedObjectId"));
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &assignedobjectid_)));
         } else {
           goto handle_unusual;
         }
@@ -247,14 +241,9 @@ void SpawnResponse::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string assignedObjectId = 1;
-  if (this->assignedobjectid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->assignedobjectid().data(), static_cast<int>(this->assignedobjectid().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "multiplayer.SpawnResponse.assignedObjectId");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->assignedobjectid(), output);
+  // int32 assignedObjectId = 1;
+  if (this->assignedobjectid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->assignedobjectid(), output);
   }
 
   // string spawnRequestId = 2;
@@ -281,15 +270,9 @@ void SpawnResponse::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string assignedObjectId = 1;
-  if (this->assignedobjectid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->assignedobjectid().data(), static_cast<int>(this->assignedobjectid().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "multiplayer.SpawnResponse.assignedObjectId");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->assignedobjectid(), target);
+  // int32 assignedObjectId = 1;
+  if (this->assignedobjectid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->assignedobjectid(), target);
   }
 
   // string spawnRequestId = 2;
@@ -320,18 +303,18 @@ size_t SpawnResponse::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // string assignedObjectId = 1;
-  if (this->assignedobjectid().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->assignedobjectid());
-  }
-
   // string spawnRequestId = 2;
   if (this->spawnrequestid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->spawnrequestid());
+  }
+
+  // int32 assignedObjectId = 1;
+  if (this->assignedobjectid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->assignedobjectid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -361,13 +344,12 @@ void SpawnResponse::MergeFrom(const SpawnResponse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.assignedobjectid().size() > 0) {
-
-    assignedobjectid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.assignedobjectid_);
-  }
   if (from.spawnrequestid().size() > 0) {
 
     spawnrequestid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.spawnrequestid_);
+  }
+  if (from.assignedobjectid() != 0) {
+    set_assignedobjectid(from.assignedobjectid());
   }
 }
 
@@ -395,10 +377,9 @@ void SpawnResponse::Swap(SpawnResponse* other) {
 }
 void SpawnResponse::InternalSwap(SpawnResponse* other) {
   using std::swap;
-  assignedobjectid_.Swap(&other->assignedobjectid_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
   spawnrequestid_.Swap(&other->spawnrequestid_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(assignedobjectid_, other->assignedobjectid_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 

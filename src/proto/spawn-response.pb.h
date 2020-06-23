@@ -146,20 +146,6 @@ class SpawnResponse : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // string assignedObjectId = 1;
-  void clear_assignedobjectid();
-  static const int kAssignedObjectIdFieldNumber = 1;
-  const ::std::string& assignedobjectid() const;
-  void set_assignedobjectid(const ::std::string& value);
-  #if LANG_CXX11
-  void set_assignedobjectid(::std::string&& value);
-  #endif
-  void set_assignedobjectid(const char* value);
-  void set_assignedobjectid(const char* value, size_t size);
-  ::std::string* mutable_assignedobjectid();
-  ::std::string* release_assignedobjectid();
-  void set_allocated_assignedobjectid(::std::string* assignedobjectid);
-
   // string spawnRequestId = 2;
   void clear_spawnrequestid();
   static const int kSpawnRequestIdFieldNumber = 2;
@@ -174,12 +160,18 @@ class SpawnResponse : public ::google::protobuf::Message /* @@protoc_insertion_p
   ::std::string* release_spawnrequestid();
   void set_allocated_spawnrequestid(::std::string* spawnrequestid);
 
+  // int32 assignedObjectId = 1;
+  void clear_assignedobjectid();
+  static const int kAssignedObjectIdFieldNumber = 1;
+  ::google::protobuf::int32 assignedobjectid() const;
+  void set_assignedobjectid(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:multiplayer.SpawnResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr assignedobjectid_;
   ::google::protobuf::internal::ArenaStringPtr spawnrequestid_;
+  ::google::protobuf::int32 assignedobjectid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_spawn_2dresponse_2eproto::TableStruct;
 };
@@ -194,57 +186,18 @@ class SpawnResponse : public ::google::protobuf::Message /* @@protoc_insertion_p
 #endif  // __GNUC__
 // SpawnResponse
 
-// string assignedObjectId = 1;
+// int32 assignedObjectId = 1;
 inline void SpawnResponse::clear_assignedobjectid() {
-  assignedobjectid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  assignedobjectid_ = 0;
 }
-inline const ::std::string& SpawnResponse::assignedobjectid() const {
+inline ::google::protobuf::int32 SpawnResponse::assignedobjectid() const {
   // @@protoc_insertion_point(field_get:multiplayer.SpawnResponse.assignedObjectId)
-  return assignedobjectid_.GetNoArena();
+  return assignedobjectid_;
 }
-inline void SpawnResponse::set_assignedobjectid(const ::std::string& value) {
+inline void SpawnResponse::set_assignedobjectid(::google::protobuf::int32 value) {
   
-  assignedobjectid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  assignedobjectid_ = value;
   // @@protoc_insertion_point(field_set:multiplayer.SpawnResponse.assignedObjectId)
-}
-#if LANG_CXX11
-inline void SpawnResponse::set_assignedobjectid(::std::string&& value) {
-  
-  assignedobjectid_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:multiplayer.SpawnResponse.assignedObjectId)
-}
-#endif
-inline void SpawnResponse::set_assignedobjectid(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  assignedobjectid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:multiplayer.SpawnResponse.assignedObjectId)
-}
-inline void SpawnResponse::set_assignedobjectid(const char* value, size_t size) {
-  
-  assignedobjectid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:multiplayer.SpawnResponse.assignedObjectId)
-}
-inline ::std::string* SpawnResponse::mutable_assignedobjectid() {
-  
-  // @@protoc_insertion_point(field_mutable:multiplayer.SpawnResponse.assignedObjectId)
-  return assignedobjectid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* SpawnResponse::release_assignedobjectid() {
-  // @@protoc_insertion_point(field_release:multiplayer.SpawnResponse.assignedObjectId)
-  
-  return assignedobjectid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void SpawnResponse::set_allocated_assignedobjectid(::std::string* assignedobjectid) {
-  if (assignedobjectid != NULL) {
-    
-  } else {
-    
-  }
-  assignedobjectid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), assignedobjectid);
-  // @@protoc_insertion_point(field_set_allocated:multiplayer.SpawnResponse.assignedObjectId)
 }
 
 // string spawnRequestId = 2;
