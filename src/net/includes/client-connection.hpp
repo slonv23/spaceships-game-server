@@ -25,7 +25,7 @@ class ClientConnection {
             rtc::Configuration &webRtcConfig);
 
         void onClosed(std::function<void()> callback);
-        void onMessage(std::function<void(binary)> callback);
+        void onMessage(std::function<void(binary &)> callback);
 
         bool isClosed();
 
@@ -40,5 +40,5 @@ class ClientConnection {
         std::shared_ptr<rtc::PeerConnection> peerConnection;
         std::shared_ptr<rtc::DataChannel> dataChannel;
         std::function<void()> closedCallback;
-        std::function<void(binary)> messageCallback;
+        std::function<void(binary &)> messageCallback;
 };

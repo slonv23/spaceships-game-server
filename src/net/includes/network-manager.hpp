@@ -24,21 +24,20 @@ class NetworkManager {
         NetworkManager(IpcConnection &_ipcConnection);
         ~NetworkManager();
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
+        void completeRequest(int requestId, binary &message);
+        void broadcast(binary &message);
 
         std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
     private:
         rtc::Configuration webRtcConfig;
         std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
-        unsigned int lastUsedRequestId = 0;
+        int lastUsedRequestId = 1;
         IpcConnection &ipcConnection;
 
-        void handleMessage(std::string clientId, binary message);
+        void handleMessage(std::string clientId, binary &message);
         bool issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot);
         inline int generateRequestId() {
-            return ++this->lastUsedRequestId;
+            this->lastUsedRequestId += 2;
+            return this->lastUsedRequestId;
         }
 };
-
-
-
-//extern NetworkManager networkManager;

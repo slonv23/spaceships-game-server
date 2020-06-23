@@ -92,7 +92,7 @@ void ClientConnection::onClosed(std::function<void()> callback) {
     this->closedCallback = callback;
 }
 
-void ClientConnection::onMessage(std::function<void(binary)> callback) {
+void ClientConnection::onMessage(std::function<void(binary &)> callback) {
     this->messageCallback = callback;
 }
 

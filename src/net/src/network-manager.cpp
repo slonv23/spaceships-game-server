@@ -45,7 +45,8 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
     return webRtcNegotiationServerParams;
 }
 
-void NetworkManager::handleMessage(std::string clientId, binary message) {
+void NetworkManager::handleMessage(std::string clientId, binary &message) {
+    // TODO move this code segment to template method >>>
     int decodedBytes;
     int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
     spdlog::info("Message size: {}", size);
@@ -53,6 +54,7 @@ void NetworkManager::handleMessage(std::string clientId, binary message) {
     std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
     multiplayer::RequestRoot requestRoot;
     requestRoot.ParseFromString(binaryString);
+    // <<<<<<<<<<<<
 
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
@@ -78,4 +80,26 @@ bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot
     }
 
     return false;
+}
+
+void NetworkManager::completeRequest(int requestId, binary &message) {
+    auto search = this->clientConnectionByRequestId.find(requestId);
+    if (search == this->clientConnectionByRequestId.end()) {
+        throw std::runtime_error("Cannot find client issued the request");
+    }
+
+    auto clientConnection = search->second.lock();
+    if (clientConnection) {
+        bool requestPending = clientConnection->requestPending.load();
+        clientConnection->requestPending.compare_exchange_strong(requestPending, false);
+        this->clientConnectionByRequestId.erase(requestId);
+        clientConnection->sendMessage(message);
+    }
+}
+
+void NetworkManager::broadcast(binary &message) {
+    std::map<std::string, std::shared_ptr<ClientConnection>>::iterator it = this->clientConnectionsById.begin();
+    while (it != this->clientConnectionsById.end()) {
+        it->second->sendMessage(message);
+    }
 }
