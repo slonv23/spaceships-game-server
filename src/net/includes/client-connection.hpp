@@ -16,7 +16,7 @@ using binary = std::vector<std::byte>;
 
 class ClientConnection {
     public:
-        ClientConnection(std::string id) : id{id}, requestPending{false} {};
+        ClientConnection(std::string id): id{id}, requestPending{false} {};
         ~ClientConnection();
 
         shared_promise connect(
@@ -28,6 +28,8 @@ class ClientConnection {
         void onMessage(std::function<void(binary)> callback);
 
         bool isClosed();
+
+        void sendMessage(binary const& message);
 
         std::string id;
         std::string controlledObjectId;

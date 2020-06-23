@@ -24,9 +24,10 @@ class NetworkManager {
         NetworkManager(IpcConnection &_ipcConnection);
         ~NetworkManager();
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
+
+        std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
     private:
         rtc::Configuration webRtcConfig;
-        std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
         std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
         unsigned int lastUsedRequestId = 0;
         IpcConnection &ipcConnection;

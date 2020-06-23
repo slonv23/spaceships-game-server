@@ -20,6 +20,8 @@ IpcConnection::~IpcConnection() {
 }
 
 void IpcConnection::writeMsg(google::protobuf::Message &msg) {
+    std::scoped_lock lock{writeMutex};
+
     unsigned int msgSize = static_cast<int>(msg.ByteSizeLong());
     //this->writeInt(msgSize);
     utils::writeUnsignedVarint(this->ostream.get(), msgSize);
@@ -50,4 +52,11 @@ void IpcConnection::ipcConnect() {
     this->ostream = std::make_unique<std::ostream>(this->filebuf.get());
 
     spdlog::debug("IpcConnection: Connected to world simulator socket server");
+}
+
+binary IpcConnection::readBinary() {
+    size_t size = recv(this->fileDescriptor, &this->readBuffer, IpcConnection::bufferSize, 0);
+    binary message(this->readBuffer, this->readBuffer + size);
+
+    return message;
 }

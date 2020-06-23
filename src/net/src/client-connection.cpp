@@ -100,6 +100,12 @@ bool ClientConnection::isClosed() {
     return this->closed;
 }
 
+void ClientConnection::sendMessage(binary const& message) {
+    //std::variant<binary, string> data = message;
+    //this->dataChannel->send(data);
+    this->dataChannel->send(message);
+}
+
 ClientConnection::~ClientConnection() {
     spdlog::debug("ClientConnection: Waiting for peer connection to close");
 
