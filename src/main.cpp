@@ -4,6 +4,7 @@
 #include <unistd.h> /* sleep */
 #include <signal.h>
 #include <thread>
+#include <exception>
 #include "rtc/rtc.hpp"
 #include "served/served.hpp"
 #include "spdlog/spdlog.h"
@@ -40,8 +41,6 @@ int main(int argc, char *argv[]) {
    worldSimulatorIpcConnection.ipcConnect();
 
    std::thread retransmitterThread(&Retransmitter::start, &retransmitter);
-   retransmitterThread.detach();
-   // TODO use std::terminate()
 
    //helloworld::HelloWorld msg = createTestMsg();
    //worldSimulatorIpcConnection.writeMsg(msg);
@@ -69,6 +68,9 @@ int main(int argc, char *argv[]) {
 		});
 
    ioService.run();
+
+   retransmitter.stop();
+   retransmitterThread.join();
 
    return 0;
 }

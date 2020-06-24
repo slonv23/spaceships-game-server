@@ -38,6 +38,10 @@ void IpcConnection::ipcConnect() {
     spdlog::debug("IpcConnection: Connecting to world simulator socket server...");
 
     this->fileDescriptor = socket(AF_UNIX, SOCK_STREAM, 0); // SOCK_DGRAM not work
+    struct timeval tv;
+    tv.tv_sec = 1;
+    tv.tv_usec = 0;
+    setsockopt(this->fileDescriptor, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
 
     struct sockaddr_un address;
     std::memset(&address, 0, sizeof(address));
@@ -55,8 +59,17 @@ void IpcConnection::ipcConnect() {
 }
 
 binary IpcConnection::readBinary() {
-    size_t size = recv(this->fileDescriptor, &this->readBuffer, IpcConnection::bufferSize, 0);
-    binary message(this->readBuffer, this->readBuffer + size);
+    ssize_t size = recv(this->fileDescriptor, &this->readBuffer, IpcConnection::bufferSize, 0);
 
-    return message;
+    if (size != -1) {
+        binary message(this->readBuffer, this->readBuffer + size);
+        return message;
+    } else {
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return {};
+        } else {
+            spdlog::error("IpcConnection: Failed to read from socket, error: {}", std::strerror(errno));
+            throw std::runtime_error("Failed to read from socket");
+        }
+    }
 }
