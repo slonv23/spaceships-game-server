@@ -3,6 +3,7 @@
 #include <boost/asio.hpp>
 #include <unistd.h> /* sleep */
 #include <signal.h>
+#include <thread>
 #include "rtc/rtc.hpp"
 #include "served/served.hpp"
 #include "spdlog/spdlog.h"
@@ -11,6 +12,7 @@
 #include "net/includes/network-manager.hpp"
 #include "net/includes/signaling-server.hpp"
 #include "world-simulator-ipc/includes/ipc-connection.hpp"
+#include "world-simulator-ipc/includes/retransmitter.hpp"
 #include "proto/helloworld.pb.h"
 
 helloworld::HelloWorld createTestMsg() {
@@ -27,6 +29,7 @@ int main(int argc, char *argv[]) {
    IpcConnection worldSimulatorIpcConnection;
    NetworkManager networkManager(worldSimulatorIpcConnection);
    SignalingServer signalingServer(networkManager);
+   Retransmitter retransmitter(worldSimulatorIpcConnection, networkManager);
 
    spdlog::set_level(spdlog::level::debug);
    //spdlog::flush_every(std::chrono::seconds(3));
@@ -35,6 +38,10 @@ int main(int argc, char *argv[]) {
    //worldSimulatorConnector.start();
    signalingServer.start();
    worldSimulatorIpcConnection.ipcConnect();
+
+   std::thread retransmitterThread(&Retransmitter::start, &retransmitter);
+   retransmitterThread.detach();
+   // TODO use std::terminate()
 
    //helloworld::HelloWorld msg = createTestMsg();
    //worldSimulatorIpcConnection.writeMsg(msg);

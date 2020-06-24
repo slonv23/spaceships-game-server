@@ -11,17 +11,20 @@ void Retransmitter::start() {
     int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
     spdlog::info("Received message from world-simulator-app with size: {}", size);
 
-    std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
-    multiplayer::ResponseRoot responseRoot;
-    responseRoot.ParseFromString(binaryString);
+    try {
+        std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
+        multiplayer::ResponseRoot responseRoot;
+        responseRoot.ParseFromString(binaryString);
 
-    int requestId = responseRoot.requestid();
-    if (requestId != 0) {
-        // retransmit message to specific client
-        this->networkManager.completeRequest(requestId, message);
-    } else {
-        // broadcast message
-        this->networkManager.broadcast(message);
+        int requestId = responseRoot.requestid();
+        if (requestId != 0) {
+            // retransmit message to specific client
+            this->networkManager.completeRequest(requestId, message);
+        } else {
+            // broadcast message
+            this->networkManager.broadcast(message);
+        }
+    } catch (const std::exception &e) {
+        spdlog::error("Failed to process world-simulator-app message, error: {}", e.what());
     }
-
 }
