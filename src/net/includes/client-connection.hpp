@@ -28,6 +28,7 @@ class ClientConnection {
         void onMessage(std::function<void(binary &)> callback);
 
         bool isClosed();
+        bool isReady();
 
         void sendMessage(binary const& message);
 

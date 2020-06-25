@@ -100,6 +100,8 @@ void NetworkManager::completeRequest(int requestId, binary &message) {
 void NetworkManager::broadcast(binary &message) {
     std::map<std::string, std::shared_ptr<ClientConnection>>::iterator it = this->clientConnectionsById.begin();
     while (it != this->clientConnectionsById.end()) {
-        it->second->sendMessage(message);
+        if (it->second->isReady()) {
+            it->second->sendMessage(message);
+        }
     }
 }

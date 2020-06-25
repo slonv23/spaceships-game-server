@@ -100,6 +100,10 @@ bool ClientConnection::isClosed() {
     return this->closed;
 }
 
+bool ClientConnection::isReady() {
+    return bool(this->dataChannel);
+}
+
 void ClientConnection::sendMessage(binary const& message) {
     //std::variant<binary, string> data = message;
     //this->dataChannel->send(data);
