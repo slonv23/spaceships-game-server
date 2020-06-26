@@ -101,7 +101,7 @@ bool ClientConnection::isClosed() {
 }
 
 bool ClientConnection::isReady() {
-    return bool(this->dataChannel);
+    return !this->closed && bool(this->dataChannel);
 }
 
 void ClientConnection::sendMessage(binary const& message) {

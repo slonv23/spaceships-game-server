@@ -3,6 +3,7 @@
 #include <memory>
 #include <map>
 #include <future>
+#include <mutex>
 #include "rtc/rtc.hpp"
 
 #include "client-connection.hpp"
@@ -26,9 +27,9 @@ class NetworkManager {
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
         void completeRequest(int requestId, binary &message);
         void broadcast(binary &message);
-
-        std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
     private:
+        std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
+        mutable std::mutex connectionsMutex;
         rtc::Configuration webRtcConfig;
         std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
         int lastUsedRequestId = 1;

@@ -33,6 +33,7 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
 
     clientConnection->onClosed([&, id]() {
         spdlog::debug("NetworkManager: Client '{}' disconnected", id);
+        std::scoped_lock lock{connectionsMutex};
         this->clientConnectionsById.erase(id);
     });
 
@@ -83,6 +84,8 @@ bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot
 }
 
 void NetworkManager::completeRequest(int requestId, binary &message) {
+    std::scoped_lock lock{connectionsMutex};
+
     auto search = this->clientConnectionByRequestId.find(requestId);
     if (search == this->clientConnectionByRequestId.end()) {
         throw std::runtime_error("Cannot find client issued the request");
@@ -98,10 +101,13 @@ void NetworkManager::completeRequest(int requestId, binary &message) {
 }
 
 void NetworkManager::broadcast(binary &message) {
+    std::scoped_lock lock{connectionsMutex};
+
     std::map<std::string, std::shared_ptr<ClientConnection>>::iterator it = this->clientConnectionsById.begin();
     while (it != this->clientConnectionsById.end()) {
         if (it->second->isReady()) {
             it->second->sendMessage(message);
         }
+        it++;
     }
 }
