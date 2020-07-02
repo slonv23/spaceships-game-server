@@ -146,9 +146,9 @@ class InputAction : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // string objectId = 5;
+  // string objectId = 6;
   void clear_objectid();
-  static const int kObjectIdFieldNumber = 5;
+  static const int kObjectIdFieldNumber = 6;
   const ::std::string& objectid() const;
   void set_objectid(const ::std::string& value);
   #if LANG_CXX11
@@ -160,27 +160,33 @@ class InputAction : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::std::string* release_objectid();
   void set_allocated_objectid(::std::string* objectid);
 
-  // float yaw = 1;
+  // int32 frameIndex = 1;
+  void clear_frameindex();
+  static const int kFrameIndexFieldNumber = 1;
+  ::google::protobuf::int32 frameindex() const;
+  void set_frameindex(::google::protobuf::int32 value);
+
+  // float yaw = 2;
   void clear_yaw();
-  static const int kYawFieldNumber = 1;
+  static const int kYawFieldNumber = 2;
   float yaw() const;
   void set_yaw(float value);
 
-  // float pitch = 2;
+  // float pitch = 3;
   void clear_pitch();
-  static const int kPitchFieldNumber = 2;
+  static const int kPitchFieldNumber = 3;
   float pitch() const;
   void set_pitch(float value);
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   void clear_rotationspeed();
-  static const int kRotationSpeedFieldNumber = 3;
+  static const int kRotationSpeedFieldNumber = 4;
   float rotationspeed() const;
   void set_rotationspeed(float value);
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   void clear_rollangle();
-  static const int kRollAngleFieldNumber = 4;
+  static const int kRollAngleFieldNumber = 5;
   float rollangle() const;
   void set_rollangle(float value);
 
@@ -189,6 +195,7 @@ class InputAction : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr objectid_;
+  ::google::protobuf::int32 frameindex_;
   float yaw_;
   float pitch_;
   float rotationspeed_;
@@ -207,7 +214,21 @@ class InputAction : public ::google::protobuf::Message /* @@protoc_insertion_poi
 #endif  // __GNUC__
 // InputAction
 
-// float yaw = 1;
+// int32 frameIndex = 1;
+inline void InputAction::clear_frameindex() {
+  frameindex_ = 0;
+}
+inline ::google::protobuf::int32 InputAction::frameindex() const {
+  // @@protoc_insertion_point(field_get:multiplayer.InputAction.frameIndex)
+  return frameindex_;
+}
+inline void InputAction::set_frameindex(::google::protobuf::int32 value) {
+  
+  frameindex_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.InputAction.frameIndex)
+}
+
+// float yaw = 2;
 inline void InputAction::clear_yaw() {
   yaw_ = 0;
 }
@@ -221,7 +242,7 @@ inline void InputAction::set_yaw(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.InputAction.yaw)
 }
 
-// float pitch = 2;
+// float pitch = 3;
 inline void InputAction::clear_pitch() {
   pitch_ = 0;
 }
@@ -235,7 +256,7 @@ inline void InputAction::set_pitch(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.InputAction.pitch)
 }
 
-// float rotationSpeed = 3;
+// float rotationSpeed = 4;
 inline void InputAction::clear_rotationspeed() {
   rotationspeed_ = 0;
 }
@@ -249,7 +270,7 @@ inline void InputAction::set_rotationspeed(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.InputAction.rotationSpeed)
 }
 
-// float rollAngle = 4;
+// float rollAngle = 5;
 inline void InputAction::clear_rollangle() {
   rollangle_ = 0;
 }
@@ -263,7 +284,7 @@ inline void InputAction::set_rollangle(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.InputAction.rollAngle)
 }
 
-// string objectId = 5;
+// string objectId = 6;
 inline void InputAction::clear_objectid() {
   objectid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

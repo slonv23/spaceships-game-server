@@ -20,7 +20,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_object_2dstate_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2dstate_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_ObjectState;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2dstate_2eproto ::google::protobuf::internal::SCCInfo<3> scc_info_ObjectState;
 }  // namespace protobuf_object_2dstate_2eproto
 namespace multiplayer {
 class WorldStateDefaultTypeInternal {
@@ -57,6 +57,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::WorldState, frameindex_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::WorldState, objectstates_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -89,12 +90,12 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\021world-state.proto\022\013multiplayer\032\022object"
-      "-state.proto\"<\n\nWorldState\022.\n\014objectStat"
-      "es\030\001 \003(\0132\030.multiplayer.ObjectStateb\006prot"
-      "o3"
+      "-state.proto\"P\n\nWorldState\022\022\n\nframeIndex"
+      "\030\001 \001(\005\022.\n\014objectStates\030\002 \003(\0132\030.multiplay"
+      "er.ObjectStateb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 122);
+      descriptor, 142);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "world-state.proto", &protobuf_RegisterTypes);
   ::protobuf_object_2dstate_2eproto::AddDescriptors();
@@ -121,6 +122,7 @@ void WorldState::clear_objectstates() {
   objectstates_.Clear();
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int WorldState::kFrameIndexFieldNumber;
 const int WorldState::kObjectStatesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -136,10 +138,12 @@ WorldState::WorldState(const WorldState& from)
       _internal_metadata_(NULL),
       objectstates_(from.objectstates_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  frameindex_ = from.frameindex_;
   // @@protoc_insertion_point(copy_constructor:multiplayer.WorldState)
 }
 
 void WorldState::SharedCtor() {
+  frameindex_ = 0;
 }
 
 WorldState::~WorldState() {
@@ -171,6 +175,7 @@ void WorldState::Clear() {
   (void) cached_has_bits;
 
   objectstates_.Clear();
+  frameindex_ = 0;
   _internal_metadata_.Clear();
 }
 
@@ -184,10 +189,24 @@ bool WorldState::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .multiplayer.ObjectState objectStates = 1;
+      // int32 frameIndex = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &frameindex_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .multiplayer.ObjectState objectStates = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                 input, add_objectstates()));
         } else {
@@ -222,11 +241,16 @@ void WorldState::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .multiplayer.ObjectState objectStates = 1;
+  // int32 frameIndex = 1;
+  if (this->frameindex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->frameindex(), output);
+  }
+
+  // repeated .multiplayer.ObjectState objectStates = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->objectstates_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1,
+      2,
       this->objectstates(static_cast<int>(i)),
       output);
   }
@@ -245,12 +269,17 @@ void WorldState::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .multiplayer.ObjectState objectStates = 1;
+  // int32 frameIndex = 1;
+  if (this->frameindex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->frameindex(), target);
+  }
+
+  // repeated .multiplayer.ObjectState objectStates = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->objectstates_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, this->objectstates(static_cast<int>(i)), deterministic, target);
+        2, this->objectstates(static_cast<int>(i)), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -270,7 +299,7 @@ size_t WorldState::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated .multiplayer.ObjectState objectStates = 1;
+  // repeated .multiplayer.ObjectState objectStates = 2;
   {
     unsigned int count = static_cast<unsigned int>(this->objectstates_size());
     total_size += 1UL * count;
@@ -279,6 +308,13 @@ size_t WorldState::ByteSizeLong() const {
         ::google::protobuf::internal::WireFormatLite::MessageSize(
           this->objectstates(static_cast<int>(i)));
     }
+  }
+
+  // int32 frameIndex = 1;
+  if (this->frameindex() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->frameindex());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -309,6 +345,9 @@ void WorldState::MergeFrom(const WorldState& from) {
   (void) cached_has_bits;
 
   objectstates_.MergeFrom(from.objectstates_);
+  if (from.frameindex() != 0) {
+    set_frameindex(from.frameindex());
+  }
 }
 
 void WorldState::CopyFrom(const ::google::protobuf::Message& from) {
@@ -336,6 +375,7 @@ void WorldState::Swap(WorldState* other) {
 void WorldState::InternalSwap(WorldState* other) {
   using std::swap;
   CastToBase(&objectstates_)->InternalSwap(CastToBase(&other->objectstates_));
+  swap(frameindex_, other->frameindex_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 

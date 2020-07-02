@@ -53,6 +53,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::InputAction, frameindex_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::InputAction, yaw_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::InputAction, pitch_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::InputAction, rotationspeed_),
@@ -88,13 +89,14 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\022input-action.proto\022\013multiplayer\"e\n\013Inp"
-      "utAction\022\013\n\003yaw\030\001 \001(\002\022\r\n\005pitch\030\002 \001(\002\022\025\n\r"
-      "rotationSpeed\030\003 \001(\002\022\021\n\trollAngle\030\004 \001(\002\022\020"
-      "\n\010objectId\030\005 \001(\tb\006proto3"
+      "\n\022input-action.proto\022\013multiplayer\"y\n\013Inp"
+      "utAction\022\022\n\nframeIndex\030\001 \001(\005\022\013\n\003yaw\030\002 \001("
+      "\002\022\r\n\005pitch\030\003 \001(\002\022\025\n\rrotationSpeed\030\004 \001(\002\022"
+      "\021\n\trollAngle\030\005 \001(\002\022\020\n\010objectId\030\006 \001(\tb\006pr"
+      "oto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 144);
+      descriptor, 164);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "input-action.proto", &protobuf_RegisterTypes);
 }
@@ -117,6 +119,7 @@ namespace multiplayer {
 void InputAction::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int InputAction::kFrameIndexFieldNumber;
 const int InputAction::kYawFieldNumber;
 const int InputAction::kPitchFieldNumber;
 const int InputAction::kRotationSpeedFieldNumber;
@@ -139,17 +142,17 @@ InputAction::InputAction(const InputAction& from)
   if (from.objectid().size() > 0) {
     objectid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.objectid_);
   }
-  ::memcpy(&yaw_, &from.yaw_,
+  ::memcpy(&frameindex_, &from.frameindex_,
     static_cast<size_t>(reinterpret_cast<char*>(&rollangle_) -
-    reinterpret_cast<char*>(&yaw_)) + sizeof(rollangle_));
+    reinterpret_cast<char*>(&frameindex_)) + sizeof(rollangle_));
   // @@protoc_insertion_point(copy_constructor:multiplayer.InputAction)
 }
 
 void InputAction::SharedCtor() {
   objectid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&yaw_, 0, static_cast<size_t>(
+  ::memset(&frameindex_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&rollangle_) -
-      reinterpret_cast<char*>(&yaw_)) + sizeof(rollangle_));
+      reinterpret_cast<char*>(&frameindex_)) + sizeof(rollangle_));
 }
 
 InputAction::~InputAction() {
@@ -182,9 +185,9 @@ void InputAction::Clear() {
   (void) cached_has_bits;
 
   objectid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&yaw_, 0, static_cast<size_t>(
+  ::memset(&frameindex_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&rollangle_) -
-      reinterpret_cast<char*>(&yaw_)) + sizeof(rollangle_));
+      reinterpret_cast<char*>(&frameindex_)) + sizeof(rollangle_));
   _internal_metadata_.Clear();
 }
 
@@ -198,10 +201,24 @@ bool InputAction::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // float yaw = 1;
+      // int32 frameIndex = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(13u /* 13 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &frameindex_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float yaw = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(21u /* 21 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -212,10 +229,10 @@ bool InputAction::MergePartialFromCodedStream(
         break;
       }
 
-      // float pitch = 2;
-      case 2: {
+      // float pitch = 3;
+      case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(21u /* 21 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(29u /* 29 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -226,10 +243,10 @@ bool InputAction::MergePartialFromCodedStream(
         break;
       }
 
-      // float rotationSpeed = 3;
-      case 3: {
+      // float rotationSpeed = 4;
+      case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(29u /* 29 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(37u /* 37 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -240,10 +257,10 @@ bool InputAction::MergePartialFromCodedStream(
         break;
       }
 
-      // float rollAngle = 4;
-      case 4: {
+      // float rollAngle = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(37u /* 37 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(45u /* 45 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -254,10 +271,10 @@ bool InputAction::MergePartialFromCodedStream(
         break;
       }
 
-      // string objectId = 5;
-      case 5: {
+      // string objectId = 6;
+      case 6: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_objectid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -296,34 +313,39 @@ void InputAction::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // float yaw = 1;
+  // int32 frameIndex = 1;
+  if (this->frameindex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->frameindex(), output);
+  }
+
+  // float yaw = 2;
   if (this->yaw() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->yaw(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->yaw(), output);
   }
 
-  // float pitch = 2;
+  // float pitch = 3;
   if (this->pitch() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->pitch(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->pitch(), output);
   }
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   if (this->rotationspeed() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->rotationspeed(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->rotationspeed(), output);
   }
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   if (this->rollangle() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->rollangle(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->rollangle(), output);
   }
 
-  // string objectId = 5;
+  // string objectId = 6;
   if (this->objectid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->objectid().data(), static_cast<int>(this->objectid().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "multiplayer.InputAction.objectId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->objectid(), output);
+      6, this->objectid(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -340,27 +362,32 @@ void InputAction::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // float yaw = 1;
+  // int32 frameIndex = 1;
+  if (this->frameindex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->frameindex(), target);
+  }
+
+  // float yaw = 2;
   if (this->yaw() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->yaw(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->yaw(), target);
   }
 
-  // float pitch = 2;
+  // float pitch = 3;
   if (this->pitch() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->pitch(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->pitch(), target);
   }
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   if (this->rotationspeed() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->rotationspeed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->rotationspeed(), target);
   }
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   if (this->rollangle() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->rollangle(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->rollangle(), target);
   }
 
-  // string objectId = 5;
+  // string objectId = 6;
   if (this->objectid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->objectid().data(), static_cast<int>(this->objectid().length()),
@@ -368,7 +395,7 @@ void InputAction::SerializeWithCachedSizes(
       "multiplayer.InputAction.objectId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->objectid(), target);
+        6, this->objectid(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -388,29 +415,36 @@ size_t InputAction::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // string objectId = 5;
+  // string objectId = 6;
   if (this->objectid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->objectid());
   }
 
-  // float yaw = 1;
+  // int32 frameIndex = 1;
+  if (this->frameindex() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->frameindex());
+  }
+
+  // float yaw = 2;
   if (this->yaw() != 0) {
     total_size += 1 + 4;
   }
 
-  // float pitch = 2;
+  // float pitch = 3;
   if (this->pitch() != 0) {
     total_size += 1 + 4;
   }
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   if (this->rotationspeed() != 0) {
     total_size += 1 + 4;
   }
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   if (this->rollangle() != 0) {
     total_size += 1 + 4;
   }
@@ -445,6 +479,9 @@ void InputAction::MergeFrom(const InputAction& from) {
   if (from.objectid().size() > 0) {
 
     objectid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.objectid_);
+  }
+  if (from.frameindex() != 0) {
+    set_frameindex(from.frameindex());
   }
   if (from.yaw() != 0) {
     set_yaw(from.yaw());
@@ -486,6 +523,7 @@ void InputAction::InternalSwap(InputAction* other) {
   using std::swap;
   objectid_.Swap(&other->objectid_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(frameindex_, other->frameindex_);
   swap(yaw_, other->yaw_);
   swap(pitch_, other->pitch_);
   swap(rotationspeed_, other->rotationspeed_);

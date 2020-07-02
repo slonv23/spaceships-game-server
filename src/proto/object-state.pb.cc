@@ -22,6 +22,9 @@
 namespace protobuf_float_2dvector_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_float_2dvector_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_FloatVector;
 }  // namespace protobuf_float_2dvector_2eproto
+namespace protobuf_input_2daction_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_input_2daction_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_InputAction;
+}  // namespace protobuf_input_2daction_2eproto
 namespace protobuf_quaternion_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_quaternion_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_Quaternion;
 }  // namespace protobuf_quaternion_2eproto
@@ -44,10 +47,11 @@ static void InitDefaultsObjectState() {
   ::multiplayer::ObjectState::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<2> scc_info_ObjectState =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsObjectState}, {
+::google::protobuf::internal::SCCInfo<3> scc_info_ObjectState =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsObjectState}, {
       &protobuf_float_2dvector_2eproto::scc_info_FloatVector.base,
-      &protobuf_quaternion_2eproto::scc_info_Quaternion.base,}};
+      &protobuf_quaternion_2eproto::scc_info_Quaternion.base,
+      &protobuf_input_2daction_2eproto::scc_info_InputAction.base,}};
 
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_ObjectState.base);
@@ -68,10 +72,9 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, speed_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, acceleration_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, angularvelocity_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, angularacceleration_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, rollanglebtwcurrentandtargetorientation_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, controlx_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, controlquaternion_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectState, actions_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::multiplayer::ObjectState)},
@@ -103,25 +106,25 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\022object-state.proto\022\013multiplayer\032\022float"
-      "-vector.proto\032\020quaternion.proto\"\246\003\n\013Obje"
-      "ctState\022\n\n\002id\030\001 \001(\005\022\022\n\nobjectType\030\002 \001(\005\022"
-      "*\n\010position\030\003 \001(\0132\030.multiplayer.FloatVec"
-      "tor\022+\n\nquaternion\030\004 \001(\0132\027.multiplayer.Qu"
-      "aternion\022\r\n\005speed\030\005 \001(\002\022\024\n\014acceleration\030"
-      "\006 \001(\002\0221\n\017angularVelocity\030\007 \001(\0132\030.multipl"
-      "ayer.FloatVector\0225\n\023angularAcceleration\030"
-      "\010 \001(\0132\030.multiplayer.FloatVector\022/\n\'rollA"
-      "ngleBtwCurrentAndTargetOrientation\030\t \001(\002"
-      "\022*\n\010controlX\030\013 \001(\0132\030.multiplayer.FloatVe"
-      "ctor\0222\n\021controlQuaternion\030\014 \001(\0132\027.multip"
-      "layer.Quaternionb\006proto3"
+      "-vector.proto\032\020quaternion.proto\032\022input-a"
+      "ction.proto\"\356\002\n\013ObjectState\022\n\n\002id\030\001 \001(\005\022"
+      "\022\n\nobjectType\030\002 \001(\005\022*\n\010position\030\003 \001(\0132\030."
+      "multiplayer.FloatVector\022+\n\nquaternion\030\004 "
+      "\001(\0132\027.multiplayer.Quaternion\022\r\n\005speed\030\005 "
+      "\001(\002\022\024\n\014acceleration\030\006 \001(\002\0221\n\017angularVelo"
+      "city\030\007 \001(\0132\030.multiplayer.FloatVector\022/\n\'"
+      "rollAngleBtwCurrentAndTargetOrientation\030"
+      "\010 \001(\002\0222\n\021controlQuaternion\030\t \001(\0132\027.multi"
+      "player.Quaternion\022)\n\007actions\030\n \003(\0132\030.mul"
+      "tiplayer.InputActionb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 504);
+      descriptor, 468);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "object-state.proto", &protobuf_RegisterTypes);
   ::protobuf_float_2dvector_2eproto::AddDescriptors();
   ::protobuf_quaternion_2eproto::AddDescriptors();
+  ::protobuf_input_2daction_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -146,10 +149,6 @@ void ObjectState::InitAsDefaultInstance() {
       ::multiplayer::Quaternion::internal_default_instance());
   ::multiplayer::_ObjectState_default_instance_._instance.get_mutable()->angularvelocity_ = const_cast< ::multiplayer::FloatVector*>(
       ::multiplayer::FloatVector::internal_default_instance());
-  ::multiplayer::_ObjectState_default_instance_._instance.get_mutable()->angularacceleration_ = const_cast< ::multiplayer::FloatVector*>(
-      ::multiplayer::FloatVector::internal_default_instance());
-  ::multiplayer::_ObjectState_default_instance_._instance.get_mutable()->controlx_ = const_cast< ::multiplayer::FloatVector*>(
-      ::multiplayer::FloatVector::internal_default_instance());
   ::multiplayer::_ObjectState_default_instance_._instance.get_mutable()->controlquaternion_ = const_cast< ::multiplayer::Quaternion*>(
       ::multiplayer::Quaternion::internal_default_instance());
 }
@@ -171,23 +170,14 @@ void ObjectState::clear_angularvelocity() {
   }
   angularvelocity_ = NULL;
 }
-void ObjectState::clear_angularacceleration() {
-  if (GetArenaNoVirtual() == NULL && angularacceleration_ != NULL) {
-    delete angularacceleration_;
-  }
-  angularacceleration_ = NULL;
-}
-void ObjectState::clear_controlx() {
-  if (GetArenaNoVirtual() == NULL && controlx_ != NULL) {
-    delete controlx_;
-  }
-  controlx_ = NULL;
-}
 void ObjectState::clear_controlquaternion() {
   if (GetArenaNoVirtual() == NULL && controlquaternion_ != NULL) {
     delete controlquaternion_;
   }
   controlquaternion_ = NULL;
+}
+void ObjectState::clear_actions() {
+  actions_.Clear();
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ObjectState::kIdFieldNumber;
@@ -197,10 +187,9 @@ const int ObjectState::kQuaternionFieldNumber;
 const int ObjectState::kSpeedFieldNumber;
 const int ObjectState::kAccelerationFieldNumber;
 const int ObjectState::kAngularVelocityFieldNumber;
-const int ObjectState::kAngularAccelerationFieldNumber;
 const int ObjectState::kRollAngleBtwCurrentAndTargetOrientationFieldNumber;
-const int ObjectState::kControlXFieldNumber;
 const int ObjectState::kControlQuaternionFieldNumber;
+const int ObjectState::kActionsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ObjectState::ObjectState()
@@ -212,7 +201,8 @@ ObjectState::ObjectState()
 }
 ObjectState::ObjectState(const ObjectState& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      actions_(from.actions_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_position()) {
     position_ = new ::multiplayer::FloatVector(*from.position_);
@@ -228,16 +218,6 @@ ObjectState::ObjectState(const ObjectState& from)
     angularvelocity_ = new ::multiplayer::FloatVector(*from.angularvelocity_);
   } else {
     angularvelocity_ = NULL;
-  }
-  if (from.has_angularacceleration()) {
-    angularacceleration_ = new ::multiplayer::FloatVector(*from.angularacceleration_);
-  } else {
-    angularacceleration_ = NULL;
-  }
-  if (from.has_controlx()) {
-    controlx_ = new ::multiplayer::FloatVector(*from.controlx_);
-  } else {
-    controlx_ = NULL;
   }
   if (from.has_controlquaternion()) {
     controlquaternion_ = new ::multiplayer::Quaternion(*from.controlquaternion_);
@@ -265,8 +245,6 @@ void ObjectState::SharedDtor() {
   if (this != internal_default_instance()) delete position_;
   if (this != internal_default_instance()) delete quaternion_;
   if (this != internal_default_instance()) delete angularvelocity_;
-  if (this != internal_default_instance()) delete angularacceleration_;
-  if (this != internal_default_instance()) delete controlx_;
   if (this != internal_default_instance()) delete controlquaternion_;
 }
 
@@ -290,6 +268,7 @@ void ObjectState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  actions_.Clear();
   if (GetArenaNoVirtual() == NULL && position_ != NULL) {
     delete position_;
   }
@@ -302,14 +281,6 @@ void ObjectState::Clear() {
     delete angularvelocity_;
   }
   angularvelocity_ = NULL;
-  if (GetArenaNoVirtual() == NULL && angularacceleration_ != NULL) {
-    delete angularacceleration_;
-  }
-  angularacceleration_ = NULL;
-  if (GetArenaNoVirtual() == NULL && controlx_ != NULL) {
-    delete controlx_;
-  }
-  controlx_ = NULL;
   if (GetArenaNoVirtual() == NULL && controlquaternion_ != NULL) {
     delete controlquaternion_;
   }
@@ -422,22 +393,10 @@ bool ObjectState::MergePartialFromCodedStream(
         break;
       }
 
-      // .multiplayer.FloatVector angularAcceleration = 8;
+      // float rollAngleBtwCurrentAndTargetOrientation = 8;
       case 8: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(66u /* 66 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_angularacceleration()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // float rollAngleBtwCurrentAndTargetOrientation = 9;
-      case 9: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(77u /* 77 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(69u /* 69 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -448,24 +407,24 @@ bool ObjectState::MergePartialFromCodedStream(
         break;
       }
 
-      // .multiplayer.FloatVector controlX = 11;
-      case 11: {
+      // .multiplayer.Quaternion controlQuaternion = 9;
+      case 9: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(90u /* 90 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(74u /* 74 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_controlx()));
+               input, mutable_controlquaternion()));
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // .multiplayer.Quaternion controlQuaternion = 12;
-      case 12: {
+      // repeated .multiplayer.InputAction actions = 10;
+      case 10: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(98u /* 98 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(82u /* 82 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_controlquaternion()));
+                input, add_actions()));
         } else {
           goto handle_unusual;
         }
@@ -536,27 +495,24 @@ void ObjectState::SerializeWithCachedSizes(
       7, this->_internal_angularvelocity(), output);
   }
 
-  // .multiplayer.FloatVector angularAcceleration = 8;
-  if (this->has_angularacceleration()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      8, this->_internal_angularacceleration(), output);
-  }
-
-  // float rollAngleBtwCurrentAndTargetOrientation = 9;
+  // float rollAngleBtwCurrentAndTargetOrientation = 8;
   if (this->rollanglebtwcurrentandtargetorientation() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(9, this->rollanglebtwcurrentandtargetorientation(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(8, this->rollanglebtwcurrentandtargetorientation(), output);
   }
 
-  // .multiplayer.FloatVector controlX = 11;
-  if (this->has_controlx()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      11, this->_internal_controlx(), output);
-  }
-
-  // .multiplayer.Quaternion controlQuaternion = 12;
+  // .multiplayer.Quaternion controlQuaternion = 9;
   if (this->has_controlquaternion()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      12, this->_internal_controlquaternion(), output);
+      9, this->_internal_controlquaternion(), output);
+  }
+
+  // repeated .multiplayer.InputAction actions = 10;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->actions_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      10,
+      this->actions(static_cast<int>(i)),
+      output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -614,30 +570,24 @@ void ObjectState::SerializeWithCachedSizes(
         7, this->_internal_angularvelocity(), deterministic, target);
   }
 
-  // .multiplayer.FloatVector angularAcceleration = 8;
-  if (this->has_angularacceleration()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        8, this->_internal_angularacceleration(), deterministic, target);
-  }
-
-  // float rollAngleBtwCurrentAndTargetOrientation = 9;
+  // float rollAngleBtwCurrentAndTargetOrientation = 8;
   if (this->rollanglebtwcurrentandtargetorientation() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(9, this->rollanglebtwcurrentandtargetorientation(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(8, this->rollanglebtwcurrentandtargetorientation(), target);
   }
 
-  // .multiplayer.FloatVector controlX = 11;
-  if (this->has_controlx()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        11, this->_internal_controlx(), deterministic, target);
-  }
-
-  // .multiplayer.Quaternion controlQuaternion = 12;
+  // .multiplayer.Quaternion controlQuaternion = 9;
   if (this->has_controlquaternion()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        12, this->_internal_controlquaternion(), deterministic, target);
+        9, this->_internal_controlquaternion(), deterministic, target);
+  }
+
+  // repeated .multiplayer.InputAction actions = 10;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->actions_size()); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        10, this->actions(static_cast<int>(i)), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -657,6 +607,17 @@ size_t ObjectState::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
+  // repeated .multiplayer.InputAction actions = 10;
+  {
+    unsigned int count = static_cast<unsigned int>(this->actions_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->actions(static_cast<int>(i)));
+    }
+  }
+
   // .multiplayer.FloatVector position = 3;
   if (this->has_position()) {
     total_size += 1 +
@@ -678,21 +639,7 @@ size_t ObjectState::ByteSizeLong() const {
         *angularvelocity_);
   }
 
-  // .multiplayer.FloatVector angularAcceleration = 8;
-  if (this->has_angularacceleration()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *angularacceleration_);
-  }
-
-  // .multiplayer.FloatVector controlX = 11;
-  if (this->has_controlx()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *controlx_);
-  }
-
-  // .multiplayer.Quaternion controlQuaternion = 12;
+  // .multiplayer.Quaternion controlQuaternion = 9;
   if (this->has_controlquaternion()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
@@ -723,7 +670,7 @@ size_t ObjectState::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float rollAngleBtwCurrentAndTargetOrientation = 9;
+  // float rollAngleBtwCurrentAndTargetOrientation = 8;
   if (this->rollanglebtwcurrentandtargetorientation() != 0) {
     total_size += 1 + 4;
   }
@@ -755,6 +702,7 @@ void ObjectState::MergeFrom(const ObjectState& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  actions_.MergeFrom(from.actions_);
   if (from.has_position()) {
     mutable_position()->::multiplayer::FloatVector::MergeFrom(from.position());
   }
@@ -763,12 +711,6 @@ void ObjectState::MergeFrom(const ObjectState& from) {
   }
   if (from.has_angularvelocity()) {
     mutable_angularvelocity()->::multiplayer::FloatVector::MergeFrom(from.angularvelocity());
-  }
-  if (from.has_angularacceleration()) {
-    mutable_angularacceleration()->::multiplayer::FloatVector::MergeFrom(from.angularacceleration());
-  }
-  if (from.has_controlx()) {
-    mutable_controlx()->::multiplayer::FloatVector::MergeFrom(from.controlx());
   }
   if (from.has_controlquaternion()) {
     mutable_controlquaternion()->::multiplayer::Quaternion::MergeFrom(from.controlquaternion());
@@ -814,11 +756,10 @@ void ObjectState::Swap(ObjectState* other) {
 }
 void ObjectState::InternalSwap(ObjectState* other) {
   using std::swap;
+  CastToBase(&actions_)->InternalSwap(CastToBase(&other->actions_));
   swap(position_, other->position_);
   swap(quaternion_, other->quaternion_);
   swap(angularvelocity_, other->angularvelocity_);
-  swap(angularacceleration_, other->angularacceleration_);
-  swap(controlx_, other->controlx_);
   swap(controlquaternion_, other->controlquaternion_);
   swap(id_, other->id_);
   swap(objecttype_, other->objecttype_);

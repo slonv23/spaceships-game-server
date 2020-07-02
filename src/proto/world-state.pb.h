@@ -147,10 +147,10 @@ class WorldState : public ::google::protobuf::Message /* @@protoc_insertion_poin
 
   // accessors -------------------------------------------------------
 
-  // repeated .multiplayer.ObjectState objectStates = 1;
+  // repeated .multiplayer.ObjectState objectStates = 2;
   int objectstates_size() const;
   void clear_objectstates();
-  static const int kObjectStatesFieldNumber = 1;
+  static const int kObjectStatesFieldNumber = 2;
   ::multiplayer::ObjectState* mutable_objectstates(int index);
   ::google::protobuf::RepeatedPtrField< ::multiplayer::ObjectState >*
       mutable_objectstates();
@@ -159,11 +159,18 @@ class WorldState : public ::google::protobuf::Message /* @@protoc_insertion_poin
   const ::google::protobuf::RepeatedPtrField< ::multiplayer::ObjectState >&
       objectstates() const;
 
+  // int32 frameIndex = 1;
+  void clear_frameindex();
+  static const int kFrameIndexFieldNumber = 1;
+  ::google::protobuf::int32 frameindex() const;
+  void set_frameindex(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:multiplayer.WorldState)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::multiplayer::ObjectState > objectstates_;
+  ::google::protobuf::int32 frameindex_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_world_2dstate_2eproto::TableStruct;
 };
@@ -178,7 +185,21 @@ class WorldState : public ::google::protobuf::Message /* @@protoc_insertion_poin
 #endif  // __GNUC__
 // WorldState
 
-// repeated .multiplayer.ObjectState objectStates = 1;
+// int32 frameIndex = 1;
+inline void WorldState::clear_frameindex() {
+  frameindex_ = 0;
+}
+inline ::google::protobuf::int32 WorldState::frameindex() const {
+  // @@protoc_insertion_point(field_get:multiplayer.WorldState.frameIndex)
+  return frameindex_;
+}
+inline void WorldState::set_frameindex(::google::protobuf::int32 value) {
+  
+  frameindex_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.WorldState.frameIndex)
+}
+
+// repeated .multiplayer.ObjectState objectStates = 2;
 inline int WorldState::objectstates_size() const {
   return objectstates_.size();
 }

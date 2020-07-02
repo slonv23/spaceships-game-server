@@ -32,6 +32,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "float-vector.pb.h"
 #include "quaternion.pb.h"
+#include "input-action.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_object_2dstate_2eproto 
 
@@ -148,6 +149,18 @@ class ObjectState : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
+  // repeated .multiplayer.InputAction actions = 10;
+  int actions_size() const;
+  void clear_actions();
+  static const int kActionsFieldNumber = 10;
+  ::multiplayer::InputAction* mutable_actions(int index);
+  ::google::protobuf::RepeatedPtrField< ::multiplayer::InputAction >*
+      mutable_actions();
+  const ::multiplayer::InputAction& actions(int index) const;
+  ::multiplayer::InputAction* add_actions();
+  const ::google::protobuf::RepeatedPtrField< ::multiplayer::InputAction >&
+      actions() const;
+
   // .multiplayer.FloatVector position = 3;
   bool has_position() const;
   void clear_position();
@@ -184,34 +197,10 @@ class ObjectState : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::multiplayer::FloatVector* mutable_angularvelocity();
   void set_allocated_angularvelocity(::multiplayer::FloatVector* angularvelocity);
 
-  // .multiplayer.FloatVector angularAcceleration = 8;
-  bool has_angularacceleration() const;
-  void clear_angularacceleration();
-  static const int kAngularAccelerationFieldNumber = 8;
-  private:
-  const ::multiplayer::FloatVector& _internal_angularacceleration() const;
-  public:
-  const ::multiplayer::FloatVector& angularacceleration() const;
-  ::multiplayer::FloatVector* release_angularacceleration();
-  ::multiplayer::FloatVector* mutable_angularacceleration();
-  void set_allocated_angularacceleration(::multiplayer::FloatVector* angularacceleration);
-
-  // .multiplayer.FloatVector controlX = 11;
-  bool has_controlx() const;
-  void clear_controlx();
-  static const int kControlXFieldNumber = 11;
-  private:
-  const ::multiplayer::FloatVector& _internal_controlx() const;
-  public:
-  const ::multiplayer::FloatVector& controlx() const;
-  ::multiplayer::FloatVector* release_controlx();
-  ::multiplayer::FloatVector* mutable_controlx();
-  void set_allocated_controlx(::multiplayer::FloatVector* controlx);
-
-  // .multiplayer.Quaternion controlQuaternion = 12;
+  // .multiplayer.Quaternion controlQuaternion = 9;
   bool has_controlquaternion() const;
   void clear_controlquaternion();
-  static const int kControlQuaternionFieldNumber = 12;
+  static const int kControlQuaternionFieldNumber = 9;
   private:
   const ::multiplayer::Quaternion& _internal_controlquaternion() const;
   public:
@@ -244,9 +233,9 @@ class ObjectState : public ::google::protobuf::Message /* @@protoc_insertion_poi
   float acceleration() const;
   void set_acceleration(float value);
 
-  // float rollAngleBtwCurrentAndTargetOrientation = 9;
+  // float rollAngleBtwCurrentAndTargetOrientation = 8;
   void clear_rollanglebtwcurrentandtargetorientation();
-  static const int kRollAngleBtwCurrentAndTargetOrientationFieldNumber = 9;
+  static const int kRollAngleBtwCurrentAndTargetOrientationFieldNumber = 8;
   float rollanglebtwcurrentandtargetorientation() const;
   void set_rollanglebtwcurrentandtargetorientation(float value);
 
@@ -254,11 +243,10 @@ class ObjectState : public ::google::protobuf::Message /* @@protoc_insertion_poi
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::multiplayer::InputAction > actions_;
   ::multiplayer::FloatVector* position_;
   ::multiplayer::Quaternion* quaternion_;
   ::multiplayer::FloatVector* angularvelocity_;
-  ::multiplayer::FloatVector* angularacceleration_;
-  ::multiplayer::FloatVector* controlx_;
   ::multiplayer::Quaternion* controlquaternion_;
   ::google::protobuf::int32 id_;
   ::google::protobuf::int32 objecttype_;
@@ -479,55 +467,7 @@ inline void ObjectState::set_allocated_angularvelocity(::multiplayer::FloatVecto
   // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectState.angularVelocity)
 }
 
-// .multiplayer.FloatVector angularAcceleration = 8;
-inline bool ObjectState::has_angularacceleration() const {
-  return this != internal_default_instance() && angularacceleration_ != NULL;
-}
-inline const ::multiplayer::FloatVector& ObjectState::_internal_angularacceleration() const {
-  return *angularacceleration_;
-}
-inline const ::multiplayer::FloatVector& ObjectState::angularacceleration() const {
-  const ::multiplayer::FloatVector* p = angularacceleration_;
-  // @@protoc_insertion_point(field_get:multiplayer.ObjectState.angularAcceleration)
-  return p != NULL ? *p : *reinterpret_cast<const ::multiplayer::FloatVector*>(
-      &::multiplayer::_FloatVector_default_instance_);
-}
-inline ::multiplayer::FloatVector* ObjectState::release_angularacceleration() {
-  // @@protoc_insertion_point(field_release:multiplayer.ObjectState.angularAcceleration)
-  
-  ::multiplayer::FloatVector* temp = angularacceleration_;
-  angularacceleration_ = NULL;
-  return temp;
-}
-inline ::multiplayer::FloatVector* ObjectState::mutable_angularacceleration() {
-  
-  if (angularacceleration_ == NULL) {
-    auto* p = CreateMaybeMessage<::multiplayer::FloatVector>(GetArenaNoVirtual());
-    angularacceleration_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:multiplayer.ObjectState.angularAcceleration)
-  return angularacceleration_;
-}
-inline void ObjectState::set_allocated_angularacceleration(::multiplayer::FloatVector* angularacceleration) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == NULL) {
-    delete reinterpret_cast< ::google::protobuf::MessageLite*>(angularacceleration_);
-  }
-  if (angularacceleration) {
-    ::google::protobuf::Arena* submessage_arena = NULL;
-    if (message_arena != submessage_arena) {
-      angularacceleration = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, angularacceleration, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  angularacceleration_ = angularacceleration;
-  // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectState.angularAcceleration)
-}
-
-// float rollAngleBtwCurrentAndTargetOrientation = 9;
+// float rollAngleBtwCurrentAndTargetOrientation = 8;
 inline void ObjectState::clear_rollanglebtwcurrentandtargetorientation() {
   rollanglebtwcurrentandtargetorientation_ = 0;
 }
@@ -541,55 +481,7 @@ inline void ObjectState::set_rollanglebtwcurrentandtargetorientation(float value
   // @@protoc_insertion_point(field_set:multiplayer.ObjectState.rollAngleBtwCurrentAndTargetOrientation)
 }
 
-// .multiplayer.FloatVector controlX = 11;
-inline bool ObjectState::has_controlx() const {
-  return this != internal_default_instance() && controlx_ != NULL;
-}
-inline const ::multiplayer::FloatVector& ObjectState::_internal_controlx() const {
-  return *controlx_;
-}
-inline const ::multiplayer::FloatVector& ObjectState::controlx() const {
-  const ::multiplayer::FloatVector* p = controlx_;
-  // @@protoc_insertion_point(field_get:multiplayer.ObjectState.controlX)
-  return p != NULL ? *p : *reinterpret_cast<const ::multiplayer::FloatVector*>(
-      &::multiplayer::_FloatVector_default_instance_);
-}
-inline ::multiplayer::FloatVector* ObjectState::release_controlx() {
-  // @@protoc_insertion_point(field_release:multiplayer.ObjectState.controlX)
-  
-  ::multiplayer::FloatVector* temp = controlx_;
-  controlx_ = NULL;
-  return temp;
-}
-inline ::multiplayer::FloatVector* ObjectState::mutable_controlx() {
-  
-  if (controlx_ == NULL) {
-    auto* p = CreateMaybeMessage<::multiplayer::FloatVector>(GetArenaNoVirtual());
-    controlx_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:multiplayer.ObjectState.controlX)
-  return controlx_;
-}
-inline void ObjectState::set_allocated_controlx(::multiplayer::FloatVector* controlx) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == NULL) {
-    delete reinterpret_cast< ::google::protobuf::MessageLite*>(controlx_);
-  }
-  if (controlx) {
-    ::google::protobuf::Arena* submessage_arena = NULL;
-    if (message_arena != submessage_arena) {
-      controlx = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, controlx, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  controlx_ = controlx;
-  // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectState.controlX)
-}
-
-// .multiplayer.Quaternion controlQuaternion = 12;
+// .multiplayer.Quaternion controlQuaternion = 9;
 inline bool ObjectState::has_controlquaternion() const {
   return this != internal_default_instance() && controlquaternion_ != NULL;
 }
@@ -635,6 +527,33 @@ inline void ObjectState::set_allocated_controlquaternion(::multiplayer::Quaterni
   }
   controlquaternion_ = controlquaternion;
   // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectState.controlQuaternion)
+}
+
+// repeated .multiplayer.InputAction actions = 10;
+inline int ObjectState::actions_size() const {
+  return actions_.size();
+}
+inline ::multiplayer::InputAction* ObjectState::mutable_actions(int index) {
+  // @@protoc_insertion_point(field_mutable:multiplayer.ObjectState.actions)
+  return actions_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::multiplayer::InputAction >*
+ObjectState::mutable_actions() {
+  // @@protoc_insertion_point(field_mutable_list:multiplayer.ObjectState.actions)
+  return &actions_;
+}
+inline const ::multiplayer::InputAction& ObjectState::actions(int index) const {
+  // @@protoc_insertion_point(field_get:multiplayer.ObjectState.actions)
+  return actions_.Get(index);
+}
+inline ::multiplayer::InputAction* ObjectState::add_actions() {
+  // @@protoc_insertion_point(field_add:multiplayer.ObjectState.actions)
+  return actions_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::multiplayer::InputAction >&
+ObjectState::actions() const {
+  // @@protoc_insertion_point(field_list:multiplayer.ObjectState.actions)
+  return actions_;
 }
 
 #ifdef __GNUC__
