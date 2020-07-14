@@ -7,6 +7,7 @@
 
 #include "../includes/network-manager.hpp"
 #include "../../util/includes/io.hpp"
+#include "../../proto/request-ack.pb.h"
 
 template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
 
@@ -24,6 +25,8 @@ NetworkManager::~NetworkManager() {
 WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams) {
     using namespace std::placeholders;  // for _1, _2, _3...
 
+    // TODO refactor, use 'find' to check if connection present,
+    //  because use of 'insert' is not effective (newly created client connection will be immediately destroyed)
     auto result = this->clientConnectionsById.insert({id, std::make_shared<ClientConnection>(id)});
     if (!result.second) {
         // connection already exists, close connection and create new?
@@ -57,6 +60,10 @@ void NetworkManager::handleMessage(std::string clientId, binary &message) {
     requestRoot.ParseFromString(binaryString);
     // <<<<<<<<<<<<
 
+    unsigned int requestSentTimestamp = requestRoot.requestsenttimestamp();
+    if (requestSentTimestamp != 0) {
+        // send ack
+    }
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
         this->issueRequest(clientId, requestRoot);
@@ -109,5 +116,21 @@ void NetworkManager::broadcast(binary &message) {
             it->second->sendMessage(message);
         }
         it++;
+    }
+}
+
+void NetworkManager::sendAck(std::string clientId, unsigned int requestSentTimestamp) {
+    auto search = this->clientConnectionsById.find(clientId);
+    if (search != this->clientConnectionsById.end()) {
+        auto clientConnection = search->second;
+        if (clientConnection->isReady()) {            
+            multiplayer::RequestAck requestAck;
+            requestAck.set_requestsenttimestamp(requestSentTimestamp);
+            
+            binary message(requestAck.ByteSizeLong());
+            requestAck.SerializeWithCachedSizesToArray((unsigned char *) message.data());
+
+            clientConnection->sendMessage(message);
+        }
     }
 }

@@ -19,6 +19,9 @@
 #endif
 // @@protoc_insertion_point(includes)
 
+namespace protobuf_request_2dack_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_request_2dack_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_RequestAck;
+}  // namespace protobuf_request_2dack_2eproto
 namespace protobuf_spawn_2dresponse_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_spawn_2dresponse_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SpawnResponse;
 }  // namespace protobuf_spawn_2dresponse_2eproto
@@ -32,6 +35,7 @@ class ResponseRootDefaultTypeInternal {
       _instance;
   const ::multiplayer::WorldState* worldstate_;
   const ::multiplayer::SpawnResponse* spawnresponse_;
+  const ::multiplayer::RequestAck* requestack_;
 } _ResponseRoot_default_instance_;
 }  // namespace multiplayer
 namespace protobuf_response_2droot_2eproto {
@@ -46,10 +50,11 @@ static void InitDefaultsResponseRoot() {
   ::multiplayer::ResponseRoot::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<2> scc_info_ResponseRoot =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsResponseRoot}, {
+::google::protobuf::internal::SCCInfo<3> scc_info_ResponseRoot =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsResponseRoot}, {
       &protobuf_world_2dstate_2eproto::scc_info_WorldState.base,
-      &protobuf_spawn_2dresponse_2eproto::scc_info_SpawnResponse.base,}};
+      &protobuf_spawn_2dresponse_2eproto::scc_info_SpawnResponse.base,
+      &protobuf_request_2dack_2eproto::scc_info_RequestAck.base,}};
 
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_ResponseRoot.base);
@@ -66,6 +71,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ResponseRoot, requestid_),
   offsetof(::multiplayer::ResponseRootDefaultTypeInternal, worldstate_),
   offsetof(::multiplayer::ResponseRootDefaultTypeInternal, spawnresponse_),
+  offsetof(::multiplayer::ResponseRootDefaultTypeInternal, requestack_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ResponseRoot, message_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -98,18 +104,21 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\023response-root.proto\022\013multiplayer\032\021worl"
-      "d-state.proto\032\024spawn-response.proto\"\220\001\n\014"
-      "ResponseRoot\022\021\n\trequestId\030\001 \001(\005\022-\n\nworld"
-      "State\030\002 \001(\0132\027.multiplayer.WorldStateH\000\0223"
-      "\n\rspawnResponse\030\003 \001(\0132\032.multiplayer.Spaw"
-      "nResponseH\000B\t\n\007messageb\006proto3"
+      "d-state.proto\032\024spawn-response.proto\032\021req"
+      "uest-ack.proto\"\277\001\n\014ResponseRoot\022\021\n\treque"
+      "stId\030\001 \001(\005\022-\n\nworldState\030\002 \001(\0132\027.multipl"
+      "ayer.WorldStateH\000\0223\n\rspawnResponse\030\003 \001(\013"
+      "2\032.multiplayer.SpawnResponseH\000\022-\n\nreques"
+      "tAck\030\004 \001(\0132\027.multiplayer.RequestAckH\000B\t\n"
+      "\007messageb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 230);
+      descriptor, 296);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "response-root.proto", &protobuf_RegisterTypes);
   ::protobuf_world_2dstate_2eproto::AddDescriptors();
   ::protobuf_spawn_2dresponse_2eproto::AddDescriptors();
+  ::protobuf_request_2dack_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -132,6 +141,8 @@ void ResponseRoot::InitAsDefaultInstance() {
       ::multiplayer::WorldState::internal_default_instance());
   ::multiplayer::_ResponseRoot_default_instance_.spawnresponse_ = const_cast< ::multiplayer::SpawnResponse*>(
       ::multiplayer::SpawnResponse::internal_default_instance());
+  ::multiplayer::_ResponseRoot_default_instance_.requestack_ = const_cast< ::multiplayer::RequestAck*>(
+      ::multiplayer::RequestAck::internal_default_instance());
 }
 void ResponseRoot::set_allocated_worldstate(::multiplayer::WorldState* worldstate) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
@@ -173,10 +184,31 @@ void ResponseRoot::clear_spawnresponse() {
     clear_has_message();
   }
 }
+void ResponseRoot::set_allocated_requestack(::multiplayer::RequestAck* requestack) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  clear_message();
+  if (requestack) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      requestack = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, requestack, submessage_arena);
+    }
+    set_has_requestack();
+    message_.requestack_ = requestack;
+  }
+  // @@protoc_insertion_point(field_set_allocated:multiplayer.ResponseRoot.requestAck)
+}
+void ResponseRoot::clear_requestack() {
+  if (has_requestack()) {
+    delete message_.requestack_;
+    clear_has_message();
+  }
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ResponseRoot::kRequestIdFieldNumber;
 const int ResponseRoot::kWorldStateFieldNumber;
 const int ResponseRoot::kSpawnResponseFieldNumber;
+const int ResponseRoot::kRequestAckFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ResponseRoot::ResponseRoot()
@@ -199,6 +231,10 @@ ResponseRoot::ResponseRoot(const ResponseRoot& from)
     }
     case kSpawnResponse: {
       mutable_spawnresponse()->::multiplayer::SpawnResponse::MergeFrom(from.spawnresponse());
+      break;
+    }
+    case kRequestAck: {
+      mutable_requestack()->::multiplayer::RequestAck::MergeFrom(from.requestack());
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -247,6 +283,10 @@ void ResponseRoot::clear_message() {
     }
     case kSpawnResponse: {
       delete message_.spawnresponse_;
+      break;
+    }
+    case kRequestAck: {
+      delete message_.requestack_;
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -316,6 +356,18 @@ bool ResponseRoot::MergePartialFromCodedStream(
         break;
       }
 
+      // .multiplayer.RequestAck requestAck = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_requestack()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -359,6 +411,12 @@ void ResponseRoot::SerializeWithCachedSizes(
       3, this->_internal_spawnresponse(), output);
   }
 
+  // .multiplayer.RequestAck requestAck = 4;
+  if (has_requestack()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->_internal_requestack(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -390,6 +448,13 @@ void ResponseRoot::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
         3, this->_internal_spawnresponse(), deterministic, target);
+  }
+
+  // .multiplayer.RequestAck requestAck = 4;
+  if (has_requestack()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        4, this->_internal_requestack(), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -429,6 +494,13 @@ size_t ResponseRoot::ByteSizeLong() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
           *message_.spawnresponse_);
+      break;
+    }
+    // .multiplayer.RequestAck requestAck = 4;
+    case kRequestAck: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *message_.requestack_);
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -472,6 +544,10 @@ void ResponseRoot::MergeFrom(const ResponseRoot& from) {
     }
     case kSpawnResponse: {
       mutable_spawnresponse()->::multiplayer::SpawnResponse::MergeFrom(from.spawnresponse());
+      break;
+    }
+    case kRequestAck: {
+      mutable_requestack()->::multiplayer::RequestAck::MergeFrom(from.requestack());
       break;
     }
     case MESSAGE_NOT_SET: {

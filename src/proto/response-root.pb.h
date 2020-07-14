@@ -32,6 +32,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "world-state.pb.h"
 #include "spawn-response.pb.h"
+#include "request-ack.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_response_2droot_2eproto 
 
@@ -93,6 +94,7 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
   enum MessageCase {
     kWorldState = 2,
     kSpawnResponse = 3,
+    kRequestAck = 4,
     MESSAGE_NOT_SET = 0,
   };
 
@@ -184,12 +186,25 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::multiplayer::SpawnResponse* mutable_spawnresponse();
   void set_allocated_spawnresponse(::multiplayer::SpawnResponse* spawnresponse);
 
+  // .multiplayer.RequestAck requestAck = 4;
+  bool has_requestack() const;
+  void clear_requestack();
+  static const int kRequestAckFieldNumber = 4;
+  private:
+  const ::multiplayer::RequestAck& _internal_requestack() const;
+  public:
+  const ::multiplayer::RequestAck& requestack() const;
+  ::multiplayer::RequestAck* release_requestack();
+  ::multiplayer::RequestAck* mutable_requestack();
+  void set_allocated_requestack(::multiplayer::RequestAck* requestack);
+
   void clear_message();
   MessageCase message_case() const;
   // @@protoc_insertion_point(class_scope:multiplayer.ResponseRoot)
  private:
   void set_has_worldstate();
   void set_has_spawnresponse();
+  void set_has_requestack();
 
   inline bool has_message() const;
   inline void clear_has_message();
@@ -200,6 +215,7 @@ class ResponseRoot : public ::google::protobuf::Message /* @@protoc_insertion_po
     MessageUnion() {}
     ::multiplayer::WorldState* worldstate_;
     ::multiplayer::SpawnResponse* spawnresponse_;
+    ::multiplayer::RequestAck* requestack_;
   } message_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::uint32 _oneof_case_[1];
@@ -305,6 +321,44 @@ inline ::multiplayer::SpawnResponse* ResponseRoot::mutable_spawnresponse() {
   }
   // @@protoc_insertion_point(field_mutable:multiplayer.ResponseRoot.spawnResponse)
   return message_.spawnresponse_;
+}
+
+// .multiplayer.RequestAck requestAck = 4;
+inline bool ResponseRoot::has_requestack() const {
+  return message_case() == kRequestAck;
+}
+inline void ResponseRoot::set_has_requestack() {
+  _oneof_case_[0] = kRequestAck;
+}
+inline const ::multiplayer::RequestAck& ResponseRoot::_internal_requestack() const {
+  return *message_.requestack_;
+}
+inline ::multiplayer::RequestAck* ResponseRoot::release_requestack() {
+  // @@protoc_insertion_point(field_release:multiplayer.ResponseRoot.requestAck)
+  if (has_requestack()) {
+    clear_has_message();
+      ::multiplayer::RequestAck* temp = message_.requestack_;
+    message_.requestack_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline const ::multiplayer::RequestAck& ResponseRoot::requestack() const {
+  // @@protoc_insertion_point(field_get:multiplayer.ResponseRoot.requestAck)
+  return has_requestack()
+      ? *message_.requestack_
+      : *reinterpret_cast< ::multiplayer::RequestAck*>(&::multiplayer::_RequestAck_default_instance_);
+}
+inline ::multiplayer::RequestAck* ResponseRoot::mutable_requestack() {
+  if (!has_requestack()) {
+    clear_message();
+    set_has_requestack();
+    message_.requestack_ = CreateMaybeMessage< ::multiplayer::RequestAck >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:multiplayer.ResponseRoot.requestAck)
+  return message_.requestack_;
 }
 
 inline bool ResponseRoot::has_message() const {

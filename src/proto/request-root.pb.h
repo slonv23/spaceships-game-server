@@ -91,8 +91,8 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   static const RequestRoot& default_instance();
 
   enum MessageCase {
-    kInputAction = 2,
-    kSpawnRequest = 3,
+    kInputAction = 3,
+    kSpawnRequest = 4,
     MESSAGE_NOT_SET = 0,
   };
 
@@ -160,10 +160,16 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int32 requestid() const;
   void set_requestid(::google::protobuf::int32 value);
 
-  // .multiplayer.InputAction inputAction = 2;
+  // uint32 requestSentTimestamp = 2;
+  void clear_requestsenttimestamp();
+  static const int kRequestSentTimestampFieldNumber = 2;
+  ::google::protobuf::uint32 requestsenttimestamp() const;
+  void set_requestsenttimestamp(::google::protobuf::uint32 value);
+
+  // .multiplayer.InputAction inputAction = 3;
   bool has_inputaction() const;
   void clear_inputaction();
-  static const int kInputActionFieldNumber = 2;
+  static const int kInputActionFieldNumber = 3;
   private:
   const ::multiplayer::InputAction& _internal_inputaction() const;
   public:
@@ -172,10 +178,10 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::multiplayer::InputAction* mutable_inputaction();
   void set_allocated_inputaction(::multiplayer::InputAction* inputaction);
 
-  // .multiplayer.SpawnRequest spawnRequest = 3;
+  // .multiplayer.SpawnRequest spawnRequest = 4;
   bool has_spawnrequest() const;
   void clear_spawnrequest();
-  static const int kSpawnRequestFieldNumber = 3;
+  static const int kSpawnRequestFieldNumber = 4;
   private:
   const ::multiplayer::SpawnRequest& _internal_spawnrequest() const;
   public:
@@ -196,6 +202,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int32 requestid_;
+  ::google::protobuf::uint32 requestsenttimestamp_;
   union MessageUnion {
     MessageUnion() {}
     ::multiplayer::InputAction* inputaction_;
@@ -231,7 +238,21 @@ inline void RequestRoot::set_requestid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:multiplayer.RequestRoot.requestId)
 }
 
-// .multiplayer.InputAction inputAction = 2;
+// uint32 requestSentTimestamp = 2;
+inline void RequestRoot::clear_requestsenttimestamp() {
+  requestsenttimestamp_ = 0u;
+}
+inline ::google::protobuf::uint32 RequestRoot::requestsenttimestamp() const {
+  // @@protoc_insertion_point(field_get:multiplayer.RequestRoot.requestSentTimestamp)
+  return requestsenttimestamp_;
+}
+inline void RequestRoot::set_requestsenttimestamp(::google::protobuf::uint32 value) {
+  
+  requestsenttimestamp_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.RequestRoot.requestSentTimestamp)
+}
+
+// .multiplayer.InputAction inputAction = 3;
 inline bool RequestRoot::has_inputaction() const {
   return message_case() == kInputAction;
 }
@@ -269,7 +290,7 @@ inline ::multiplayer::InputAction* RequestRoot::mutable_inputaction() {
   return message_.inputaction_;
 }
 
-// .multiplayer.SpawnRequest spawnRequest = 3;
+// .multiplayer.SpawnRequest spawnRequest = 4;
 inline bool RequestRoot::has_spawnrequest() const {
   return message_case() == kSpawnRequest;
 }
