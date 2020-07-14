@@ -53,6 +53,7 @@ void SignalingServer::start() {
 					spdlog::info("Body data: " + req.body());
 				}
 			} catch (const std::exception &e) {
+				res.set_status(503);
  				spdlog::error("Failed to process '/connect' request, error: {}", e.what());
 			}
 		});

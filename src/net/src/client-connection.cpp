@@ -113,7 +113,7 @@ void ClientConnection::sendMessage(binary const& message) {
 ClientConnection::~ClientConnection() {
     spdlog::debug("ClientConnection: Waiting for peer connection to close");
 
-    if (!this->closed) {
+    if (this->peerConnection && !this->closed) {
         auto promise = std::make_shared<std::promise<void>>();
         this->onClosed([&promise]() {
             promise->set_value();
