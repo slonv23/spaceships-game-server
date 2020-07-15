@@ -9,4 +9,6 @@ namespace utils {
     /** @see https://stackoverflow.com/questions/19758270/read-varint-from-linux-sockets */
     int writeUnsignedVarint(std::ostream *ostream, uint64_t value);
 
+    int writeUnsignedVarint(uint8_t *const buffer, uint64_t value);
+
 }

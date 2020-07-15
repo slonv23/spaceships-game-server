@@ -35,4 +35,22 @@ namespace utils {
         return encoded;
     }
 
+
+    int writeUnsignedVarint(uint8_t *const buffer, uint64_t value) {
+        int encoded = 0;
+
+        do {
+            uint8_t next_byte = value & 0x7F;
+            value >>= 7;
+
+            if (value) {
+                next_byte |= 0x80;
+            }
+
+            buffer[encoded++] = next_byte;
+        } while (value);
+
+        return encoded;
+    }
+
 }

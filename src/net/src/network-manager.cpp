@@ -8,6 +8,7 @@
 #include "../includes/network-manager.hpp"
 #include "../../util/includes/io.hpp"
 #include "../../proto/request-ack.pb.h"
+#include "../../proto/response-root.pb.h"
 
 template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
 
@@ -125,12 +126,17 @@ void NetworkManager::sendAck(std::string clientId, unsigned int requestSentTimes
         auto clientConnection = search->second;
         if (clientConnection->isReady()) {            
             spdlog::info("Sending ack to client #{} (requestSentTimestamp={})", clientId, requestSentTimestamp);
-            multiplayer::RequestAck requestAck;
-            requestAck.set_requestsenttimestamp(requestSentTimestamp);
-            
-            binary message(requestAck.ByteSizeLong());
-            requestAck.SerializeWithCachedSizesToArray((unsigned char *) message.data());
+            multiplayer::ResponseRoot responseRoot;
+            multiplayer::RequestAck *requestAck = new multiplayer::RequestAck();
+            requestAck->set_requestsenttimestamp(requestSentTimestamp);
+            responseRoot.set_allocated_requestack(requestAck);
+            // TODO move code below into separate method (e.g. 'serializeDelimited()')
+            unsigned long int msgSize = responseRoot.ByteSizeLong();
+            binary message(10 + msgSize); // 10 maximum varint size of timestamp
+            int varintSize = utils::writeUnsignedVarint((uint8_t *const) message.data(), msgSize);
 
+            responseRoot.SerializeWithCachedSizesToArray((unsigned char *) (message.data() + varintSize));
+            message.resize(varintSize + msgSize);
             clientConnection->sendMessage(message);
         }
     }
