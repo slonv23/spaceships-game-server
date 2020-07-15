@@ -62,7 +62,7 @@ void NetworkManager::handleMessage(std::string clientId, binary &message) {
 
     unsigned int requestSentTimestamp = requestRoot.requestsenttimestamp();
     if (requestSentTimestamp != 0) {
-        // send ack
+        this->sendAck(clientId, requestSentTimestamp);
     }
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
@@ -124,6 +124,7 @@ void NetworkManager::sendAck(std::string clientId, unsigned int requestSentTimes
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
         if (clientConnection->isReady()) {            
+            spdlog::info("Sending ack to client #{} (requestSentTimestamp={})", clientId, requestSentTimestamp);
             multiplayer::RequestAck requestAck;
             requestAck.set_requestsenttimestamp(requestSentTimestamp);
             
