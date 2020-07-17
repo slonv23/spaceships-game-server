@@ -146,20 +146,6 @@ class InputAction : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // string objectId = 6;
-  void clear_objectid();
-  static const int kObjectIdFieldNumber = 6;
-  const ::std::string& objectid() const;
-  void set_objectid(const ::std::string& value);
-  #if LANG_CXX11
-  void set_objectid(::std::string&& value);
-  #endif
-  void set_objectid(const char* value);
-  void set_objectid(const char* value, size_t size);
-  ::std::string* mutable_objectid();
-  ::std::string* release_objectid();
-  void set_allocated_objectid(::std::string* objectid);
-
   // int32 frameIndex = 1;
   void clear_frameindex();
   static const int kFrameIndexFieldNumber = 1;
@@ -190,16 +176,22 @@ class InputAction : public ::google::protobuf::Message /* @@protoc_insertion_poi
   float rollangle() const;
   void set_rollangle(float value);
 
+  // int32 objectId = 6;
+  void clear_objectid();
+  static const int kObjectIdFieldNumber = 6;
+  ::google::protobuf::int32 objectid() const;
+  void set_objectid(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:multiplayer.InputAction)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr objectid_;
   ::google::protobuf::int32 frameindex_;
   float yaw_;
   float pitch_;
   float rotationspeed_;
   float rollangle_;
+  ::google::protobuf::int32 objectid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_input_2daction_2eproto::TableStruct;
 };
@@ -284,57 +276,18 @@ inline void InputAction::set_rollangle(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.InputAction.rollAngle)
 }
 
-// string objectId = 6;
+// int32 objectId = 6;
 inline void InputAction::clear_objectid() {
-  objectid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  objectid_ = 0;
 }
-inline const ::std::string& InputAction::objectid() const {
+inline ::google::protobuf::int32 InputAction::objectid() const {
   // @@protoc_insertion_point(field_get:multiplayer.InputAction.objectId)
-  return objectid_.GetNoArena();
+  return objectid_;
 }
-inline void InputAction::set_objectid(const ::std::string& value) {
+inline void InputAction::set_objectid(::google::protobuf::int32 value) {
   
-  objectid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  objectid_ = value;
   // @@protoc_insertion_point(field_set:multiplayer.InputAction.objectId)
-}
-#if LANG_CXX11
-inline void InputAction::set_objectid(::std::string&& value) {
-  
-  objectid_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:multiplayer.InputAction.objectId)
-}
-#endif
-inline void InputAction::set_objectid(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  objectid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:multiplayer.InputAction.objectId)
-}
-inline void InputAction::set_objectid(const char* value, size_t size) {
-  
-  objectid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:multiplayer.InputAction.objectId)
-}
-inline ::std::string* InputAction::mutable_objectid() {
-  
-  // @@protoc_insertion_point(field_mutable:multiplayer.InputAction.objectId)
-  return objectid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* InputAction::release_objectid() {
-  // @@protoc_insertion_point(field_release:multiplayer.InputAction.objectId)
-  
-  return objectid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void InputAction::set_allocated_objectid(::std::string* objectid) {
-  if (objectid != NULL) {
-    
-  } else {
-    
-  }
-  objectid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), objectid);
-  // @@protoc_insertion_point(field_set_allocated:multiplayer.InputAction.objectId)
 }
 
 #ifdef __GNUC__

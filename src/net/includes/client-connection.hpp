@@ -33,7 +33,7 @@ class ClientConnection {
         void sendMessage(binary const& message);
 
         std::string id;
-        std::string controlledObjectId;
+        int controlledObjectId = 0;
         std::atomic_bool requestPending;
         std::deque<std::string> lastActionIds;
     private:

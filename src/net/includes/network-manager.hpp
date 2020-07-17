@@ -35,8 +35,8 @@ class NetworkManager {
         int lastUsedRequestId = 1;
         IpcConnection &ipcConnection;
 
-        void handleMessage(std::string clientId, binary &message);
-        bool issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot);
+        void handleMessage(std::shared_ptr<ClientConnection> clientConnection, binary &message);
+        bool issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse = true);
         void sendAck(std::string clientId, unsigned int requestSentTimestamp);
         inline int generateRequestId() {
             this->lastUsedRequestId += 2;

@@ -9,8 +9,20 @@
 #include "../../util/includes/io.hpp"
 #include "../../proto/request-ack.pb.h"
 #include "../../proto/response-root.pb.h"
+#include "../../proto/input-action.pb.h"
 
 template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
+
+template <class T> T decodeMessage(binary &message) {
+    int decodedBytes;
+    int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
+
+    std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
+    T decodedMessage;
+    decodedMessage.ParseFromString(binaryString);
+
+    return decodedMessage;
+}
 
 NetworkManager::NetworkManager(IpcConnection &ipcConnection): ipcConnection(ipcConnection) {
     spdlog::info("Call NetworkManager constructor");
@@ -35,13 +47,14 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
     }
     std::shared_ptr<ClientConnection> &clientConnection = result.first->second;
 
+    clientConnection->id = id;
     clientConnection->onClosed([&, id]() {
         spdlog::debug("NetworkManager: Client '{}' disconnected", id);
         std::scoped_lock lock{connectionsMutex};
         this->clientConnectionsById.erase(id);
     });
 
-    clientConnection->onMessage(std::bind(&NetworkManager::handleMessage, this, id, _1));
+    clientConnection->onMessage(std::bind(&NetworkManager::handleMessage, this, clientConnection, _1));
 
     WebRtcNegotiationServerParams webRtcNegotiationServerParams;
     auto negotiationParamsReadyPromise = clientConnection->connect(webRtcNegotiationClientParams, webRtcNegotiationServerParams, this->webRtcConfig);
@@ -50,41 +63,45 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
     return webRtcNegotiationServerParams;
 }
 
-void NetworkManager::handleMessage(std::string clientId, binary &message) {
-    // TODO move this code segment to template method >>>
-    int decodedBytes;
-    int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
-    spdlog::info("Message size: {}", size);
-
-    std::string binaryString(reinterpret_cast<const char *>(&message[decodedBytes]), size);
-    multiplayer::RequestRoot requestRoot;
-    requestRoot.ParseFromString(binaryString);
-    // <<<<<<<<<<<<
+void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConnection, binary &message) {
+    multiplayer::RequestRoot requestRoot = decodeMessage<multiplayer::RequestRoot>(message);
 
     unsigned int requestSentTimestamp = requestRoot.requestsenttimestamp();
     if (requestSentTimestamp != 0) {
-        this->sendAck(clientId, requestSentTimestamp);
+        this->sendAck(clientConnection->id, requestSentTimestamp);
     }
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
-        this->issueRequest(clientId, requestRoot);
+        this->issueRequest(clientConnection->id, requestRoot);
+    } else if (requestRoot.has_inputaction()) {
+        spdlog::debug("Received input action");
+        if (!clientConnection->controlledObjectId) {
+            spdlog::warn("Client #{} send input action, but has no object id assigned");
+            return;
+        }
+        multiplayer::InputAction *inputAction = new multiplayer::InputAction(requestRoot.inputaction());
+        inputAction->set_objectid(clientConnection->controlledObjectId);
+        requestRoot.set_allocated_inputaction(inputAction);
+        this->issueRequest(clientConnection->id, requestRoot, false);
     }
 }
 
-bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot) {
+bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse) {
     auto search = this->clientConnectionsById.find(clientId);
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
 
-        bool requestPending = clientConnection->requestPending.load();
-        if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
-            int requestId = this->generateRequestId();
-            this->clientConnectionByRequestId.insert({requestId, make_weak_ptr(clientConnection)});
-            requestRoot.set_requestid(requestId);
-            this->ipcConnection.writeMsg(requestRoot);
-            return true;
-        } else {
-            return false;
+        if (retransmitResponse) {
+            bool requestPending = clientConnection->requestPending.load();
+            if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
+                int requestId = this->generateRequestId();
+                this->clientConnectionByRequestId.insert({requestId, make_weak_ptr(clientConnection)});
+                requestRoot.set_requestid(requestId);
+                this->ipcConnection.writeMsg(requestRoot);
+                return true;
+            } else {
+                return false;
+            }   
         }
     }
 
@@ -105,6 +122,12 @@ void NetworkManager::completeRequest(int requestId, binary &message) {
         clientConnection->requestPending.compare_exchange_strong(requestPending, false);
         this->clientConnectionByRequestId.erase(requestId);
         clientConnection->sendMessage(message);
+        if (!clientConnection->controlledObjectId) {
+            multiplayer::ResponseRoot responseRoot = decodeMessage<multiplayer::ResponseRoot>(message);
+            if (responseRoot.has_spawnresponse()) {
+                clientConnection->controlledObjectId = responseRoot.spawnresponse().assignedobjectid();
+            }
+        }
     }
 }
 

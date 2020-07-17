@@ -92,7 +92,7 @@ void AddDescriptorsImpl() {
       "\n\022input-action.proto\022\013multiplayer\"y\n\013Inp"
       "utAction\022\022\n\nframeIndex\030\001 \001(\005\022\013\n\003yaw\030\002 \001("
       "\002\022\r\n\005pitch\030\003 \001(\002\022\025\n\rrotationSpeed\030\004 \001(\002\022"
-      "\021\n\trollAngle\030\005 \001(\002\022\020\n\010objectId\030\006 \001(\tb\006pr"
+      "\021\n\trollAngle\030\005 \001(\002\022\020\n\010objectId\030\006 \001(\005b\006pr"
       "oto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
@@ -138,21 +138,16 @@ InputAction::InputAction(const InputAction& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  objectid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.objectid().size() > 0) {
-    objectid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.objectid_);
-  }
   ::memcpy(&frameindex_, &from.frameindex_,
-    static_cast<size_t>(reinterpret_cast<char*>(&rollangle_) -
-    reinterpret_cast<char*>(&frameindex_)) + sizeof(rollangle_));
+    static_cast<size_t>(reinterpret_cast<char*>(&objectid_) -
+    reinterpret_cast<char*>(&frameindex_)) + sizeof(objectid_));
   // @@protoc_insertion_point(copy_constructor:multiplayer.InputAction)
 }
 
 void InputAction::SharedCtor() {
-  objectid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&frameindex_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&rollangle_) -
-      reinterpret_cast<char*>(&frameindex_)) + sizeof(rollangle_));
+      reinterpret_cast<char*>(&objectid_) -
+      reinterpret_cast<char*>(&frameindex_)) + sizeof(objectid_));
 }
 
 InputAction::~InputAction() {
@@ -161,7 +156,6 @@ InputAction::~InputAction() {
 }
 
 void InputAction::SharedDtor() {
-  objectid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void InputAction::SetCachedSize(int size) const {
@@ -184,10 +178,9 @@ void InputAction::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  objectid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&frameindex_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&rollangle_) -
-      reinterpret_cast<char*>(&frameindex_)) + sizeof(rollangle_));
+      reinterpret_cast<char*>(&objectid_) -
+      reinterpret_cast<char*>(&frameindex_)) + sizeof(objectid_));
   _internal_metadata_.Clear();
 }
 
@@ -271,16 +264,14 @@ bool InputAction::MergePartialFromCodedStream(
         break;
       }
 
-      // string objectId = 6;
+      // int32 objectId = 6;
       case 6: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_objectid()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->objectid().data(), static_cast<int>(this->objectid().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "multiplayer.InputAction.objectId"));
+            static_cast< ::google::protobuf::uint8>(48u /* 48 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &objectid_)));
         } else {
           goto handle_unusual;
         }
@@ -338,14 +329,9 @@ void InputAction::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->rollangle(), output);
   }
 
-  // string objectId = 6;
-  if (this->objectid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->objectid().data(), static_cast<int>(this->objectid().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "multiplayer.InputAction.objectId");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->objectid(), output);
+  // int32 objectId = 6;
+  if (this->objectid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->objectid(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -387,15 +373,9 @@ void InputAction::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->rollangle(), target);
   }
 
-  // string objectId = 6;
-  if (this->objectid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->objectid().data(), static_cast<int>(this->objectid().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "multiplayer.InputAction.objectId");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->objectid(), target);
+  // int32 objectId = 6;
+  if (this->objectid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->objectid(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -415,13 +395,6 @@ size_t InputAction::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // string objectId = 6;
-  if (this->objectid().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->objectid());
-  }
-
   // int32 frameIndex = 1;
   if (this->frameindex() != 0) {
     total_size += 1 +
@@ -447,6 +420,13 @@ size_t InputAction::ByteSizeLong() const {
   // float rollAngle = 5;
   if (this->rollangle() != 0) {
     total_size += 1 + 4;
+  }
+
+  // int32 objectId = 6;
+  if (this->objectid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->objectid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -476,10 +456,6 @@ void InputAction::MergeFrom(const InputAction& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.objectid().size() > 0) {
-
-    objectid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.objectid_);
-  }
   if (from.frameindex() != 0) {
     set_frameindex(from.frameindex());
   }
@@ -494,6 +470,9 @@ void InputAction::MergeFrom(const InputAction& from) {
   }
   if (from.rollangle() != 0) {
     set_rollangle(from.rollangle());
+  }
+  if (from.objectid() != 0) {
+    set_objectid(from.objectid());
   }
 }
 
@@ -521,13 +500,12 @@ void InputAction::Swap(InputAction* other) {
 }
 void InputAction::InternalSwap(InputAction* other) {
   using std::swap;
-  objectid_.Swap(&other->objectid_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
   swap(frameindex_, other->frameindex_);
   swap(yaw_, other->yaw_);
   swap(pitch_, other->pitch_);
   swap(rotationspeed_, other->rotationspeed_);
   swap(rollangle_, other->rollangle_);
+  swap(objectid_, other->objectid_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
