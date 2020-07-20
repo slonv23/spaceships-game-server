@@ -154,17 +154,17 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
+  // uint64 requestSentTimestamp = 2;
+  void clear_requestsenttimestamp();
+  static const int kRequestSentTimestampFieldNumber = 2;
+  ::google::protobuf::uint64 requestsenttimestamp() const;
+  void set_requestsenttimestamp(::google::protobuf::uint64 value);
+
   // int32 requestId = 1;
   void clear_requestid();
   static const int kRequestIdFieldNumber = 1;
   ::google::protobuf::int32 requestid() const;
   void set_requestid(::google::protobuf::int32 value);
-
-  // uint32 requestSentTimestamp = 2;
-  void clear_requestsenttimestamp();
-  static const int kRequestSentTimestampFieldNumber = 2;
-  ::google::protobuf::uint32 requestsenttimestamp() const;
-  void set_requestsenttimestamp(::google::protobuf::uint32 value);
 
   // .multiplayer.InputAction inputAction = 3;
   bool has_inputaction() const;
@@ -201,8 +201,8 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   inline void clear_has_message();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 requestsenttimestamp_;
   ::google::protobuf::int32 requestid_;
-  ::google::protobuf::uint32 requestsenttimestamp_;
   union MessageUnion {
     MessageUnion() {}
     ::multiplayer::InputAction* inputaction_;
@@ -238,15 +238,15 @@ inline void RequestRoot::set_requestid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:multiplayer.RequestRoot.requestId)
 }
 
-// uint32 requestSentTimestamp = 2;
+// uint64 requestSentTimestamp = 2;
 inline void RequestRoot::clear_requestsenttimestamp() {
-  requestsenttimestamp_ = 0u;
+  requestsenttimestamp_ = GOOGLE_ULONGLONG(0);
 }
-inline ::google::protobuf::uint32 RequestRoot::requestsenttimestamp() const {
+inline ::google::protobuf::uint64 RequestRoot::requestsenttimestamp() const {
   // @@protoc_insertion_point(field_get:multiplayer.RequestRoot.requestSentTimestamp)
   return requestsenttimestamp_;
 }
-inline void RequestRoot::set_requestsenttimestamp(::google::protobuf::uint32 value) {
+inline void RequestRoot::set_requestsenttimestamp(::google::protobuf::uint64 value) {
   
   requestsenttimestamp_ = value;
   // @@protoc_insertion_point(field_set:multiplayer.RequestRoot.requestSentTimestamp)

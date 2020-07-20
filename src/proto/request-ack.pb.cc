@@ -87,7 +87,7 @@ void AddDescriptorsImpl() {
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\021request-ack.proto\022\013multiplayer\"=\n\nRequ"
       "estAck\022\021\n\trequestId\030\001 \001(\005\022\034\n\024requestSent"
-      "Timestamp\030\002 \001(\rb\006proto3"
+      "Timestamp\030\002 \001(\004b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
       descriptor, 103);
@@ -128,16 +128,16 @@ RequestAck::RequestAck(const RequestAck& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&requestid_, &from.requestid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&requestsenttimestamp_) -
-    reinterpret_cast<char*>(&requestid_)) + sizeof(requestsenttimestamp_));
+  ::memcpy(&requestsenttimestamp_, &from.requestsenttimestamp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&requestid_) -
+    reinterpret_cast<char*>(&requestsenttimestamp_)) + sizeof(requestid_));
   // @@protoc_insertion_point(copy_constructor:multiplayer.RequestAck)
 }
 
 void RequestAck::SharedCtor() {
-  ::memset(&requestid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&requestsenttimestamp_) -
-      reinterpret_cast<char*>(&requestid_)) + sizeof(requestsenttimestamp_));
+  ::memset(&requestsenttimestamp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&requestid_) -
+      reinterpret_cast<char*>(&requestsenttimestamp_)) + sizeof(requestid_));
 }
 
 RequestAck::~RequestAck() {
@@ -168,9 +168,9 @@ void RequestAck::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&requestid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&requestsenttimestamp_) -
-      reinterpret_cast<char*>(&requestid_)) + sizeof(requestsenttimestamp_));
+  ::memset(&requestsenttimestamp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&requestid_) -
+      reinterpret_cast<char*>(&requestsenttimestamp_)) + sizeof(requestid_));
   _internal_metadata_.Clear();
 }
 
@@ -198,13 +198,13 @@ bool RequestAck::MergePartialFromCodedStream(
         break;
       }
 
-      // uint32 requestSentTimestamp = 2;
+      // uint64 requestSentTimestamp = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &requestsenttimestamp_)));
         } else {
           goto handle_unusual;
@@ -243,9 +243,9 @@ void RequestAck::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->requestid(), output);
   }
 
-  // uint32 requestSentTimestamp = 2;
+  // uint64 requestSentTimestamp = 2;
   if (this->requestsenttimestamp() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->requestsenttimestamp(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->requestsenttimestamp(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -267,9 +267,9 @@ void RequestAck::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->requestid(), target);
   }
 
-  // uint32 requestSentTimestamp = 2;
+  // uint64 requestSentTimestamp = 2;
   if (this->requestsenttimestamp() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->requestsenttimestamp(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->requestsenttimestamp(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -289,18 +289,18 @@ size_t RequestAck::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
+  // uint64 requestSentTimestamp = 2;
+  if (this->requestsenttimestamp() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
+        this->requestsenttimestamp());
+  }
+
   // int32 requestId = 1;
   if (this->requestid() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->requestid());
-  }
-
-  // uint32 requestSentTimestamp = 2;
-  if (this->requestsenttimestamp() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->requestsenttimestamp());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -330,11 +330,11 @@ void RequestAck::MergeFrom(const RequestAck& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.requestid() != 0) {
-    set_requestid(from.requestid());
-  }
   if (from.requestsenttimestamp() != 0) {
     set_requestsenttimestamp(from.requestsenttimestamp());
+  }
+  if (from.requestid() != 0) {
+    set_requestid(from.requestid());
   }
 }
 
@@ -362,8 +362,8 @@ void RequestAck::Swap(RequestAck* other) {
 }
 void RequestAck::InternalSwap(RequestAck* other) {
   using std::swap;
-  swap(requestid_, other->requestid_);
   swap(requestsenttimestamp_, other->requestsenttimestamp_);
+  swap(requestid_, other->requestid_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 

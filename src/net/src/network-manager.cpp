@@ -66,7 +66,7 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
 void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConnection, binary &message) {
     multiplayer::RequestRoot requestRoot = decodeMessage<multiplayer::RequestRoot>(message);
 
-    unsigned int requestSentTimestamp = requestRoot.requestsenttimestamp();
+    unsigned long int requestSentTimestamp = requestRoot.requestsenttimestamp();
     if (requestSentTimestamp != 0) {
         this->sendAck(clientConnection->id, requestSentTimestamp);
     }
@@ -143,7 +143,7 @@ void NetworkManager::broadcast(binary &message) {
     }
 }
 
-void NetworkManager::sendAck(std::string clientId, unsigned int requestSentTimestamp) {
+void NetworkManager::sendAck(std::string clientId, unsigned long int requestSentTimestamp) {
     auto search = this->clientConnectionsById.find(clientId);
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
