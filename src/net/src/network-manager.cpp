@@ -99,9 +99,10 @@ bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot
                 requestRoot.set_requestid(requestId);
                 this->ipcConnection.writeMsg(requestRoot);
                 return true;
-            } else {
-                return false;
-            }   
+            }
+        } else {
+            this->ipcConnection.writeMsg(requestRoot);
+            return true;
         }
     }
 
