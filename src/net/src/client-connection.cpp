@@ -18,7 +18,7 @@ shared_promise ClientConnection::connect(
     rtc::Configuration &webRtcConfig
 ) {
     auto promise = std::make_shared<std::promise<void>>();
-    rtc::InitLogger(rtc::LogLevel::Verbose);
+    //rtc::InitLogger(rtc::LogLevel::Verbose);
 
     this->peerConnection = std::make_shared<rtc::PeerConnection>(webRtcConfig);
 
@@ -34,13 +34,7 @@ shared_promise ClientConnection::connect(
     this->peerConnection->onStateChange([this](State state) {
         spdlog::debug("ClientConnection: Peer connection state: {}", utils::toString<State>(state));
         if ((state == State::Disconnected) || (state == State::Failed)) {
-            //this->closed = true;
-            //if (this->closedCallback) {
-            //    this->closedCallback();
-            //}
-            spdlog::debug("Close method called!");
             this->peerConnection->close();
-            spdlog::debug("PeerConnection closed!");
         } else if (state == State::Closed) {
             this->closed = true;
             if (this->closedCallback) {
@@ -65,7 +59,7 @@ shared_promise ClientConnection::connect(
 
         dataChannel->onClosed([&]() {
             //spdlog::debug("ClientConnection: DataChannel with label '{}' closed", dataChannel->label());
-            this->peerConnection->close();
+            //this->peerConnection->close();
         });
 
         dataChannel->onMessage([this](const std::variant<binary, std::string> &message) {
@@ -117,18 +111,7 @@ void ClientConnection::sendMessage(binary const& message) {
 }
 
 ClientConnection::~ClientConnection() {
-    spdlog::debug("ClientConnection: Waiting for peer connection to close");
-
     if (this->peerConnection && !this->closed) {
-        auto promise = std::make_shared<std::promise<void>>();
-        this->onClosed([&promise]() {
-            promise->set_value();
-        });
-
         this->peerConnection->close();
-
-        promise->get_future().wait();
     }
-
-    spdlog::debug("ClientConnection: Peer connection closed");
 }
