@@ -59,7 +59,7 @@ shared_promise ClientConnection::connect(
 
         dataChannel->onClosed([&]() {
             //spdlog::debug("ClientConnection: DataChannel with label '{}' closed", dataChannel->label());
-            //this->peerConnection->close();
+            this->peerConnection->close();
         });
 
         dataChannel->onMessage([this](const std::variant<binary, std::string> &message) {
@@ -108,10 +108,4 @@ void ClientConnection::sendMessage(binary const& message) {
     //std::variant<binary, string> data = message;
     //this->dataChannel->send(data);
     this->dataChannel->send(message);
-}
-
-ClientConnection::~ClientConnection() {
-    if (this->peerConnection && !this->closed) {
-        this->peerConnection->close();
-    }
 }

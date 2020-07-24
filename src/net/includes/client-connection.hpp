@@ -17,7 +17,6 @@ using binary = std::vector<std::byte>;
 class ClientConnection {
     public:
         ClientConnection(std::string id): id{id}, requestPending{false} {};
-        ~ClientConnection();
 
         shared_promise connect(
             WebRtcNegotiationClientParams &clientParams,
