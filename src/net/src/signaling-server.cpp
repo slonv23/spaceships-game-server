@@ -1,4 +1,3 @@
-#include <string>
 #include <regex>
 #include <map>
 #include <exception>
@@ -24,8 +23,8 @@ void SignalingServer::start() {
 				if (req.header("content-type") != "application/x-www-form-urlencoded") {
 					served::response::stock_reply(400, res);
 				} else {
-					std::string source = req.source();
-					spdlog::info("Client id: {}", source);
+					std::string connectionId = this->generateConnectionId(req.source());
+					spdlog::info("Establishing new connection #{}", connectionId);
 
 					utils::QueryParams queryParams = utils::parseUrlencodedQuery(req.body());
 					WebRtcNegotiationClientParams webRtcNegotiationClientParams;
@@ -39,7 +38,7 @@ void SignalingServer::start() {
 						webRtcNegotiationClientParams.iceCandidates = iceCandidates;
 						webRtcNegotiationClientParams.offer = offer;
 						WebRtcNegotiationServerParams webRtcNegotiationServerParams =
-							this->networkManager.connectClient(source, webRtcNegotiationClientParams);
+							this->networkManager.connectClient(connectionId, webRtcNegotiationClientParams);
 						
 						utils::QueryParams response;
 						response.addParamValue("answer"s, webRtcNegotiationServerParams.answer);
@@ -61,6 +60,16 @@ void SignalingServer::start() {
 	// Create the server and run with 2 handler threads (not blocking mode)
 	this->server = new served::net::server("0.0.0.0", "8080", mux);
 	this->server->run(2, false);
+}
+
+std::string SignalingServer::generateConnectionId(std::string ip) {
+	const auto& result = this->numberOfConnectionsByIp.find(ip);
+	if (result != this->numberOfConnectionsByIp.end()) {
+		return ip + "." + std::to_string(++result->second);
+	} else {
+		this->numberOfConnectionsByIp.insert({ip, 1});
+		return ip + ".1";
+	}
 }
 
 SignalingServer::~SignalingServer() {
