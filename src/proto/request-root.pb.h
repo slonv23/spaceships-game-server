@@ -30,7 +30,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
-#include "input-action.pb.h"
+#include "object-action.pb.h"
 #include "spawn-request.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_request_2droot_2eproto 
@@ -91,7 +91,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   static const RequestRoot& default_instance();
 
   enum MessageCase {
-    kInputAction = 3,
+    kObjectAction = 3,
     kSpawnRequest = 4,
     MESSAGE_NOT_SET = 0,
   };
@@ -166,17 +166,17 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int32 requestid() const;
   void set_requestid(::google::protobuf::int32 value);
 
-  // .multiplayer.InputAction inputAction = 3;
-  bool has_inputaction() const;
-  void clear_inputaction();
-  static const int kInputActionFieldNumber = 3;
+  // .multiplayer.ObjectAction objectAction = 3;
+  bool has_objectaction() const;
+  void clear_objectaction();
+  static const int kObjectActionFieldNumber = 3;
   private:
-  const ::multiplayer::InputAction& _internal_inputaction() const;
+  const ::multiplayer::ObjectAction& _internal_objectaction() const;
   public:
-  const ::multiplayer::InputAction& inputaction() const;
-  ::multiplayer::InputAction* release_inputaction();
-  ::multiplayer::InputAction* mutable_inputaction();
-  void set_allocated_inputaction(::multiplayer::InputAction* inputaction);
+  const ::multiplayer::ObjectAction& objectaction() const;
+  ::multiplayer::ObjectAction* release_objectaction();
+  ::multiplayer::ObjectAction* mutable_objectaction();
+  void set_allocated_objectaction(::multiplayer::ObjectAction* objectaction);
 
   // .multiplayer.SpawnRequest spawnRequest = 4;
   bool has_spawnrequest() const;
@@ -194,7 +194,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   MessageCase message_case() const;
   // @@protoc_insertion_point(class_scope:multiplayer.RequestRoot)
  private:
-  void set_has_inputaction();
+  void set_has_objectaction();
   void set_has_spawnrequest();
 
   inline bool has_message() const;
@@ -205,7 +205,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int32 requestid_;
   union MessageUnion {
     MessageUnion() {}
-    ::multiplayer::InputAction* inputaction_;
+    ::multiplayer::ObjectAction* objectaction_;
     ::multiplayer::SpawnRequest* spawnrequest_;
   } message_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
@@ -252,42 +252,42 @@ inline void RequestRoot::set_requestsenttimestamp(::google::protobuf::uint64 val
   // @@protoc_insertion_point(field_set:multiplayer.RequestRoot.requestSentTimestamp)
 }
 
-// .multiplayer.InputAction inputAction = 3;
-inline bool RequestRoot::has_inputaction() const {
-  return message_case() == kInputAction;
+// .multiplayer.ObjectAction objectAction = 3;
+inline bool RequestRoot::has_objectaction() const {
+  return message_case() == kObjectAction;
 }
-inline void RequestRoot::set_has_inputaction() {
-  _oneof_case_[0] = kInputAction;
+inline void RequestRoot::set_has_objectaction() {
+  _oneof_case_[0] = kObjectAction;
 }
-inline const ::multiplayer::InputAction& RequestRoot::_internal_inputaction() const {
-  return *message_.inputaction_;
+inline const ::multiplayer::ObjectAction& RequestRoot::_internal_objectaction() const {
+  return *message_.objectaction_;
 }
-inline ::multiplayer::InputAction* RequestRoot::release_inputaction() {
-  // @@protoc_insertion_point(field_release:multiplayer.RequestRoot.inputAction)
-  if (has_inputaction()) {
+inline ::multiplayer::ObjectAction* RequestRoot::release_objectaction() {
+  // @@protoc_insertion_point(field_release:multiplayer.RequestRoot.objectAction)
+  if (has_objectaction()) {
     clear_has_message();
-      ::multiplayer::InputAction* temp = message_.inputaction_;
-    message_.inputaction_ = NULL;
+      ::multiplayer::ObjectAction* temp = message_.objectaction_;
+    message_.objectaction_ = NULL;
     return temp;
   } else {
     return NULL;
   }
 }
-inline const ::multiplayer::InputAction& RequestRoot::inputaction() const {
-  // @@protoc_insertion_point(field_get:multiplayer.RequestRoot.inputAction)
-  return has_inputaction()
-      ? *message_.inputaction_
-      : *reinterpret_cast< ::multiplayer::InputAction*>(&::multiplayer::_InputAction_default_instance_);
+inline const ::multiplayer::ObjectAction& RequestRoot::objectaction() const {
+  // @@protoc_insertion_point(field_get:multiplayer.RequestRoot.objectAction)
+  return has_objectaction()
+      ? *message_.objectaction_
+      : *reinterpret_cast< ::multiplayer::ObjectAction*>(&::multiplayer::_ObjectAction_default_instance_);
 }
-inline ::multiplayer::InputAction* RequestRoot::mutable_inputaction() {
-  if (!has_inputaction()) {
+inline ::multiplayer::ObjectAction* RequestRoot::mutable_objectaction() {
+  if (!has_objectaction()) {
     clear_message();
-    set_has_inputaction();
-    message_.inputaction_ = CreateMaybeMessage< ::multiplayer::InputAction >(
+    set_has_objectaction();
+    message_.objectaction_ = CreateMaybeMessage< ::multiplayer::ObjectAction >(
         GetArenaNoVirtual());
   }
-  // @@protoc_insertion_point(field_mutable:multiplayer.RequestRoot.inputAction)
-  return message_.inputaction_;
+  // @@protoc_insertion_point(field_mutable:multiplayer.RequestRoot.objectAction)
+  return message_.objectaction_;
 }
 
 // .multiplayer.SpawnRequest spawnRequest = 4;

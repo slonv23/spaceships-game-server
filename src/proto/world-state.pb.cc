@@ -20,7 +20,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_object_2dstate_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2dstate_2eproto ::google::protobuf::internal::SCCInfo<3> scc_info_ObjectState;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2dstate_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_ObjectState;
 }  // namespace protobuf_object_2dstate_2eproto
 namespace multiplayer {
 class WorldStateDefaultTypeInternal {
