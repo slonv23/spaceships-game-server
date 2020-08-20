@@ -192,7 +192,7 @@ class ObjectAction : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::multiplayer::SpaceFighterOpenFire* mutable_spacefighteropenfire();
   void set_allocated_spacefighteropenfire(::multiplayer::SpaceFighterOpenFire* spacefighteropenfire);
 
-  // .multiplayer.SpaceFighterDestroy SpaceFighterDestroy = 5;
+  // .multiplayer.SpaceFighterDestroy spaceFighterDestroy = 5;
   bool has_spacefighterdestroy() const;
   void clear_spacefighterdestroy();
   static const int kSpaceFighterDestroyFieldNumber = 5;
@@ -344,7 +344,7 @@ inline ::multiplayer::SpaceFighterOpenFire* ObjectAction::mutable_spacefighterop
   return action_.spacefighteropenfire_;
 }
 
-// .multiplayer.SpaceFighterDestroy SpaceFighterDestroy = 5;
+// .multiplayer.SpaceFighterDestroy spaceFighterDestroy = 5;
 inline bool ObjectAction::has_spacefighterdestroy() const {
   return action_case() == kSpaceFighterDestroy;
 }
@@ -355,7 +355,7 @@ inline const ::multiplayer::SpaceFighterDestroy& ObjectAction::_internal_spacefi
   return *action_.spacefighterdestroy_;
 }
 inline ::multiplayer::SpaceFighterDestroy* ObjectAction::release_spacefighterdestroy() {
-  // @@protoc_insertion_point(field_release:multiplayer.ObjectAction.SpaceFighterDestroy)
+  // @@protoc_insertion_point(field_release:multiplayer.ObjectAction.spaceFighterDestroy)
   if (has_spacefighterdestroy()) {
     clear_has_action();
       ::multiplayer::SpaceFighterDestroy* temp = action_.spacefighterdestroy_;
@@ -366,7 +366,7 @@ inline ::multiplayer::SpaceFighterDestroy* ObjectAction::release_spacefighterdes
   }
 }
 inline const ::multiplayer::SpaceFighterDestroy& ObjectAction::spacefighterdestroy() const {
-  // @@protoc_insertion_point(field_get:multiplayer.ObjectAction.SpaceFighterDestroy)
+  // @@protoc_insertion_point(field_get:multiplayer.ObjectAction.spaceFighterDestroy)
   return has_spacefighterdestroy()
       ? *action_.spacefighterdestroy_
       : *reinterpret_cast< ::multiplayer::SpaceFighterDestroy*>(&::multiplayer::_SpaceFighterDestroy_default_instance_);
@@ -378,7 +378,7 @@ inline ::multiplayer::SpaceFighterDestroy* ObjectAction::mutable_spacefighterdes
     action_.spacefighterdestroy_ = CreateMaybeMessage< ::multiplayer::SpaceFighterDestroy >(
         GetArenaNoVirtual());
   }
-  // @@protoc_insertion_point(field_mutable:multiplayer.ObjectAction.SpaceFighterDestroy)
+  // @@protoc_insertion_point(field_mutable:multiplayer.ObjectAction.spaceFighterDestroy)
   return action_.spacefighterdestroy_;
 }
 

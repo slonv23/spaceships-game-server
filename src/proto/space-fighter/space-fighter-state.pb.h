@@ -30,9 +30,9 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
-#include "float-vector.pb.h"
-#include "quaternion.pb.h"
-#include "object-action.pb.h"
+#include "../float-vector.pb.h"
+#include "../quaternion.pb.h"
+#include "../object-action.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_space_2dfighter_2fspace_2dfighter_2dstate_2eproto 
 

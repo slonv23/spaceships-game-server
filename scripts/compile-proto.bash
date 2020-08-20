@@ -10,5 +10,30 @@ FILES=$(find $PROTO_DIR -type f -name "*.proto")
 
 for proto in $FILES; do
     echo "Compiling $proto"
-    protoc -I="$PROTO_DIR" --cpp_out="$PROTO_OUTPUT_DIR" "$proto";
+
+    filename="$(basename -- $proto)"
+    relativePath=${proto#"$PROTO_DIR/"}
+    relativePath=${relativePath%"$filename"}
+    if [ ! -z "$relativePath" ]
+    then
+        filepath="${relativePath}$filename"
+    else
+        filepath=$filename
+    fi
+
+    protoc -I="${PROTO_DIR}" --cpp_out="${PROTO_OUTPUT_DIR}" "$filepath";
+
+    # fix includes
+    tmp="${relativePath//"/"}"
+    count=$((${#relativePath} - ${#tmp}))
+    includePrefix=""
+    for ((i = 1; i <= count; i++)); do
+        includePrefix="\.\.\/$includePrefix"
+    done
+
+    if [ ! -z "$includePrefix" ]
+    then
+        filepathWithoutExt=${filepath%".proto"}  
+        sed -i "s/^\#include\s\"\(.*\)\"/#include \"$includePrefix\1\"/g" "${PROTO_OUTPUT_DIR}/${filepathWithoutExt}.pb.h"
+    fi
 done

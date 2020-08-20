@@ -112,7 +112,7 @@ void AddDescriptorsImpl() {
       "\n\nframeIndex\030\002 \001(\005\022;\n\021spaceFighterInput\030"
       "\003 \001(\0132\036.multiplayer.SpaceFighterInputH\000\022"
       "A\n\024spaceFighterOpenFire\030\004 \001(\0132!.multipla"
-      "yer.SpaceFighterOpenFireH\000\022\?\n\023SpaceFight"
+      "yer.SpaceFighterOpenFireH\000\022\?\n\023spaceFight"
       "erDestroy\030\005 \001(\0132 .multiplayer.SpaceFight"
       "erDestroyH\000B\010\n\006actionb\006proto3"
   };
@@ -200,7 +200,7 @@ void ObjectAction::set_allocated_spacefighterdestroy(::multiplayer::SpaceFighter
     set_has_spacefighterdestroy();
     action_.spacefighterdestroy_ = spacefighterdestroy;
   }
-  // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectAction.SpaceFighterDestroy)
+  // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectAction.spaceFighterDestroy)
 }
 void ObjectAction::clear_spacefighterdestroy() {
   if (has_spacefighterdestroy()) {
@@ -381,7 +381,7 @@ bool ObjectAction::MergePartialFromCodedStream(
         break;
       }
 
-      // .multiplayer.SpaceFighterDestroy SpaceFighterDestroy = 5;
+      // .multiplayer.SpaceFighterDestroy spaceFighterDestroy = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
@@ -441,7 +441,7 @@ void ObjectAction::SerializeWithCachedSizes(
       4, this->_internal_spacefighteropenfire(), output);
   }
 
-  // .multiplayer.SpaceFighterDestroy SpaceFighterDestroy = 5;
+  // .multiplayer.SpaceFighterDestroy spaceFighterDestroy = 5;
   if (has_spacefighterdestroy()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, this->_internal_spacefighterdestroy(), output);
@@ -485,7 +485,7 @@ void ObjectAction::SerializeWithCachedSizes(
         4, this->_internal_spacefighteropenfire(), deterministic, target);
   }
 
-  // .multiplayer.SpaceFighterDestroy SpaceFighterDestroy = 5;
+  // .multiplayer.SpaceFighterDestroy spaceFighterDestroy = 5;
   if (has_spacefighterdestroy()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
@@ -538,7 +538,7 @@ size_t ObjectAction::ByteSizeLong() const {
           *action_.spacefighteropenfire_);
       break;
     }
-    // .multiplayer.SpaceFighterDestroy SpaceFighterDestroy = 5;
+    // .multiplayer.SpaceFighterDestroy spaceFighterDestroy = 5;
     case kSpaceFighterDestroy: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(

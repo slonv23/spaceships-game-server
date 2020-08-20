@@ -9,7 +9,7 @@
 #include "../../util/includes/io.hpp"
 #include "../../proto/request-ack.pb.h"
 #include "../../proto/response-root.pb.h"
-#include "../../proto/input-action.pb.h"
+#include "../../proto/object-action.pb.h"
 
 template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
 
@@ -73,15 +73,15 @@ void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConne
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
         this->issueRequest(clientConnection->id, requestRoot);
-    } else if (requestRoot.has_inputaction()) {
-        spdlog::debug("Received input action");
+    } else if (requestRoot.has_objectaction()) {
+        spdlog::debug("Received object action");
         if (!clientConnection->controlledObjectId) {
             spdlog::warn("Client #{} send input action, but has no object id assigned");
             return;
         }
-        multiplayer::InputAction *inputAction = new multiplayer::InputAction(requestRoot.inputaction());
-        inputAction->set_objectid(clientConnection->controlledObjectId);
-        requestRoot.set_allocated_inputaction(inputAction);
+        multiplayer::ObjectAction *objectAction = new multiplayer::ObjectAction(requestRoot.objectaction());
+        objectAction->set_objectid(clientConnection->controlledObjectId);
+        requestRoot.set_allocated_objectaction(objectAction);
         this->issueRequest(clientConnection->id, requestRoot, false);
     }
 }
