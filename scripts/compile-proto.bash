@@ -35,5 +35,6 @@ for proto in $FILES; do
     then
         filepathWithoutExt=${filepath%".proto"}  
         sed -i "s/^\#include\s\"\(.*\)\"/#include \"$includePrefix\1\"/g" "${PROTO_OUTPUT_DIR}/${filepathWithoutExt}.pb.h"
+        sed -i "s/^\#include\s\"${relativePath//\//\\/}\(.*\)\"/#include \"\1\"/g" "${PROTO_OUTPUT_DIR}/${filepathWithoutExt}.pb.cc"
     fi
 done
