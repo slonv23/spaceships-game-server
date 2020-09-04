@@ -149,10 +149,10 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // repeated .multiplayer.ObjectAction actions = 9;
+  // repeated .multiplayer.ObjectAction actions = 10;
   int actions_size() const;
   void clear_actions();
-  static const int kActionsFieldNumber = 9;
+  static const int kActionsFieldNumber = 10;
   ::multiplayer::ObjectAction* mutable_actions(int index);
   ::google::protobuf::RepeatedPtrField< ::multiplayer::ObjectAction >*
       mutable_actions();
@@ -209,6 +209,18 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
   ::multiplayer::Quaternion* mutable_controlquaternion();
   void set_allocated_controlquaternion(::multiplayer::Quaternion* controlquaternion);
 
+  // .multiplayer.Quaternion controlRotQuaternion = 8;
+  bool has_controlrotquaternion() const;
+  void clear_controlrotquaternion();
+  static const int kControlRotQuaternionFieldNumber = 8;
+  private:
+  const ::multiplayer::Quaternion& _internal_controlrotquaternion() const;
+  public:
+  const ::multiplayer::Quaternion& controlrotquaternion() const;
+  ::multiplayer::Quaternion* release_controlrotquaternion();
+  ::multiplayer::Quaternion* mutable_controlrotquaternion();
+  void set_allocated_controlrotquaternion(::multiplayer::Quaternion* controlrotquaternion);
+
   // float speed = 3;
   void clear_speed();
   static const int kSpeedFieldNumber = 3;
@@ -227,9 +239,9 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
   float rollanglebtwcurrentandtargetorientation() const;
   void set_rollanglebtwcurrentandtargetorientation(float value);
 
-  // bool shooting = 8;
+  // bool shooting = 9;
   void clear_shooting();
-  static const int kShootingFieldNumber = 8;
+  static const int kShootingFieldNumber = 9;
   bool shooting() const;
   void set_shooting(bool value);
 
@@ -242,6 +254,7 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
   ::multiplayer::Quaternion* quaternion_;
   ::multiplayer::FloatVector* angularvelocity_;
   ::multiplayer::Quaternion* controlquaternion_;
+  ::multiplayer::Quaternion* controlrotquaternion_;
   float speed_;
   float acceleration_;
   float rollanglebtwcurrentandtargetorientation_;
@@ -494,7 +507,55 @@ inline void SpaceFighterState::set_allocated_controlquaternion(::multiplayer::Qu
   // @@protoc_insertion_point(field_set_allocated:multiplayer.SpaceFighterState.controlQuaternion)
 }
 
-// bool shooting = 8;
+// .multiplayer.Quaternion controlRotQuaternion = 8;
+inline bool SpaceFighterState::has_controlrotquaternion() const {
+  return this != internal_default_instance() && controlrotquaternion_ != NULL;
+}
+inline const ::multiplayer::Quaternion& SpaceFighterState::_internal_controlrotquaternion() const {
+  return *controlrotquaternion_;
+}
+inline const ::multiplayer::Quaternion& SpaceFighterState::controlrotquaternion() const {
+  const ::multiplayer::Quaternion* p = controlrotquaternion_;
+  // @@protoc_insertion_point(field_get:multiplayer.SpaceFighterState.controlRotQuaternion)
+  return p != NULL ? *p : *reinterpret_cast<const ::multiplayer::Quaternion*>(
+      &::multiplayer::_Quaternion_default_instance_);
+}
+inline ::multiplayer::Quaternion* SpaceFighterState::release_controlrotquaternion() {
+  // @@protoc_insertion_point(field_release:multiplayer.SpaceFighterState.controlRotQuaternion)
+  
+  ::multiplayer::Quaternion* temp = controlrotquaternion_;
+  controlrotquaternion_ = NULL;
+  return temp;
+}
+inline ::multiplayer::Quaternion* SpaceFighterState::mutable_controlrotquaternion() {
+  
+  if (controlrotquaternion_ == NULL) {
+    auto* p = CreateMaybeMessage<::multiplayer::Quaternion>(GetArenaNoVirtual());
+    controlrotquaternion_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:multiplayer.SpaceFighterState.controlRotQuaternion)
+  return controlrotquaternion_;
+}
+inline void SpaceFighterState::set_allocated_controlrotquaternion(::multiplayer::Quaternion* controlrotquaternion) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(controlrotquaternion_);
+  }
+  if (controlrotquaternion) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      controlrotquaternion = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, controlrotquaternion, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  controlrotquaternion_ = controlrotquaternion;
+  // @@protoc_insertion_point(field_set_allocated:multiplayer.SpaceFighterState.controlRotQuaternion)
+}
+
+// bool shooting = 9;
 inline void SpaceFighterState::clear_shooting() {
   shooting_ = false;
 }
@@ -508,7 +569,7 @@ inline void SpaceFighterState::set_shooting(bool value) {
   // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterState.shooting)
 }
 
-// repeated .multiplayer.ObjectAction actions = 9;
+// repeated .multiplayer.ObjectAction actions = 10;
 inline int SpaceFighterState::actions_size() const {
   return actions_.size();
 }
