@@ -34,6 +34,7 @@
 #include "space-fighter/space-fighter-open-fire.pb.h"
 #include "space-fighter/space-fighter-stop-fire.pb.h"
 #include "space-fighter/space-fighter-destroy.pb.h"
+#include "space-fighter/space-fighter-got-hit.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_object_2daction_2eproto 
 
@@ -97,6 +98,7 @@ class ObjectAction : public ::google::protobuf::Message /* @@protoc_insertion_po
     kSpaceFighterOpenFire = 4,
     kSpaceFighterDestroy = 5,
     kSpaceFighterStopFire = 6,
+    kSpaceFighterGotHit = 7,
     ACTION_NOT_SET = 0,
   };
 
@@ -218,6 +220,18 @@ class ObjectAction : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::multiplayer::SpaceFighterStopFire* mutable_spacefighterstopfire();
   void set_allocated_spacefighterstopfire(::multiplayer::SpaceFighterStopFire* spacefighterstopfire);
 
+  // .multiplayer.SpaceFighterGotHit spaceFighterGotHit = 7;
+  bool has_spacefightergothit() const;
+  void clear_spacefightergothit();
+  static const int kSpaceFighterGotHitFieldNumber = 7;
+  private:
+  const ::multiplayer::SpaceFighterGotHit& _internal_spacefightergothit() const;
+  public:
+  const ::multiplayer::SpaceFighterGotHit& spacefightergothit() const;
+  ::multiplayer::SpaceFighterGotHit* release_spacefightergothit();
+  ::multiplayer::SpaceFighterGotHit* mutable_spacefightergothit();
+  void set_allocated_spacefightergothit(::multiplayer::SpaceFighterGotHit* spacefightergothit);
+
   void clear_action();
   ActionCase action_case() const;
   // @@protoc_insertion_point(class_scope:multiplayer.ObjectAction)
@@ -226,6 +240,7 @@ class ObjectAction : public ::google::protobuf::Message /* @@protoc_insertion_po
   void set_has_spacefighteropenfire();
   void set_has_spacefighterdestroy();
   void set_has_spacefighterstopfire();
+  void set_has_spacefightergothit();
 
   inline bool has_action() const;
   inline void clear_has_action();
@@ -239,6 +254,7 @@ class ObjectAction : public ::google::protobuf::Message /* @@protoc_insertion_po
     ::multiplayer::SpaceFighterOpenFire* spacefighteropenfire_;
     ::multiplayer::SpaceFighterDestroy* spacefighterdestroy_;
     ::multiplayer::SpaceFighterStopFire* spacefighterstopfire_;
+    ::multiplayer::SpaceFighterGotHit* spacefightergothit_;
   } action_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::uint32 _oneof_case_[1];
@@ -434,6 +450,44 @@ inline ::multiplayer::SpaceFighterStopFire* ObjectAction::mutable_spacefighterst
   }
   // @@protoc_insertion_point(field_mutable:multiplayer.ObjectAction.spaceFighterStopFire)
   return action_.spacefighterstopfire_;
+}
+
+// .multiplayer.SpaceFighterGotHit spaceFighterGotHit = 7;
+inline bool ObjectAction::has_spacefightergothit() const {
+  return action_case() == kSpaceFighterGotHit;
+}
+inline void ObjectAction::set_has_spacefightergothit() {
+  _oneof_case_[0] = kSpaceFighterGotHit;
+}
+inline const ::multiplayer::SpaceFighterGotHit& ObjectAction::_internal_spacefightergothit() const {
+  return *action_.spacefightergothit_;
+}
+inline ::multiplayer::SpaceFighterGotHit* ObjectAction::release_spacefightergothit() {
+  // @@protoc_insertion_point(field_release:multiplayer.ObjectAction.spaceFighterGotHit)
+  if (has_spacefightergothit()) {
+    clear_has_action();
+      ::multiplayer::SpaceFighterGotHit* temp = action_.spacefightergothit_;
+    action_.spacefightergothit_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline const ::multiplayer::SpaceFighterGotHit& ObjectAction::spacefightergothit() const {
+  // @@protoc_insertion_point(field_get:multiplayer.ObjectAction.spaceFighterGotHit)
+  return has_spacefightergothit()
+      ? *action_.spacefightergothit_
+      : *reinterpret_cast< ::multiplayer::SpaceFighterGotHit*>(&::multiplayer::_SpaceFighterGotHit_default_instance_);
+}
+inline ::multiplayer::SpaceFighterGotHit* ObjectAction::mutable_spacefightergothit() {
+  if (!has_spacefightergothit()) {
+    clear_action();
+    set_has_spacefightergothit();
+    action_.spacefightergothit_ = CreateMaybeMessage< ::multiplayer::SpaceFighterGotHit >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:multiplayer.ObjectAction.spaceFighterGotHit)
+  return action_.spacefightergothit_;
 }
 
 inline bool ObjectAction::has_action() const {

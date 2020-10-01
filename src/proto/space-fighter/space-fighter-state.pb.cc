@@ -23,7 +23,7 @@ namespace protobuf_float_2dvector_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_float_2dvector_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_FloatVector;
 }  // namespace protobuf_float_2dvector_2eproto
 namespace protobuf_object_2daction_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2daction_2eproto ::google::protobuf::internal::SCCInfo<4> scc_info_ObjectAction;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2daction_2eproto ::google::protobuf::internal::SCCInfo<5> scc_info_ObjectAction;
 }  // namespace protobuf_object_2daction_2eproto
 namespace protobuf_quaternion_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_quaternion_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_Quaternion;

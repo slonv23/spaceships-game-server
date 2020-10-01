@@ -53,6 +53,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterOpenFire, projectileseqid_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::multiplayer::SpaceFighterOpenFire)},
@@ -84,11 +85,11 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n+space-fighter/space-fighter-open-fire."
-      "proto\022\013multiplayer\"\026\n\024SpaceFighterOpenFi"
-      "reb\006proto3"
+      "proto\022\013multiplayer\"/\n\024SpaceFighterOpenFi"
+      "re\022\027\n\017projectileSeqId\030\001 \001(\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 90);
+      descriptor, 115);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "space-fighter/space-fighter-open-fire.proto", &protobuf_RegisterTypes);
 }
@@ -111,6 +112,7 @@ namespace multiplayer {
 void SpaceFighterOpenFire::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SpaceFighterOpenFire::kProjectileSeqIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SpaceFighterOpenFire::SpaceFighterOpenFire()
@@ -124,10 +126,12 @@ SpaceFighterOpenFire::SpaceFighterOpenFire(const SpaceFighterOpenFire& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  projectileseqid_ = from.projectileseqid_;
   // @@protoc_insertion_point(copy_constructor:multiplayer.SpaceFighterOpenFire)
 }
 
 void SpaceFighterOpenFire::SharedCtor() {
+  projectileseqid_ = 0;
 }
 
 SpaceFighterOpenFire::~SpaceFighterOpenFire() {
@@ -158,6 +162,7 @@ void SpaceFighterOpenFire::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  projectileseqid_ = 0;
   _internal_metadata_.Clear();
 }
 
@@ -170,12 +175,31 @@ bool SpaceFighterOpenFire::MergePartialFromCodedStream(
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 projectileSeqId = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &projectileseqid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, _internal_metadata_.mutable_unknown_fields()));
   }
 success:
   // @@protoc_insertion_point(parse_success:multiplayer.SpaceFighterOpenFire)
@@ -192,6 +216,11 @@ void SpaceFighterOpenFire::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 projectileSeqId = 1;
+  if (this->projectileseqid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->projectileseqid(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -205,6 +234,11 @@ void SpaceFighterOpenFire::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_to_array_start:multiplayer.SpaceFighterOpenFire)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
+
+  // int32 projectileSeqId = 1;
+  if (this->projectileseqid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->projectileseqid(), target);
+  }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
@@ -223,6 +257,13 @@ size_t SpaceFighterOpenFire::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
+  // int32 projectileSeqId = 1;
+  if (this->projectileseqid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->projectileseqid());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -250,6 +291,9 @@ void SpaceFighterOpenFire::MergeFrom(const SpaceFighterOpenFire& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.projectileseqid() != 0) {
+    set_projectileseqid(from.projectileseqid());
+  }
 }
 
 void SpaceFighterOpenFire::CopyFrom(const ::google::protobuf::Message& from) {
@@ -276,6 +320,7 @@ void SpaceFighterOpenFire::Swap(SpaceFighterOpenFire* other) {
 }
 void SpaceFighterOpenFire::InternalSwap(SpaceFighterOpenFire* other) {
   using std::swap;
+  swap(projectileseqid_, other->projectileseqid_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 

@@ -20,7 +20,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_object_2daction_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2daction_2eproto ::google::protobuf::internal::SCCInfo<4> scc_info_ObjectAction;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2daction_2eproto ::google::protobuf::internal::SCCInfo<5> scc_info_ObjectAction;
 }  // namespace protobuf_object_2daction_2eproto
 namespace protobuf_spawn_2drequest_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_spawn_2drequest_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SpawnRequest;

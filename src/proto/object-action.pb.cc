@@ -22,6 +22,9 @@
 namespace protobuf_space_2dfighter_2fspace_2dfighter_2ddestroy_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_space_2dfighter_2fspace_2dfighter_2ddestroy_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SpaceFighterDestroy;
 }  // namespace protobuf_space_2dfighter_2fspace_2dfighter_2ddestroy_2eproto
+namespace protobuf_space_2dfighter_2fspace_2dfighter_2dgot_2dhit_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_space_2dfighter_2fspace_2dfighter_2dgot_2dhit_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SpaceFighterGotHit;
+}  // namespace protobuf_space_2dfighter_2fspace_2dfighter_2dgot_2dhit_2eproto
 namespace protobuf_space_2dfighter_2fspace_2dfighter_2dinput_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_space_2dfighter_2fspace_2dfighter_2dinput_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_SpaceFighterInput;
 }  // namespace protobuf_space_2dfighter_2fspace_2dfighter_2dinput_2eproto
@@ -40,6 +43,7 @@ class ObjectActionDefaultTypeInternal {
   const ::multiplayer::SpaceFighterOpenFire* spacefighteropenfire_;
   const ::multiplayer::SpaceFighterDestroy* spacefighterdestroy_;
   const ::multiplayer::SpaceFighterStopFire* spacefighterstopfire_;
+  const ::multiplayer::SpaceFighterGotHit* spacefightergothit_;
 } _ObjectAction_default_instance_;
 }  // namespace multiplayer
 namespace protobuf_object_2daction_2eproto {
@@ -54,12 +58,13 @@ static void InitDefaultsObjectAction() {
   ::multiplayer::ObjectAction::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<4> scc_info_ObjectAction =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 4, InitDefaultsObjectAction}, {
+::google::protobuf::internal::SCCInfo<5> scc_info_ObjectAction =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 5, InitDefaultsObjectAction}, {
       &protobuf_space_2dfighter_2fspace_2dfighter_2dinput_2eproto::scc_info_SpaceFighterInput.base,
       &protobuf_space_2dfighter_2fspace_2dfighter_2dopen_2dfire_2eproto::scc_info_SpaceFighterOpenFire.base,
       &protobuf_space_2dfighter_2fspace_2dfighter_2ddestroy_2eproto::scc_info_SpaceFighterDestroy.base,
-      &protobuf_space_2dfighter_2fspace_2dfighter_2dstop_2dfire_2eproto::scc_info_SpaceFighterStopFire.base,}};
+      &protobuf_space_2dfighter_2fspace_2dfighter_2dstop_2dfire_2eproto::scc_info_SpaceFighterStopFire.base,
+      &protobuf_space_2dfighter_2fspace_2dfighter_2dgot_2dhit_2eproto::scc_info_SpaceFighterGotHit.base,}};
 
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_ObjectAction.base);
@@ -79,6 +84,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   offsetof(::multiplayer::ObjectActionDefaultTypeInternal, spacefighteropenfire_),
   offsetof(::multiplayer::ObjectActionDefaultTypeInternal, spacefighterdestroy_),
   offsetof(::multiplayer::ObjectActionDefaultTypeInternal, spacefighterstopfire_),
+  offsetof(::multiplayer::ObjectActionDefaultTypeInternal, spacefightergothit_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::ObjectAction, action_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -115,24 +121,28 @@ void AddDescriptorsImpl() {
       "ce-fighter/space-fighter-open-fire.proto"
       "\032+space-fighter/space-fighter-stop-fire."
       "proto\032)space-fighter/space-fighter-destr"
-      "oy.proto\"\302\002\n\014ObjectAction\022\020\n\010objectId\030\001 "
-      "\001(\005\022\022\n\nframeIndex\030\002 \001(\005\022;\n\021spaceFighterI"
-      "nput\030\003 \001(\0132\036.multiplayer.SpaceFighterInp"
-      "utH\000\022A\n\024spaceFighterOpenFire\030\004 \001(\0132!.mul"
-      "tiplayer.SpaceFighterOpenFireH\000\022\?\n\023space"
-      "FighterDestroy\030\005 \001(\0132 .multiplayer.Space"
-      "FighterDestroyH\000\022A\n\024spaceFighterStopFire"
-      "\030\006 \001(\0132!.multiplayer.SpaceFighterStopFir"
-      "eH\000B\010\n\006actionb\006proto3"
+      "oy.proto\032)space-fighter/space-fighter-go"
+      "t-hit.proto\"\201\003\n\014ObjectAction\022\020\n\010objectId"
+      "\030\001 \001(\005\022\022\n\nframeIndex\030\002 \001(\005\022;\n\021spaceFight"
+      "erInput\030\003 \001(\0132\036.multiplayer.SpaceFighter"
+      "InputH\000\022A\n\024spaceFighterOpenFire\030\004 \001(\0132!."
+      "multiplayer.SpaceFighterOpenFireH\000\022\?\n\023sp"
+      "aceFighterDestroy\030\005 \001(\0132 .multiplayer.Sp"
+      "aceFighterDestroyH\000\022A\n\024spaceFighterStopF"
+      "ire\030\006 \001(\0132!.multiplayer.SpaceFighterStop"
+      "FireH\000\022=\n\022spaceFighterGotHit\030\007 \001(\0132\037.mul"
+      "tiplayer.SpaceFighterGotHitH\000B\010\n\006actionb"
+      "\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 541);
+      descriptor, 647);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "object-action.proto", &protobuf_RegisterTypes);
   ::protobuf_space_2dfighter_2fspace_2dfighter_2dinput_2eproto::AddDescriptors();
   ::protobuf_space_2dfighter_2fspace_2dfighter_2dopen_2dfire_2eproto::AddDescriptors();
   ::protobuf_space_2dfighter_2fspace_2dfighter_2dstop_2dfire_2eproto::AddDescriptors();
   ::protobuf_space_2dfighter_2fspace_2dfighter_2ddestroy_2eproto::AddDescriptors();
+  ::protobuf_space_2dfighter_2fspace_2dfighter_2dgot_2dhit_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -159,6 +169,8 @@ void ObjectAction::InitAsDefaultInstance() {
       ::multiplayer::SpaceFighterDestroy::internal_default_instance());
   ::multiplayer::_ObjectAction_default_instance_.spacefighterstopfire_ = const_cast< ::multiplayer::SpaceFighterStopFire*>(
       ::multiplayer::SpaceFighterStopFire::internal_default_instance());
+  ::multiplayer::_ObjectAction_default_instance_.spacefightergothit_ = const_cast< ::multiplayer::SpaceFighterGotHit*>(
+      ::multiplayer::SpaceFighterGotHit::internal_default_instance());
 }
 void ObjectAction::set_allocated_spacefighterinput(::multiplayer::SpaceFighterInput* spacefighterinput) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
@@ -240,6 +252,26 @@ void ObjectAction::clear_spacefighterstopfire() {
     clear_has_action();
   }
 }
+void ObjectAction::set_allocated_spacefightergothit(::multiplayer::SpaceFighterGotHit* spacefightergothit) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  clear_action();
+  if (spacefightergothit) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      spacefightergothit = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, spacefightergothit, submessage_arena);
+    }
+    set_has_spacefightergothit();
+    action_.spacefightergothit_ = spacefightergothit;
+  }
+  // @@protoc_insertion_point(field_set_allocated:multiplayer.ObjectAction.spaceFighterGotHit)
+}
+void ObjectAction::clear_spacefightergothit() {
+  if (has_spacefightergothit()) {
+    delete action_.spacefightergothit_;
+    clear_has_action();
+  }
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ObjectAction::kObjectIdFieldNumber;
 const int ObjectAction::kFrameIndexFieldNumber;
@@ -247,6 +279,7 @@ const int ObjectAction::kSpaceFighterInputFieldNumber;
 const int ObjectAction::kSpaceFighterOpenFireFieldNumber;
 const int ObjectAction::kSpaceFighterDestroyFieldNumber;
 const int ObjectAction::kSpaceFighterStopFireFieldNumber;
+const int ObjectAction::kSpaceFighterGotHitFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ObjectAction::ObjectAction()
@@ -279,6 +312,10 @@ ObjectAction::ObjectAction(const ObjectAction& from)
     }
     case kSpaceFighterStopFire: {
       mutable_spacefighterstopfire()->::multiplayer::SpaceFighterStopFire::MergeFrom(from.spacefighterstopfire());
+      break;
+    }
+    case kSpaceFighterGotHit: {
+      mutable_spacefightergothit()->::multiplayer::SpaceFighterGotHit::MergeFrom(from.spacefightergothit());
       break;
     }
     case ACTION_NOT_SET: {
@@ -337,6 +374,10 @@ void ObjectAction::clear_action() {
     }
     case kSpaceFighterStopFire: {
       delete action_.spacefighterstopfire_;
+      break;
+    }
+    case kSpaceFighterGotHit: {
+      delete action_.spacefightergothit_;
       break;
     }
     case ACTION_NOT_SET: {
@@ -446,6 +487,18 @@ bool ObjectAction::MergePartialFromCodedStream(
         break;
       }
 
+      // .multiplayer.SpaceFighterGotHit spaceFighterGotHit = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u /* 58 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_spacefightergothit()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -506,6 +559,12 @@ void ObjectAction::SerializeWithCachedSizes(
       6, this->_internal_spacefighterstopfire(), output);
   }
 
+  // .multiplayer.SpaceFighterGotHit spaceFighterGotHit = 7;
+  if (has_spacefightergothit()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->_internal_spacefightergothit(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -556,6 +615,13 @@ void ObjectAction::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
         6, this->_internal_spacefighterstopfire(), deterministic, target);
+  }
+
+  // .multiplayer.SpaceFighterGotHit spaceFighterGotHit = 7;
+  if (has_spacefightergothit()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        7, this->_internal_spacefightergothit(), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -618,6 +684,13 @@ size_t ObjectAction::ByteSizeLong() const {
           *action_.spacefighterstopfire_);
       break;
     }
+    // .multiplayer.SpaceFighterGotHit spaceFighterGotHit = 7;
+    case kSpaceFighterGotHit: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *action_.spacefightergothit_);
+      break;
+    }
     case ACTION_NOT_SET: {
       break;
     }
@@ -670,6 +743,10 @@ void ObjectAction::MergeFrom(const ObjectAction& from) {
     }
     case kSpaceFighterStopFire: {
       mutable_spacefighterstopfire()->::multiplayer::SpaceFighterStopFire::MergeFrom(from.spacefighterstopfire());
+      break;
+    }
+    case kSpaceFighterGotHit: {
+      mutable_spacefightergothit()->::multiplayer::SpaceFighterGotHit::MergeFrom(from.spacefightergothit());
       break;
     }
     case ACTION_NOT_SET: {
