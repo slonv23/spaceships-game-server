@@ -149,10 +149,10 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // repeated .multiplayer.ObjectAction actions = 10;
+  // repeated .multiplayer.ObjectAction actions = 11;
   int actions_size() const;
   void clear_actions();
-  static const int kActionsFieldNumber = 10;
+  static const int kActionsFieldNumber = 11;
   ::multiplayer::ObjectAction* mutable_actions(int index);
   ::google::protobuf::RepeatedPtrField< ::multiplayer::ObjectAction >*
       mutable_actions();
@@ -245,6 +245,12 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
   bool shooting() const;
   void set_shooting(bool value);
 
+  // int32 health = 10;
+  void clear_health();
+  static const int kHealthFieldNumber = 10;
+  ::google::protobuf::int32 health() const;
+  void set_health(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:multiplayer.SpaceFighterState)
  private:
 
@@ -259,6 +265,7 @@ class SpaceFighterState : public ::google::protobuf::Message /* @@protoc_inserti
   float acceleration_;
   float rollanglebtwcurrentandtargetorientation_;
   bool shooting_;
+  ::google::protobuf::int32 health_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_space_2dfighter_2fspace_2dfighter_2dstate_2eproto::TableStruct;
 };
@@ -569,7 +576,21 @@ inline void SpaceFighterState::set_shooting(bool value) {
   // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterState.shooting)
 }
 
-// repeated .multiplayer.ObjectAction actions = 10;
+// int32 health = 10;
+inline void SpaceFighterState::clear_health() {
+  health_ = 0;
+}
+inline ::google::protobuf::int32 SpaceFighterState::health() const {
+  // @@protoc_insertion_point(field_get:multiplayer.SpaceFighterState.health)
+  return health_;
+}
+inline void SpaceFighterState::set_health(::google::protobuf::int32 value) {
+  
+  health_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterState.health)
+}
+
+// repeated .multiplayer.ObjectAction actions = 11;
 inline int SpaceFighterState::actions_size() const {
   return actions_.size();
 }

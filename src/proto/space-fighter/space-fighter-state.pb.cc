@@ -74,6 +74,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterState, controlquaternion_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterState, controlrotquaternion_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterState, shooting_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterState, health_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterState, actions_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -107,7 +108,7 @@ void AddDescriptorsImpl() {
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\'space-fighter/space-fighter-state.prot"
       "o\022\013multiplayer\032\022float-vector.proto\032\020quat"
-      "ernion.proto\032\023object-action.proto\"\236\003\n\021Sp"
+      "ernion.proto\032\023object-action.proto\"\256\003\n\021Sp"
       "aceFighterState\022*\n\010position\030\001 \001(\0132\030.mult"
       "iplayer.FloatVector\022+\n\nquaternion\030\002 \001(\0132"
       "\027.multiplayer.Quaternion\022\r\n\005speed\030\003 \001(\002\022"
@@ -117,11 +118,11 @@ void AddDescriptorsImpl() {
       "\002\0222\n\021controlQuaternion\030\007 \001(\0132\027.multiplay"
       "er.Quaternion\0225\n\024controlRotQuaternion\030\010 "
       "\001(\0132\027.multiplayer.Quaternion\022\020\n\010shooting"
-      "\030\t \001(\010\022*\n\007actions\030\n \003(\0132\031.multiplayer.Ob"
-      "jectActionb\006proto3"
+      "\030\t \001(\010\022\016\n\006health\030\n \001(\005\022*\n\007actions\030\013 \003(\0132"
+      "\031.multiplayer.ObjectActionb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 538);
+      descriptor, 554);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "space-fighter/space-fighter-state.proto", &protobuf_RegisterTypes);
   ::protobuf_float_2dvector_2eproto::AddDescriptors();
@@ -199,6 +200,7 @@ const int SpaceFighterState::kRollAngleBtwCurrentAndTargetOrientationFieldNumber
 const int SpaceFighterState::kControlQuaternionFieldNumber;
 const int SpaceFighterState::kControlRotQuaternionFieldNumber;
 const int SpaceFighterState::kShootingFieldNumber;
+const int SpaceFighterState::kHealthFieldNumber;
 const int SpaceFighterState::kActionsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -240,15 +242,15 @@ SpaceFighterState::SpaceFighterState(const SpaceFighterState& from)
     controlrotquaternion_ = NULL;
   }
   ::memcpy(&speed_, &from.speed_,
-    static_cast<size_t>(reinterpret_cast<char*>(&shooting_) -
-    reinterpret_cast<char*>(&speed_)) + sizeof(shooting_));
+    static_cast<size_t>(reinterpret_cast<char*>(&health_) -
+    reinterpret_cast<char*>(&speed_)) + sizeof(health_));
   // @@protoc_insertion_point(copy_constructor:multiplayer.SpaceFighterState)
 }
 
 void SpaceFighterState::SharedCtor() {
   ::memset(&position_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&shooting_) -
-      reinterpret_cast<char*>(&position_)) + sizeof(shooting_));
+      reinterpret_cast<char*>(&health_) -
+      reinterpret_cast<char*>(&position_)) + sizeof(health_));
 }
 
 SpaceFighterState::~SpaceFighterState() {
@@ -306,8 +308,8 @@ void SpaceFighterState::Clear() {
   }
   controlrotquaternion_ = NULL;
   ::memset(&speed_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&shooting_) -
-      reinterpret_cast<char*>(&speed_)) + sizeof(shooting_));
+      reinterpret_cast<char*>(&health_) -
+      reinterpret_cast<char*>(&speed_)) + sizeof(health_));
   _internal_metadata_.Clear();
 }
 
@@ -437,10 +439,24 @@ bool SpaceFighterState::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .multiplayer.ObjectAction actions = 10;
+      // int32 health = 10;
       case 10: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(82u /* 82 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(80u /* 80 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &health_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .multiplayer.ObjectAction actions = 11;
+      case 11: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(90u /* 90 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                 input, add_actions()));
         } else {
@@ -525,11 +541,16 @@ void SpaceFighterState::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(9, this->shooting(), output);
   }
 
-  // repeated .multiplayer.ObjectAction actions = 10;
+  // int32 health = 10;
+  if (this->health() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->health(), output);
+  }
+
+  // repeated .multiplayer.ObjectAction actions = 11;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->actions_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      10,
+      11,
       this->actions(static_cast<int>(i)),
       output);
   }
@@ -603,12 +624,17 @@ void SpaceFighterState::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(9, this->shooting(), target);
   }
 
-  // repeated .multiplayer.ObjectAction actions = 10;
+  // int32 health = 10;
+  if (this->health() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->health(), target);
+  }
+
+  // repeated .multiplayer.ObjectAction actions = 11;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->actions_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        10, this->actions(static_cast<int>(i)), deterministic, target);
+        11, this->actions(static_cast<int>(i)), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -628,7 +654,7 @@ size_t SpaceFighterState::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated .multiplayer.ObjectAction actions = 10;
+  // repeated .multiplayer.ObjectAction actions = 11;
   {
     unsigned int count = static_cast<unsigned int>(this->actions_size());
     total_size += 1UL * count;
@@ -694,6 +720,13 @@ size_t SpaceFighterState::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // int32 health = 10;
+  if (this->health() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->health());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -749,6 +782,9 @@ void SpaceFighterState::MergeFrom(const SpaceFighterState& from) {
   if (from.shooting() != 0) {
     set_shooting(from.shooting());
   }
+  if (from.health() != 0) {
+    set_health(from.health());
+  }
 }
 
 void SpaceFighterState::CopyFrom(const ::google::protobuf::Message& from) {
@@ -785,6 +821,7 @@ void SpaceFighterState::InternalSwap(SpaceFighterState* other) {
   swap(acceleration_, other->acceleration_);
   swap(rollanglebtwcurrentandtargetorientation_, other->rollanglebtwcurrentandtargetorientation_);
   swap(shooting_, other->shooting_);
+  swap(health_, other->health_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
