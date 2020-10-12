@@ -1,3 +1,9 @@
+#pragma once
+#include <vector>
+#include <cstddef>
+
+#include "io.hpp"
+
 using binary = std::vector<std::byte>;
 
 namespace utils {
@@ -21,7 +27,7 @@ namespace utils {
         protobufMessage.SerializeWithCachedSizesToArray((unsigned char *) (message.data() + varintSize));
         message.resize(varintSize + msgSize);
 
-        return binary;
+        return message;
     }
 
 }

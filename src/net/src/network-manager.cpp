@@ -7,13 +7,14 @@
 
 #include "../includes/network-manager.hpp"
 #include "../../util/includes/io.hpp"
+#include "../../util/includes/protobuf.hpp"
 #include "../../proto/request-ack.pb.h"
 #include "../../proto/response-root.pb.h"
 #include "../../proto/object-action.pb.h"
 
 template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
 
-template <class T> T decodeMessage(binary &message) {
+/*template <class T> T decodeMessage(binary &message) {
     int decodedBytes;
     int size = utils::decodeUnsignedVarint(reinterpret_cast<const std::uint8_t *>(&message[0]), decodedBytes);
 
@@ -22,7 +23,7 @@ template <class T> T decodeMessage(binary &message) {
     decodedMessage.ParseFromString(binaryString);
 
     return decodedMessage;
-}
+}*/
 
 NetworkManager::NetworkManager(IpcConnection &ipcConnection): ipcConnection(ipcConnection) {
     spdlog::info("Call NetworkManager constructor");
@@ -64,7 +65,7 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
 }
 
 void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConnection, binary &message) {
-    multiplayer::RequestRoot requestRoot = decodeMessage<multiplayer::RequestRoot>(message);
+    multiplayer::RequestRoot requestRoot = utils::decodeProtobufMessage<multiplayer::RequestRoot>(message);
 
     unsigned long int requestSentTimestamp = requestRoot.requestsenttimestamp();
     if (requestSentTimestamp != 0) {
@@ -124,7 +125,11 @@ void NetworkManager::completeRequest(int requestId, multiplayer::ResponseRoot &r
         bool requestPending = clientConnection->requestPending.load();
         clientConnection->requestPending.compare_exchange_strong(requestPending, false);
         this->pendingAcknowledgementsByRequestId.erase(requestId);
+
+        responseRoot.set_requestid(search->second.originalRequestId);
+        binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
         clientConnection->sendMessage(message);
+
         if (!clientConnection->controlledObjectId) {
             //multiplayer::ResponseRoot responseRoot = decodeMessage<multiplayer::ResponseRoot>(message);
             if (responseRoot.has_spawnresponse()) {
@@ -157,12 +162,13 @@ void NetworkManager::sendAck(std::string clientId, unsigned long int requestSent
             requestAck->set_requestsenttimestamp(requestSentTimestamp);
             responseRoot.set_allocated_requestack(requestAck);
             // TODO move code below into separate method (e.g. 'serializeDelimited()')
-            unsigned long int msgSize = responseRoot.ByteSizeLong();
+            /*unsigned long int msgSize = responseRoot.ByteSizeLong();
             binary message(10 + msgSize); // 10 maximum varint size of timestamp
             int varintSize = utils::writeUnsignedVarint((uint8_t *const) message.data(), msgSize);
 
             responseRoot.SerializeWithCachedSizesToArray((unsigned char *) (message.data() + varintSize));
-            message.resize(varintSize + msgSize);
+            message.resize(varintSize + msgSize);*/
+            binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
             clientConnection->sendMessage(message);
         }
     }

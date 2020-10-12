@@ -21,6 +21,14 @@ struct WebRtcNegotiationServerParams {
     std::list<std::string> iceCandidates;
 };
 
+class PendingAck {
+    public:
+        int originalRequestId;
+        std::weak_ptr<ClientConnection> clientConnection;
+        PendingAck(int originalRequestId, std::weak_ptr<ClientConnection> clientConnection): originalRequestId{originalRequestId},
+                                                                                             clientConnection{clientConnection} {};
+};
+
 class NetworkManager {
     public:
         NetworkManager(IpcConnection &_ipcConnection);
@@ -45,11 +53,3 @@ class NetworkManager {
             return this->lastUsedRequestId;
         }
 };
-
-class PendingAck {
-    public:
-        int originalRequestId;
-        std::weak_ptr<ClientConnection> clientConnection;
-        PendingAck(int originalRequestId, std::weak_ptr<ClientConnection> clientConnection): originalRequestId{originalRequestId},
-                                                                                             clientConnection{clientConnection} {};
-}
