@@ -95,7 +95,9 @@ bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot
             bool requestPending = clientConnection->requestPending.load();
             if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
                 int requestId = this->generateRequestId();
-                this->clientConnectionByRequestId.insert({requestId, make_weak_ptr(clientConnection)});
+                this->pendingAcknowledgementsByRequestId.emplace(std::piecewise_construct,
+                                                                 std::forward_as_tuple(requestId),
+                                                                 std::forward_as_tuple(requestRoot.requestid(), make_weak_ptr(clientConnection)));
                 requestRoot.set_requestid(requestId);
                 this->ipcConnection.writeMsg(requestRoot);
                 return true;
@@ -109,22 +111,22 @@ bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot
     return false;
 }
 
-void NetworkManager::completeRequest(int requestId, binary &message) {
+void NetworkManager::completeRequest(int requestId, multiplayer::ResponseRoot &responseRoot/*binary &message*/) {
     std::scoped_lock lock{connectionsMutex};
 
-    auto search = this->clientConnectionByRequestId.find(requestId);
-    if (search == this->clientConnectionByRequestId.end()) {
+    auto search = this->pendingAcknowledgementsByRequestId.find(requestId);
+    if (search == this->pendingAcknowledgementsByRequestId.end()) {
         throw std::runtime_error("Cannot find client issued the request");
     }
 
-    auto clientConnection = search->second.lock();
+    auto clientConnection = search->second.clientConnection.lock();
     if (clientConnection) {
         bool requestPending = clientConnection->requestPending.load();
         clientConnection->requestPending.compare_exchange_strong(requestPending, false);
-        this->clientConnectionByRequestId.erase(requestId);
+        this->pendingAcknowledgementsByRequestId.erase(requestId);
         clientConnection->sendMessage(message);
         if (!clientConnection->controlledObjectId) {
-            multiplayer::ResponseRoot responseRoot = decodeMessage<multiplayer::ResponseRoot>(message);
+            //multiplayer::ResponseRoot responseRoot = decodeMessage<multiplayer::ResponseRoot>(message);
             if (responseRoot.has_spawnresponse()) {
                 clientConnection->controlledObjectId = responseRoot.spawnresponse().assignedobjectid();
             }

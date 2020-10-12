@@ -8,6 +8,7 @@
 
 #include "client-connection.hpp"
 #include "../../proto/request-root.pb.h"
+#include "../../proto/response-root.pb.h"
 #include "../../world-simulator-ipc/includes/ipc-connection.hpp"
 
 struct WebRtcNegotiationClientParams {
@@ -25,13 +26,14 @@ class NetworkManager {
         NetworkManager(IpcConnection &_ipcConnection);
         ~NetworkManager();
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
-        void completeRequest(int requestId, binary &message);
+        void completeRequest(int requestId, multiplayer::ResponseRoot &responseRoot); //binary &message);
         void broadcast(binary &message);
     private:
         std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
         mutable std::mutex connectionsMutex;
         rtc::Configuration webRtcConfig;
-        std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
+        //std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
+        std::map<int, PendingAck> pendingAcknowledgementsByRequestId;
         int lastUsedRequestId = 1;
         IpcConnection &ipcConnection;
 
@@ -43,3 +45,11 @@ class NetworkManager {
             return this->lastUsedRequestId;
         }
 };
+
+class PendingAck {
+    public:
+        int originalRequestId;
+        std::weak_ptr<ClientConnection> clientConnection;
+        PendingAck(int originalRequestId, std::weak_ptr<ClientConnection> clientConnection): originalRequestId{originalRequestId},
+                                                                                             clientConnection{clientConnection} {};
+}

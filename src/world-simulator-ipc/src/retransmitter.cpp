@@ -24,7 +24,7 @@ void Retransmitter::start() {
             if (requestId != 0) {
                 spdlog::info("Retransmit to specific client #{}", requestId);
                 // retransmit message to specific client
-                this->networkManager.completeRequest(requestId, message);
+                this->networkManager.completeRequest(requestId, responseRoot); //message);
             } else {
                 spdlog::info("Broadcast", requestId);
                 // broadcast message
