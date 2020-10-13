@@ -40,7 +40,8 @@ class NetworkManager {
         std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
         mutable std::mutex connectionsMutex;
         rtc::Configuration webRtcConfig;
-        //std::map<int, std::weak_ptr<ClientConnection>> clientConnectionByRequestId;
+        
+        mutable std::mutex addPendingAckMutex;
         std::map<int, PendingAck> pendingAcknowledgementsByRequestId;
         int lastUsedRequestId = 1;
         IpcConnection &ipcConnection;

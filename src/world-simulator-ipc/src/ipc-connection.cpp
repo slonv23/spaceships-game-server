@@ -20,6 +20,7 @@ IpcConnection::~IpcConnection() {
 }
 
 void IpcConnection::writeMsg(google::protobuf::Message &msg) {
+    // we do write two times here (size and message itself) so we need locking
     std::scoped_lock lock{writeMutex};
 
     unsigned int msgSize = static_cast<int>(msg.ByteSizeLong());

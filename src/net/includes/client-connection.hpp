@@ -16,7 +16,7 @@ using binary = std::vector<std::byte>;
 
 class ClientConnection {
     public:
-        ClientConnection(std::string id): id{id}, requestPending{false} {};
+        ClientConnection(std::string id): id{id} {}; // , requestPending{false} 
 
         shared_promise connect(
             WebRtcNegotiationClientParams &clientParams,
@@ -33,7 +33,7 @@ class ClientConnection {
 
         std::string id;
         int controlledObjectId = 0;
-        std::atomic_bool requestPending;
+        //std::atomic_bool requestPending;
         std::deque<std::string> lastActionIds;
     private:
         bool closed = false; // 'false' indicates that connection is opening or open

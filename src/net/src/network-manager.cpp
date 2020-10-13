@@ -87,22 +87,27 @@ void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConne
     }
 }
 
-bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse) {
+bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse = true) {
     auto search = this->clientConnectionsById.find(clientId);
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
 
         if (retransmitResponse) {
-            bool requestPending = clientConnection->requestPending.load();
-            if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
+            // bool requestPending = clientConnection->requestPending.load();
+            // if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
+            // ...
+            // }
+            {
+                std::scoped_lock lock{addPendingAckMutex};
                 int requestId = this->generateRequestId();
                 this->pendingAcknowledgementsByRequestId.emplace(std::piecewise_construct,
-                                                                 std::forward_as_tuple(requestId),
-                                                                 std::forward_as_tuple(requestRoot.requestid(), make_weak_ptr(clientConnection)));
+                                                                std::forward_as_tuple(requestId),
+                                                                std::forward_as_tuple(requestRoot.requestid(), make_weak_ptr(clientConnection)));
                 requestRoot.set_requestid(requestId);
-                this->ipcConnection.writeMsg(requestRoot);
-                return true;
             }
+        
+            this->ipcConnection.writeMsg(requestRoot);
+            return true;
         } else {
             this->ipcConnection.writeMsg(requestRoot);
             return true;
@@ -122,8 +127,8 @@ void NetworkManager::completeRequest(int requestId, multiplayer::ResponseRoot &r
 
     auto clientConnection = search->second.clientConnection.lock();
     if (clientConnection) {
-        bool requestPending = clientConnection->requestPending.load();
-        clientConnection->requestPending.compare_exchange_strong(requestPending, false);
+        //bool requestPending = clientConnection->requestPending.load();
+        //clientConnection->requestPending.compare_exchange_strong(requestPending, false);
         this->pendingAcknowledgementsByRequestId.erase(requestId);
 
         responseRoot.set_requestid(search->second.originalRequestId);
@@ -162,13 +167,13 @@ void NetworkManager::sendAck(std::string clientId, unsigned long int requestSent
             requestAck->set_requestsenttimestamp(requestSentTimestamp);
             responseRoot.set_allocated_requestack(requestAck);
             // TODO move code below into separate method (e.g. 'serializeDelimited()')
-            /*unsigned long int msgSize = responseRoot.ByteSizeLong();
+            unsigned long int msgSize = responseRoot.ByteSizeLong();
             binary message(10 + msgSize); // 10 maximum varint size of timestamp
             int varintSize = utils::writeUnsignedVarint((uint8_t *const) message.data(), msgSize);
 
             responseRoot.SerializeWithCachedSizesToArray((unsigned char *) (message.data() + varintSize));
-            message.resize(varintSize + msgSize);*/
-            binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
+            message.resize(varintSize + msgSize);
+            // binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
             clientConnection->sendMessage(message);
         }
     }
