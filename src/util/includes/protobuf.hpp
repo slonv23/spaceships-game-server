@@ -4,6 +4,7 @@
 
 #include "io.hpp"
 
+
 using binary = std::vector<std::byte>;
 
 namespace utils {

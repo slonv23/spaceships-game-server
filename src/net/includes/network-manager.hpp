@@ -34,7 +34,7 @@ class NetworkManager {
         NetworkManager(IpcConnection &_ipcConnection);
         ~NetworkManager();
         WebRtcNegotiationServerParams connectClient(std::string id, WebRtcNegotiationClientParams &webRtcNegotiationClientParams);
-        void completeRequest(int requestId, multiplayer::ResponseRoot &responseRoot); //binary &message);
+        void completeRequest(int requestId, multiplayer::ResponseRoot &responseRoot);
         void broadcast(binary &message);
     private:
         std::map<std::string, std::shared_ptr<ClientConnection>> clientConnectionsById;
@@ -48,7 +48,7 @@ class NetworkManager {
 
         void handleMessage(std::shared_ptr<ClientConnection> clientConnection, binary &message);
         bool issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse = true);
-        void sendAck(std::string clientId, unsigned long int requestSentTimestamp);
+        void sendAck(std::string clientId, int requestId, unsigned long int requestSentTimestamp);
         inline int generateRequestId() {
             this->lastUsedRequestId += 2;
             return this->lastUsedRequestId;

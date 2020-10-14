@@ -69,7 +69,7 @@ void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConne
 
     unsigned long int requestSentTimestamp = requestRoot.requestsenttimestamp();
     if (requestSentTimestamp != 0) {
-        this->sendAck(clientConnection->id, requestSentTimestamp);
+        this->sendAck(clientConnection->id, requestRoot.requestid(), requestSentTimestamp);
     }
     if (requestRoot.has_spawnrequest()) {
         spdlog::info("Received spawn request (nickname {})", requestRoot.spawnrequest().nickname());
@@ -87,16 +87,12 @@ void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConne
     }
 }
 
-bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse = true) {
+bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse) {
     auto search = this->clientConnectionsById.find(clientId);
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
 
         if (retransmitResponse) {
-            // bool requestPending = clientConnection->requestPending.load();
-            // if (!requestPending && clientConnection->requestPending.compare_exchange_strong(requestPending, true)) {
-            // ...
-            // }
             {
                 std::scoped_lock lock{addPendingAckMutex};
                 int requestId = this->generateRequestId();
@@ -127,16 +123,12 @@ void NetworkManager::completeRequest(int requestId, multiplayer::ResponseRoot &r
 
     auto clientConnection = search->second.clientConnection.lock();
     if (clientConnection) {
-        //bool requestPending = clientConnection->requestPending.load();
-        //clientConnection->requestPending.compare_exchange_strong(requestPending, false);
-        this->pendingAcknowledgementsByRequestId.erase(requestId);
-
         responseRoot.set_requestid(search->second.originalRequestId);
         binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
         clientConnection->sendMessage(message);
+        this->pendingAcknowledgementsByRequestId.erase(requestId);
 
         if (!clientConnection->controlledObjectId) {
-            //multiplayer::ResponseRoot responseRoot = decodeMessage<multiplayer::ResponseRoot>(message);
             if (responseRoot.has_spawnresponse()) {
                 clientConnection->controlledObjectId = responseRoot.spawnresponse().assignedobjectid();
             }
@@ -156,24 +148,19 @@ void NetworkManager::broadcast(binary &message) {
     }
 }
 
-void NetworkManager::sendAck(std::string clientId, unsigned long int requestSentTimestamp) {
+void NetworkManager::sendAck(std::string clientId, int requestId, unsigned long int requestSentTimestamp) {
     auto search = this->clientConnectionsById.find(clientId);
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
         if (clientConnection->isReady()) {            
-            spdlog::info("Sending ack to client #{} (requestSentTimestamp={})", clientId, requestSentTimestamp);
+            spdlog::info("Sending ack to client #{} (requestSentTimestamp={}, requestId={})", clientId, requestSentTimestamp, requestId);
             multiplayer::ResponseRoot responseRoot;
             multiplayer::RequestAck *requestAck = new multiplayer::RequestAck();
+            responseRoot.set_requestid(requestId);
+            //requestAck->set_requestid(requestId);
             requestAck->set_requestsenttimestamp(requestSentTimestamp);
             responseRoot.set_allocated_requestack(requestAck);
-            // TODO move code below into separate method (e.g. 'serializeDelimited()')
-            unsigned long int msgSize = responseRoot.ByteSizeLong();
-            binary message(10 + msgSize); // 10 maximum varint size of timestamp
-            int varintSize = utils::writeUnsignedVarint((uint8_t *const) message.data(), msgSize);
-
-            responseRoot.SerializeWithCachedSizesToArray((unsigned char *) (message.data() + varintSize));
-            message.resize(varintSize + msgSize);
-            // binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
+            binary message = utils::serializeProtobufMessageWithSize<multiplayer::ResponseRoot>(responseRoot);
             clientConnection->sendMessage(message);
         }
     }
