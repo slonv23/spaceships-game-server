@@ -19,6 +19,9 @@
 #endif
 // @@protoc_insertion_point(includes)
 
+namespace protobuf_disconnect_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_disconnect_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Disconnect;
+}  // namespace protobuf_disconnect_2eproto
 namespace protobuf_object_2daction_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_object_2daction_2eproto ::google::protobuf::internal::SCCInfo<5> scc_info_ObjectAction;
 }  // namespace protobuf_object_2daction_2eproto
@@ -32,6 +35,7 @@ class RequestRootDefaultTypeInternal {
       _instance;
   const ::multiplayer::ObjectAction* objectaction_;
   const ::multiplayer::SpawnRequest* spawnrequest_;
+  const ::multiplayer::Disconnect* disconnect_;
 } _RequestRoot_default_instance_;
 }  // namespace multiplayer
 namespace protobuf_request_2droot_2eproto {
@@ -46,10 +50,11 @@ static void InitDefaultsRequestRoot() {
   ::multiplayer::RequestRoot::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<2> scc_info_RequestRoot =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsRequestRoot}, {
+::google::protobuf::internal::SCCInfo<3> scc_info_RequestRoot =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsRequestRoot}, {
       &protobuf_object_2daction_2eproto::scc_info_ObjectAction.base,
-      &protobuf_spawn_2drequest_2eproto::scc_info_SpawnRequest.base,}};
+      &protobuf_spawn_2drequest_2eproto::scc_info_SpawnRequest.base,
+      &protobuf_disconnect_2eproto::scc_info_Disconnect.base,}};
 
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_RequestRoot.base);
@@ -67,6 +72,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::RequestRoot, requestsenttimestamp_),
   offsetof(::multiplayer::RequestRootDefaultTypeInternal, objectaction_),
   offsetof(::multiplayer::RequestRootDefaultTypeInternal, spawnrequest_),
+  offsetof(::multiplayer::RequestRootDefaultTypeInternal, disconnect_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::RequestRoot, message_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -99,19 +105,22 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\022request-root.proto\022\013multiplayer\032\023objec"
-      "t-action.proto\032\023spawn-request.proto\"\257\001\n\013"
-      "RequestRoot\022\021\n\trequestId\030\001 \001(\005\022\034\n\024reques"
-      "tSentTimestamp\030\002 \001(\004\0221\n\014objectAction\030\003 \001"
-      "(\0132\031.multiplayer.ObjectActionH\000\0221\n\014spawn"
-      "Request\030\004 \001(\0132\031.multiplayer.SpawnRequest"
-      "H\000B\t\n\007messageb\006proto3"
+      "t-action.proto\032\023spawn-request.proto\032\020dis"
+      "connect.proto\"\336\001\n\013RequestRoot\022\021\n\trequest"
+      "Id\030\001 \001(\005\022\034\n\024requestSentTimestamp\030\002 \001(\004\0221"
+      "\n\014objectAction\030\003 \001(\0132\031.multiplayer.Objec"
+      "tActionH\000\0221\n\014spawnRequest\030\004 \001(\0132\031.multip"
+      "layer.SpawnRequestH\000\022-\n\ndisconnect\030\005 \001(\013"
+      "2\027.multiplayer.DisconnectH\000B\t\n\007messageb\006"
+      "proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 261);
+      descriptor, 326);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "request-root.proto", &protobuf_RegisterTypes);
   ::protobuf_object_2daction_2eproto::AddDescriptors();
   ::protobuf_spawn_2drequest_2eproto::AddDescriptors();
+  ::protobuf_disconnect_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -134,6 +143,8 @@ void RequestRoot::InitAsDefaultInstance() {
       ::multiplayer::ObjectAction::internal_default_instance());
   ::multiplayer::_RequestRoot_default_instance_.spawnrequest_ = const_cast< ::multiplayer::SpawnRequest*>(
       ::multiplayer::SpawnRequest::internal_default_instance());
+  ::multiplayer::_RequestRoot_default_instance_.disconnect_ = const_cast< ::multiplayer::Disconnect*>(
+      ::multiplayer::Disconnect::internal_default_instance());
 }
 void RequestRoot::set_allocated_objectaction(::multiplayer::ObjectAction* objectaction) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
@@ -175,11 +186,32 @@ void RequestRoot::clear_spawnrequest() {
     clear_has_message();
   }
 }
+void RequestRoot::set_allocated_disconnect(::multiplayer::Disconnect* disconnect) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  clear_message();
+  if (disconnect) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      disconnect = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, disconnect, submessage_arena);
+    }
+    set_has_disconnect();
+    message_.disconnect_ = disconnect;
+  }
+  // @@protoc_insertion_point(field_set_allocated:multiplayer.RequestRoot.disconnect)
+}
+void RequestRoot::clear_disconnect() {
+  if (has_disconnect()) {
+    delete message_.disconnect_;
+    clear_has_message();
+  }
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RequestRoot::kRequestIdFieldNumber;
 const int RequestRoot::kRequestSentTimestampFieldNumber;
 const int RequestRoot::kObjectActionFieldNumber;
 const int RequestRoot::kSpawnRequestFieldNumber;
+const int RequestRoot::kDisconnectFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RequestRoot::RequestRoot()
@@ -204,6 +236,10 @@ RequestRoot::RequestRoot(const RequestRoot& from)
     }
     case kSpawnRequest: {
       mutable_spawnrequest()->::multiplayer::SpawnRequest::MergeFrom(from.spawnrequest());
+      break;
+    }
+    case kDisconnect: {
+      mutable_disconnect()->::multiplayer::Disconnect::MergeFrom(from.disconnect());
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -254,6 +290,10 @@ void RequestRoot::clear_message() {
     }
     case kSpawnRequest: {
       delete message_.spawnrequest_;
+      break;
+    }
+    case kDisconnect: {
+      delete message_.disconnect_;
       break;
     }
     case MESSAGE_NOT_SET: {
@@ -339,6 +379,18 @@ bool RequestRoot::MergePartialFromCodedStream(
         break;
       }
 
+      // .multiplayer.Disconnect disconnect = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_disconnect()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -387,6 +439,12 @@ void RequestRoot::SerializeWithCachedSizes(
       4, this->_internal_spawnrequest(), output);
   }
 
+  // .multiplayer.Disconnect disconnect = 5;
+  if (has_disconnect()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->_internal_disconnect(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -423,6 +481,13 @@ void RequestRoot::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
         4, this->_internal_spawnrequest(), deterministic, target);
+  }
+
+  // .multiplayer.Disconnect disconnect = 5;
+  if (has_disconnect()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        5, this->_internal_disconnect(), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -471,6 +536,13 @@ size_t RequestRoot::ByteSizeLong() const {
           *message_.spawnrequest_);
       break;
     }
+    // .multiplayer.Disconnect disconnect = 5;
+    case kDisconnect: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *message_.disconnect_);
+      break;
+    }
     case MESSAGE_NOT_SET: {
       break;
     }
@@ -515,6 +587,10 @@ void RequestRoot::MergeFrom(const RequestRoot& from) {
     }
     case kSpawnRequest: {
       mutable_spawnrequest()->::multiplayer::SpawnRequest::MergeFrom(from.spawnrequest());
+      break;
+    }
+    case kDisconnect: {
+      mutable_disconnect()->::multiplayer::Disconnect::MergeFrom(from.disconnect());
       break;
     }
     case MESSAGE_NOT_SET: {

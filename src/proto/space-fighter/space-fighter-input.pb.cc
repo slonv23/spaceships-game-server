@@ -53,6 +53,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterInput, actionid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterInput, yaw_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterInput, pitch_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::multiplayer::SpaceFighterInput, rotationspeed_),
@@ -88,12 +89,13 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\'space-fighter/space-fighter-input.prot"
-      "o\022\013multiplayer\"Y\n\021SpaceFighterInput\022\013\n\003y"
-      "aw\030\001 \001(\002\022\r\n\005pitch\030\002 \001(\002\022\025\n\rrotationSpeed"
-      "\030\003 \001(\002\022\021\n\trollAngle\030\004 \001(\002b\006proto3"
+      "o\022\013multiplayer\"k\n\021SpaceFighterInput\022\020\n\010a"
+      "ctionId\030\001 \001(\005\022\013\n\003yaw\030\002 \001(\002\022\r\n\005pitch\030\003 \001("
+      "\002\022\025\n\rrotationSpeed\030\004 \001(\002\022\021\n\trollAngle\030\005 "
+      "\001(\002b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 153);
+      descriptor, 171);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "space-fighter/space-fighter-input.proto", &protobuf_RegisterTypes);
 }
@@ -116,6 +118,7 @@ namespace multiplayer {
 void SpaceFighterInput::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SpaceFighterInput::kActionIdFieldNumber;
 const int SpaceFighterInput::kYawFieldNumber;
 const int SpaceFighterInput::kPitchFieldNumber;
 const int SpaceFighterInput::kRotationSpeedFieldNumber;
@@ -133,16 +136,16 @@ SpaceFighterInput::SpaceFighterInput(const SpaceFighterInput& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&yaw_, &from.yaw_,
+  ::memcpy(&actionid_, &from.actionid_,
     static_cast<size_t>(reinterpret_cast<char*>(&rollangle_) -
-    reinterpret_cast<char*>(&yaw_)) + sizeof(rollangle_));
+    reinterpret_cast<char*>(&actionid_)) + sizeof(rollangle_));
   // @@protoc_insertion_point(copy_constructor:multiplayer.SpaceFighterInput)
 }
 
 void SpaceFighterInput::SharedCtor() {
-  ::memset(&yaw_, 0, static_cast<size_t>(
+  ::memset(&actionid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&rollangle_) -
-      reinterpret_cast<char*>(&yaw_)) + sizeof(rollangle_));
+      reinterpret_cast<char*>(&actionid_)) + sizeof(rollangle_));
 }
 
 SpaceFighterInput::~SpaceFighterInput() {
@@ -173,9 +176,9 @@ void SpaceFighterInput::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&yaw_, 0, static_cast<size_t>(
+  ::memset(&actionid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&rollangle_) -
-      reinterpret_cast<char*>(&yaw_)) + sizeof(rollangle_));
+      reinterpret_cast<char*>(&actionid_)) + sizeof(rollangle_));
   _internal_metadata_.Clear();
 }
 
@@ -189,10 +192,24 @@ bool SpaceFighterInput::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // float yaw = 1;
+      // int32 actionId = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(13u /* 13 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &actionid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float yaw = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(21u /* 21 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -203,10 +220,10 @@ bool SpaceFighterInput::MergePartialFromCodedStream(
         break;
       }
 
-      // float pitch = 2;
-      case 2: {
+      // float pitch = 3;
+      case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(21u /* 21 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(29u /* 29 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -217,10 +234,10 @@ bool SpaceFighterInput::MergePartialFromCodedStream(
         break;
       }
 
-      // float rotationSpeed = 3;
-      case 3: {
+      // float rotationSpeed = 4;
+      case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(29u /* 29 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(37u /* 37 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -231,10 +248,10 @@ bool SpaceFighterInput::MergePartialFromCodedStream(
         break;
       }
 
-      // float rollAngle = 4;
-      case 4: {
+      // float rollAngle = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(37u /* 37 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(45u /* 45 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -271,24 +288,29 @@ void SpaceFighterInput::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // float yaw = 1;
+  // int32 actionId = 1;
+  if (this->actionid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->actionid(), output);
+  }
+
+  // float yaw = 2;
   if (this->yaw() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->yaw(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->yaw(), output);
   }
 
-  // float pitch = 2;
+  // float pitch = 3;
   if (this->pitch() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->pitch(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->pitch(), output);
   }
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   if (this->rotationspeed() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->rotationspeed(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->rotationspeed(), output);
   }
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   if (this->rollangle() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->rollangle(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->rollangle(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -305,24 +327,29 @@ void SpaceFighterInput::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // float yaw = 1;
+  // int32 actionId = 1;
+  if (this->actionid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->actionid(), target);
+  }
+
+  // float yaw = 2;
   if (this->yaw() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->yaw(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->yaw(), target);
   }
 
-  // float pitch = 2;
+  // float pitch = 3;
   if (this->pitch() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->pitch(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->pitch(), target);
   }
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   if (this->rotationspeed() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->rotationspeed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->rotationspeed(), target);
   }
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   if (this->rollangle() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->rollangle(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->rollangle(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -342,22 +369,29 @@ size_t SpaceFighterInput::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // float yaw = 1;
+  // int32 actionId = 1;
+  if (this->actionid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->actionid());
+  }
+
+  // float yaw = 2;
   if (this->yaw() != 0) {
     total_size += 1 + 4;
   }
 
-  // float pitch = 2;
+  // float pitch = 3;
   if (this->pitch() != 0) {
     total_size += 1 + 4;
   }
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   if (this->rotationspeed() != 0) {
     total_size += 1 + 4;
   }
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   if (this->rollangle() != 0) {
     total_size += 1 + 4;
   }
@@ -389,6 +423,9 @@ void SpaceFighterInput::MergeFrom(const SpaceFighterInput& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.actionid() != 0) {
+    set_actionid(from.actionid());
+  }
   if (from.yaw() != 0) {
     set_yaw(from.yaw());
   }
@@ -427,6 +464,7 @@ void SpaceFighterInput::Swap(SpaceFighterInput* other) {
 }
 void SpaceFighterInput::InternalSwap(SpaceFighterInput* other) {
   using std::swap;
+  swap(actionid_, other->actionid_);
   swap(yaw_, other->yaw_);
   swap(pitch_, other->pitch_);
   swap(rotationspeed_, other->rotationspeed_);

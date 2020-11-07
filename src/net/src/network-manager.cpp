@@ -11,6 +11,7 @@
 #include "../../proto/request-ack.pb.h"
 #include "../../proto/response-root.pb.h"
 #include "../../proto/object-action.pb.h"
+#include "../../proto/disconnect.pb.h"
 
 template <class T> std::weak_ptr<T> make_weak_ptr(std::shared_ptr<T> ptr) { return ptr; }
 
@@ -51,6 +52,10 @@ WebRtcNegotiationServerParams NetworkManager::connectClient(std::string id, WebR
     clientConnection->id = id;
     clientConnection->onClosed([&, id]() {
         spdlog::debug("NetworkManager: Client '{}' disconnected", id);
+        if (clientConnection->controlledObjectId) {
+            this->notifyClientDisconnected(id, clientConnection->controlledObjectId);
+        }
+
         std::scoped_lock lock{connectionsMutex};
         this->clientConnectionsById.erase(id);
     });
@@ -87,7 +92,17 @@ void NetworkManager::handleMessage(std::shared_ptr<ClientConnection> clientConne
     }
 }
 
+void NetworkManager::notifyClientDisconnected(std::string clientId, int controlledObjectId) {
+    multiplayer::RequestRoot requestRoot;
+    multiplayer::Disconnect *disconnectMsg =  new multiplayer::Disconnect();
+    disconnectMsg->set_objectid(controlledObjectId);
+    requestRoot.set_allocated_disconnect(disconnectMsg);
+    this->issueRequest(clientId, requestRoot, false);
+}
+
 bool NetworkManager::issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse) {
+    std::scoped_lock lock{connectionsMutex}; // client connection can be erased before we send message, need locking
+
     auto search = this->clientConnectionsById.find(clientId);
     if (search != this->clientConnectionsById.end()) {
         auto clientConnection = search->second;
@@ -132,6 +147,11 @@ void NetworkManager::completeRequest(int requestId, multiplayer::ResponseRoot &r
             if (responseRoot.has_spawnresponse()) {
                 clientConnection->controlledObjectId = responseRoot.spawnresponse().assignedobjectid();
             }
+        }
+    } else {
+        // send msg that client disconnected
+        if (clientConnection->controlledObjectId) {
+            this->notifyClientDisconnected(clientConnection->id, clientConnection->controlledObjectId);
         }
     }
 }

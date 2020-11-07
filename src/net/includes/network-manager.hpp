@@ -48,6 +48,7 @@ class NetworkManager {
 
         void handleMessage(std::shared_ptr<ClientConnection> clientConnection, binary &message);
         bool issueRequest(std::string clientId, multiplayer::RequestRoot &requestRoot, bool retransmitResponse = true);
+        void notifyClientDisconnected(std::string clientId, int controlledObjectId);
         void sendAck(std::string clientId, int requestId, unsigned long int requestSentTimestamp);
         inline int generateRequestId() {
             this->lastUsedRequestId += 2;

@@ -32,6 +32,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "object-action.pb.h"
 #include "spawn-request.pb.h"
+#include "disconnect.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_request_2droot_2eproto 
 
@@ -93,6 +94,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   enum MessageCase {
     kObjectAction = 3,
     kSpawnRequest = 4,
+    kDisconnect = 5,
     MESSAGE_NOT_SET = 0,
   };
 
@@ -190,12 +192,25 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::multiplayer::SpawnRequest* mutable_spawnrequest();
   void set_allocated_spawnrequest(::multiplayer::SpawnRequest* spawnrequest);
 
+  // .multiplayer.Disconnect disconnect = 5;
+  bool has_disconnect() const;
+  void clear_disconnect();
+  static const int kDisconnectFieldNumber = 5;
+  private:
+  const ::multiplayer::Disconnect& _internal_disconnect() const;
+  public:
+  const ::multiplayer::Disconnect& disconnect() const;
+  ::multiplayer::Disconnect* release_disconnect();
+  ::multiplayer::Disconnect* mutable_disconnect();
+  void set_allocated_disconnect(::multiplayer::Disconnect* disconnect);
+
   void clear_message();
   MessageCase message_case() const;
   // @@protoc_insertion_point(class_scope:multiplayer.RequestRoot)
  private:
   void set_has_objectaction();
   void set_has_spawnrequest();
+  void set_has_disconnect();
 
   inline bool has_message() const;
   inline void clear_has_message();
@@ -207,6 +222,7 @@ class RequestRoot : public ::google::protobuf::Message /* @@protoc_insertion_poi
     MessageUnion() {}
     ::multiplayer::ObjectAction* objectaction_;
     ::multiplayer::SpawnRequest* spawnrequest_;
+    ::multiplayer::Disconnect* disconnect_;
   } message_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   ::google::protobuf::uint32 _oneof_case_[1];
@@ -326,6 +342,44 @@ inline ::multiplayer::SpawnRequest* RequestRoot::mutable_spawnrequest() {
   }
   // @@protoc_insertion_point(field_mutable:multiplayer.RequestRoot.spawnRequest)
   return message_.spawnrequest_;
+}
+
+// .multiplayer.Disconnect disconnect = 5;
+inline bool RequestRoot::has_disconnect() const {
+  return message_case() == kDisconnect;
+}
+inline void RequestRoot::set_has_disconnect() {
+  _oneof_case_[0] = kDisconnect;
+}
+inline const ::multiplayer::Disconnect& RequestRoot::_internal_disconnect() const {
+  return *message_.disconnect_;
+}
+inline ::multiplayer::Disconnect* RequestRoot::release_disconnect() {
+  // @@protoc_insertion_point(field_release:multiplayer.RequestRoot.disconnect)
+  if (has_disconnect()) {
+    clear_has_message();
+      ::multiplayer::Disconnect* temp = message_.disconnect_;
+    message_.disconnect_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline const ::multiplayer::Disconnect& RequestRoot::disconnect() const {
+  // @@protoc_insertion_point(field_get:multiplayer.RequestRoot.disconnect)
+  return has_disconnect()
+      ? *message_.disconnect_
+      : *reinterpret_cast< ::multiplayer::Disconnect*>(&::multiplayer::_Disconnect_default_instance_);
+}
+inline ::multiplayer::Disconnect* RequestRoot::mutable_disconnect() {
+  if (!has_disconnect()) {
+    clear_message();
+    set_has_disconnect();
+    message_.disconnect_ = CreateMaybeMessage< ::multiplayer::Disconnect >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:multiplayer.RequestRoot.disconnect)
+  return message_.disconnect_;
 }
 
 inline bool RequestRoot::has_message() const {

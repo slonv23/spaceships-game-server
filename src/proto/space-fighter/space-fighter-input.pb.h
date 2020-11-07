@@ -146,27 +146,33 @@ class SpaceFighterInput : public ::google::protobuf::Message /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // float yaw = 1;
+  // int32 actionId = 1;
+  void clear_actionid();
+  static const int kActionIdFieldNumber = 1;
+  ::google::protobuf::int32 actionid() const;
+  void set_actionid(::google::protobuf::int32 value);
+
+  // float yaw = 2;
   void clear_yaw();
-  static const int kYawFieldNumber = 1;
+  static const int kYawFieldNumber = 2;
   float yaw() const;
   void set_yaw(float value);
 
-  // float pitch = 2;
+  // float pitch = 3;
   void clear_pitch();
-  static const int kPitchFieldNumber = 2;
+  static const int kPitchFieldNumber = 3;
   float pitch() const;
   void set_pitch(float value);
 
-  // float rotationSpeed = 3;
+  // float rotationSpeed = 4;
   void clear_rotationspeed();
-  static const int kRotationSpeedFieldNumber = 3;
+  static const int kRotationSpeedFieldNumber = 4;
   float rotationspeed() const;
   void set_rotationspeed(float value);
 
-  // float rollAngle = 4;
+  // float rollAngle = 5;
   void clear_rollangle();
-  static const int kRollAngleFieldNumber = 4;
+  static const int kRollAngleFieldNumber = 5;
   float rollangle() const;
   void set_rollangle(float value);
 
@@ -174,6 +180,7 @@ class SpaceFighterInput : public ::google::protobuf::Message /* @@protoc_inserti
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 actionid_;
   float yaw_;
   float pitch_;
   float rotationspeed_;
@@ -192,7 +199,21 @@ class SpaceFighterInput : public ::google::protobuf::Message /* @@protoc_inserti
 #endif  // __GNUC__
 // SpaceFighterInput
 
-// float yaw = 1;
+// int32 actionId = 1;
+inline void SpaceFighterInput::clear_actionid() {
+  actionid_ = 0;
+}
+inline ::google::protobuf::int32 SpaceFighterInput::actionid() const {
+  // @@protoc_insertion_point(field_get:multiplayer.SpaceFighterInput.actionId)
+  return actionid_;
+}
+inline void SpaceFighterInput::set_actionid(::google::protobuf::int32 value) {
+  
+  actionid_ = value;
+  // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterInput.actionId)
+}
+
+// float yaw = 2;
 inline void SpaceFighterInput::clear_yaw() {
   yaw_ = 0;
 }
@@ -206,7 +227,7 @@ inline void SpaceFighterInput::set_yaw(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterInput.yaw)
 }
 
-// float pitch = 2;
+// float pitch = 3;
 inline void SpaceFighterInput::clear_pitch() {
   pitch_ = 0;
 }
@@ -220,7 +241,7 @@ inline void SpaceFighterInput::set_pitch(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterInput.pitch)
 }
 
-// float rotationSpeed = 3;
+// float rotationSpeed = 4;
 inline void SpaceFighterInput::clear_rotationspeed() {
   rotationspeed_ = 0;
 }
@@ -234,7 +255,7 @@ inline void SpaceFighterInput::set_rotationspeed(float value) {
   // @@protoc_insertion_point(field_set:multiplayer.SpaceFighterInput.rotationSpeed)
 }
 
-// float rollAngle = 4;
+// float rollAngle = 5;
 inline void SpaceFighterInput::clear_rollangle() {
   rollangle_ = 0;
 }
